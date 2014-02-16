@@ -11,12 +11,12 @@ public class MapModelAccess implements IModelAccess
 
 	private static final MapDataModel INSTANCE = new MapDataModel();
 
-	public de.swat.datamodels.raster.Raster getRaster()
+	public de.swat.Raster getRaster()
 	{
 		return INSTANCE.getRaster();
 	}
 
-	public void setRaster(de.swat.datamodels.raster.Raster pParam)
+	public void setRaster(de.swat.Raster pParam)
 	{
 		INSTANCE.setRaster(pParam);
 	}

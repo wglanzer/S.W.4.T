@@ -1,6 +1,7 @@
 package de.swat;
 
 import de.swat.accesses.MapModelAccess;
+import de.swat.constants.IWindowConstants;
 import de.swat.dataModels.Map.*;
 import de.swat.datamodels.MapDataModel;
 import de.swat.math.Vector2D;
@@ -16,6 +17,11 @@ public class Map
 {
 
   private MapModelAccess modelAccess = (MapModelAccess) DataModelHandler.newModelAccess(MapModelAccess.class);
+
+  public Map()
+  {
+    modelAccess.setRaster(new Raster(10, new Dimension(IWindowConstants.MAX_RASTERWIDTH, IWindowConstants.MAX_RASTERHEIGHT), this));
+  }
 
   /**
    * Fügt dem aktuell im Fokus stehenden Strukturobjekt
@@ -155,5 +161,10 @@ public class Map
   {
     for (AbstractCollisionObjectDataModel currCollisionObject : modelAccess.getCollisionObjects())
       currCollisionObject.setBoundingBox();
+  }
+
+  public MapModelAccess getModelAccess()
+  {
+    return modelAccess;
   }
 }

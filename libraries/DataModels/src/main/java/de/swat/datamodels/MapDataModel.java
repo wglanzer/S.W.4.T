@@ -1,10 +1,9 @@
 package de.swat.datamodels;
 
+import de.swat.Raster;
 import de.swat.annotations.DataModel;
 import de.swat.constants.IWindowConstants;
 import de.swat.dataModels.Map.*;
-import de.swat.datamodels.raster.Raster;
-import de.swat.math.Vector2D;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -20,7 +19,7 @@ public class MapDataModel extends SimpleDataModel
    * eines Rasters auf eine Liste mit den Indices der im
    * jeweiligen Rasterenthaltenen Strukturen zugreifen lässt
    */
-  private Raster raster = new Raster(10, new Dimension(IWindowConstants.MAX_RASTERWIDTH, IWindowConstants.MAX_RASTERHEIGHT), this);
+  private Raster raster;
 
   /**
    * Ungeordnete Liste aller Collisions-Objekte. Die Indices
@@ -70,8 +69,8 @@ public class MapDataModel extends SimpleDataModel
     return raster;
   }
 
-  public void setRaster(Raster pRaster)
+  public void setRaster(Raster pRasterDataModel)
   {
-    raster = pRaster;
+    raster = pRasterDataModel;
   }
 }
