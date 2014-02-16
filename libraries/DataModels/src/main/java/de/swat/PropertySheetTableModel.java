@@ -36,7 +36,7 @@ public class PropertySheetTableModel implements TableModel
       FormProperty formProperty = currField.getAnnotation(FormProperty.class);
 
       String value = formProperty.defaultValue();
-      String key = formProperty.name();
+      String key = currField.getName();
 
       keyValueArray[i][0] = key;
       keyValueArray[i][1] = value;

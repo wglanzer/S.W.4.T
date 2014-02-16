@@ -13,8 +13,7 @@ import java.lang.annotation.*;
 public @interface FormProperty
 {
 
-  String name() default "noName";
-  String defaultValue();
+  String defaultValue() default "default not defined";
 
   int position() default 0;
 }

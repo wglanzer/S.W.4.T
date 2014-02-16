@@ -40,7 +40,7 @@ public class PropertySheet
 
     private _PropertySheetComponent()
     {
-      this(new PropertySheetTableModel(null));
+      this(new PropertySheetTableModel(LookupUtil.getFieldByAnnotation(DataModel.class, FormProperty.class, "de.swat.datamodels")));
     }
 
     private _PropertySheetComponent(PropertySheetTableModel pModel)
