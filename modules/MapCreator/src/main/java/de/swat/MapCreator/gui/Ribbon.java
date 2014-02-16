@@ -2,6 +2,7 @@ package de.swat.MapCreator.gui;
 
 import com.google.common.collect.*;
 import de.swat.annotations.*;
+import de.swat.datamodels.RibbonDataModel;
 import de.swat.enums.*;
 import de.swat.exceptions.DataModelException;
 import de.swat.utils.LookupUtil;
@@ -153,8 +154,9 @@ public class Ribbon extends JRibbon
   private ArrayListMultimap<ERibbonCategory, ComponentContainer> _getRibbonComponents()
   {
     ArrayListMultimap<ERibbonCategory, ComponentContainer> allCommandButtons = ArrayListMultimap.create();
-    Set<Field> fieldsByAnnotation = LookupUtil.getFieldByAnnotation(DataModel.class, RibbonComponent.class, "de.swat.datamodels");
-    for (Field currField : fieldsByAnnotation)
+    RibbonDataModel dataModelInstance = new RibbonDataModel();
+    Field[] fields = dataModelInstance.getClass().getDeclaredFields();
+    for (Field currField : fields)
     {
       try
       {
@@ -167,7 +169,7 @@ public class Ribbon extends JRibbon
           String commandButtonName = currField.getName();
           int posID = annotation.posID();
           int rowspan = annotation.rowspan();
-          Object object = currField.get(currField.getClass());
+          Object object = currField.get(dataModelInstance);
           if (object != null && object instanceof JComponent)
           {
             JComponent jCommandButton = (JComponent) (object);
@@ -185,6 +187,9 @@ public class Ribbon extends JRibbon
         throw new DataModelException("Not supported componentType found in RibbonDataModel (" + currField.getType().getSimpleName() + ")", e);
       }
     }
+
+    //noinspection UnusedAssignment
+    dataModelInstance = null;
 
     return allCommandButtons;
   }

@@ -47,7 +47,7 @@ public class PropertySheetTableModel implements TableModel
   @Override
   public int getRowCount()
   {
-    return keyValueArray.length;
+    return keyValueArray != null ? keyValueArray.length : 0;
   }
 
   @Override
