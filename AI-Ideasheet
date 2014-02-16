@@ -1,0 +1,49 @@
+Ideen für die Ki:
+
+-Stufenbasiert:
+  -Nicht Alamiert
+            Die Gegner achten nicht so sehr auf ihre Umgebung (kleineres Sichtfeld, weniger Umhersehen, langsame Reaktionszeit, fixes Partoullieren mit Pausen, "Gespräche" mit anderen Gegnern)
+            Bei Geräuschen: Erkundungsmodus
+            Bei verdächtiger Entdeckung oder verdächtigem Geräusch: Suchmodus
+            Bei Sichtung des Spielers: Kampfmodus
+
+  -Erkundungsmodus
+            Der Gegner inspiziert arglos die Quelle eines Geräusches genauer (kleineres Sichtfeld, weniger Umhersehen, langsame Reaktionszeit, fixes Partoullieren mit Pausen)
+            Falls er nichts findet: Nicht alamiert
+            Bei Geräuschen: Erkundungsmodus
+            Bei verdächtiger Entdeckung oder verdächtigem Geräusch: Suchmodus
+            Bei Sichtung des Spielers: Kampfmodus
+
+  -Suchmodus
+            Der Gegner inspiziert vorsichtig die Quelle eines Geräusches und ist aufmerksam (größeres Sichtfeld, viele Blicke in alle Richtungen, Fixierung auf mögliche Eingagstüren, vorsichtiges Suchen)
+            Falls er nichts findet: Alamiert
+            Bei Geräuschen und weiteren Entdechung: Suchmodus
+            Bei Sichtung des Spielers: Kampfmodus
+
+   Alamiert
+            Der Gegner hat erhöhte Aufmerksamkeit (größeres Sichtfeld, viele Blicke in alle Richtungen, Fixierung auf mögliche Eingagstüren, vorsichtiges Suchen)
+            Bei verdächtiger Entdeckung oder Geräusch: Suchmodus
+            Bei Sichtung des Spielers: Kampfmodus
+
+  Kampfmodus
+            Der Gegner greift den Spieler an
+            Bei Einschätzung der Gefahr als niedrig (Sichtung weniger Personen, keine Verwundeten/Toten Kameraden, keine einschüchternden Waffen):
+                      Schießen ohne in Deckung zu gehen
+                      Bei Verlust des Zieles aus dem Sichtbereich Verfolgung dessen (Suchmodus)
+
+            Bei Einschätzung der Gefahr als mittel (Sichtung einiger Personen, einige Verwundeten/Toten Kameraden, mild einschüchternde Waffen):
+                      Suchen von Deckung nach kurzer Zeit
+                      Nach einer Zeit flankieren des Ziels
+                      Längere Wartedauer im Kampfmodus vor einem Übergang in den Suchmodus
+                      Sehr geringe Chance auf Ergeben/ Flucht
+
+            Bei Einschätzung der Gefahr als hoch (Sichtung vieler Personen, viele Verwundeten/Toten Kameraden, stark einschüchternde Waffen):
+                      Sofortiges Rennen in Deckung
+                      Sofortiges Flankieren
+                      Langes Verbleiben im Kampfmodus vor einem Wechsel in Suchmodus
+                      Geringe Chance auf Ergeben/Flucht
+
+            Bei Einschätzung der Gefahr als zu hoch (Sichtung sehr vieler Personen, sehr viele Verwundeten/Toten Kameraden, stark einschüchternde Waffen, Einstecken von Treffern)
+                      Hohe Chance auf Ergeben
+                      Ansonsten nach gewisser Zeit Flucht
+

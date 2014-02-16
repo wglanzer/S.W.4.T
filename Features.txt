@@ -1,0 +1,27 @@
+Basic:
+
+- Movement (wasd)
+- Umsehen mit Maus
+- Collision
+
+Advanced:
+
+- "Dynamic" Camera
+- Basic Ballistic
+- Coverfunktion
+- Pathfinding
+- KI
+- Command Menu
+- Sniper
+- Bullet Penetration
+- Menu
+- Level System
+- Basic Settings
+
+No RL:
+
+- FOV
+- Random Enemy Placement
+- Multiple Mission Types
+- Advanced Settings
+- Ligthing

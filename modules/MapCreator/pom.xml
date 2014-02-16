@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <artifactId>modules</artifactId>
+        <groupId>S.W.4.T</groupId>
+        <version>1.0</version>
+    </parent>
+
+    <artifactId>MapCreator</artifactId>
+    <name>SWmod: MapCreator</name>
+
+    <dependencies>
+        <!--Projekt-Dependencies-->
+        <dependency>
+            <artifactId>Common</artifactId>
+            <groupId>S.W.4.T</groupId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <artifactId>DataModels</artifactId>
+            <groupId>S.W.4.T</groupId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <artifactId>SubstanceLF</artifactId>
+            <groupId>S.W.4.T</groupId>
+            <version>1.0</version>
+        </dependency>
+
+        <!--Andere Dependencies-->
+        <dependency>
+            <groupId>net.coobird</groupId>
+            <artifactId>thumbnailator</artifactId>
+            <version>[0.4, 0.5)</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.insubstantial</groupId>
+            <artifactId>flamingo</artifactId>
+            <version>7.2.1</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>assembly</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-assembly-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>assembly</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <finalName>${project.build.finalName}</finalName>
+                            <appendAssemblyId>false</appendAssemblyId>
+                            <archive>
+                                <manifest>
+                                    <mainClass>de.swat.MapCreator.MapCreatorMain</mainClass>
+                                </manifest>
+                            </archive>
+                            <descriptorRefs>
+                                <descriptorRef>jar-with-dependencies</descriptorRef>
+                            </descriptorRefs>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+</project>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <artifactId>S.W.4.T</artifactId>
+        <groupId>S.W.4.T</groupId>
+        <version>1.0</version>
+    </parent>
+
+    <artifactId>libraries</artifactId>
+    <groupId>S.W.4.T</groupId>
+    <version>1.0</version>
+    <packaging>pom</packaging>
+    <name>S.W.4.T: libraries</name>
+
+    <modules>
+        <module>AnnotationProcessors</module>
+        <module>Common</module>
+        <module>DataModels</module>
+        <module>SubstanceLF</module>
+    </modules>
+
+</project>

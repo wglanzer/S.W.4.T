@@ -1,0 +1,10 @@
+Für Kopfleiste:
+- Möglichkeit, Gegner zu setzen (Später: Gegnerbereiche)
+- In der Kopfleiste dazu verscheidene Auswahlen:
+ - Patrullierpfade (mit Blickrichtungen)
+ - Gegnertyp (Schnelligkeit, Leben, Waffen usw)
+- Türen (mit Öffnungsrichtung)
+- Sniper - Spots
+- Fenster
+- Checkpoints
+- Anzeige der koordinaten, des letzten gesetzten Punktes + Änderung dieser

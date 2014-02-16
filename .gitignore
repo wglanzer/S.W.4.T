@@ -1,0 +1,37 @@
+#	Allgemeine Ignores
+
+*.ipr
+*.iml
+*.iws
+/.idea/*
+!/.idea/artifacts/
+!/.idea/projectCodeStyle.xml
+!/.idea/vcs.xml
+
+
+#	Target Ignores
+
+/application/*/target/
+/libraries/*/target/
+/modules/*/target/
+/modules/nb-ide/*/target/
+/modules/nb-bpel/*/target/
+/modules/nb-xml/*/target/
+/modules/nb-soa/*/target/
+/packages/*/target/
+/packages/external/*/target/
+/addendum/*/target/
+/addendum/annotationprocessors/*/target/
+
+
+#	Benutzerdefinierte Ignores
+
+/temp/
+/.misc/
+/_misc/
+/misc/
+
+# shade-plugin dependency file
+
+dependency-reduced-pom.xml
+/*.iml

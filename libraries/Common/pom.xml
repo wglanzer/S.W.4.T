@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <artifactId>libraries</artifactId>
+        <groupId>S.W.4.T</groupId>
+        <version>1.0</version>
+    </parent>
+
+    <artifactId>Common</artifactId>
+    <groupId>S.W.4.T</groupId>
+    <name>SWlib: Common</name>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.reflections</groupId>
+            <artifactId>reflections</artifactId>
+            <version>0.9.9-RC1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.insubstantial</groupId>
+            <artifactId>flamingo</artifactId>
+            <version>6.3</version>
+        </dependency>
+
+        <!--fst zur schnelleren Serialisierung-->
+        <dependency>
+            <groupId>de.ruedigermoeller</groupId>
+            <artifactId>fst</artifactId>
+            <version>1.34</version>
+        </dependency>
+        <dependency>
+            <groupId>org.swinglabs</groupId>
+            <artifactId>swingx</artifactId>
+            <version>1.6.1</version>
+        </dependency>
+    </dependencies>
+
+</project>
