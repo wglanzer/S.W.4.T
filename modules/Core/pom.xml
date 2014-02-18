@@ -7,7 +7,7 @@
     <parent>
         <artifactId>modules</artifactId>
         <groupId>S.W.4.T</groupId>
-        <version>1.0</version>
+        <version>${core.version}</version>
     </parent>
 
     <artifactId>Core</artifactId>
@@ -17,7 +17,7 @@
         <dependency>
             <artifactId>Common</artifactId>
             <groupId>S.W.4.T</groupId>
-            <version>1.0</version>
+            <version>${core.version}</version>
         </dependency>
     </dependencies>
 

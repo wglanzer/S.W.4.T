@@ -9,6 +9,10 @@
     <packaging>pom</packaging>
     <version>1.0</version>
 
+    <properties>
+        <core.version>1.0</core.version>
+    </properties>
+
     <modules>
         <module>libraries</module>
         <module>modules</module>
@@ -18,12 +22,12 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.10</version>
+            <version>4.11</version>
         </dependency>
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>15.0</version>
+            <version>16.0.1</version>
         </dependency>
         <dependency>
             <groupId>com.intellij</groupId>

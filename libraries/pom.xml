@@ -11,8 +11,7 @@
     </parent>
 
     <artifactId>libraries</artifactId>
-    <groupId>S.W.4.T</groupId>
-    <version>1.0</version>
+    <version>${core.version}</version>
     <packaging>pom</packaging>
     <name>S.W.4.T: libraries</name>
 

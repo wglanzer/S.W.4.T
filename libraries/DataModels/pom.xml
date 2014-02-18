@@ -7,7 +7,7 @@
     <parent>
         <artifactId>libraries</artifactId>
         <groupId>S.W.4.T</groupId>
-        <version>1.0</version>
+        <version>${core.version}</version>
     </parent>
 
     <properties>
@@ -17,7 +17,7 @@
     </properties>
 
     <artifactId>DataModels</artifactId>
-    <version>1.0</version>
+    <version>${core.version}</version>
     <name>SWlib: DataModels</name>
 
     <!-- Hier sollten wirklich nur die wichtigsten Dependencies

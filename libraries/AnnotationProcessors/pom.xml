@@ -7,18 +7,17 @@
     <parent>
         <artifactId>libraries</artifactId>
         <groupId>S.W.4.T</groupId>
-        <version>1.0</version>
+        <version>${core.version}</version>
     </parent>
 
     <artifactId>AnnotationProcessors</artifactId>
-    <groupId>S.W.4.T</groupId>
     <name>SWAnnotationProcessors</name>
 
     <dependencies>
         <dependency>
             <groupId>S.W.4.T</groupId>
             <artifactId>Common</artifactId>
-            <version>1.0</version>
+            <version>${core.version}</version>
         </dependency>
     </dependencies>
 </project>
