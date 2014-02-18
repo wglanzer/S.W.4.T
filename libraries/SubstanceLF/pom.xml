@@ -17,39 +17,39 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.pushingpixels</groupId>
+            <groupId>com.github.insubstantial</groupId>
             <artifactId>trident</artifactId>
             <version>7.2.1</version>
         </dependency>
         <dependency>
-            <groupId>org.pushingpixels</groupId>
-            <artifactId>lafwidget</artifactId>
+            <groupId>com.github.insubstantial</groupId>
+            <artifactId>laf-widget</artifactId>
             <version>7.2.1</version>
         </dependency>
         <dependency>
-            <groupId>org.pushingpixels</groupId>
-            <artifactId>lafplugin</artifactId>
+            <groupId>com.github.insubstantial</groupId>
+            <artifactId>laf-plugin</artifactId>
             <version>7.2.1</version>
         </dependency>
         <dependency>
             <groupId>net.jcip</groupId>
-            <artifactId>annotations</artifactId>
+            <artifactId>jcip-annotations</artifactId>
             <version>1.0</version>
         </dependency>
         <dependency>
             <groupId>com.jgoodies</groupId>
-            <artifactId>forms</artifactId>
-            <version>1.7.2</version>
-        </dependency>
-        <dependency>
-            <groupId>org.jdesktop</groupId>
-            <artifactId>swingx</artifactId>
-            <version>0.9.5-2</version>
+            <artifactId>jgoodies-forms</artifactId>
+            <version>1.6.0</version>
         </dependency>
         <dependency>
             <groupId>com.jgoodies</groupId>
-            <artifactId>common</artifactId>
-            <version>1.7.0</version>
+            <artifactId>jgoodies-common</artifactId>
+            <version>1.4.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.swinglabs</groupId>
+            <artifactId>swingx</artifactId>
+            <version>1.6.1</version>
         </dependency>
     </dependencies>
 
