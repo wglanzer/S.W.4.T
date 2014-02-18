@@ -5,7 +5,6 @@ import de.swat.annotations.*;
 import de.swat.datamodels.RibbonDataModel;
 import de.swat.enums.*;
 import de.swat.exceptions.DataModelException;
-import de.swat.utils.LookupUtil;
 import org.pushingpixels.flamingo.api.ribbon.*;
 import org.pushingpixels.flamingo.api.ribbon.resize.*;
 
@@ -16,7 +15,7 @@ import java.util.*;
 /**
  * Hier wird der Ribbon zusammengebastelt.
  * Er holt sich die Buttons aus den Klassen,
- * die mit @RibbonComponent() annotiert wurden.
+ * die mit @RibbonAction() annotiert wurden.
  * Die Buttons besitzen hier allerdings
  * noch keine ActionListener, diese werden erst
  * vom Parent hinzugefügt
@@ -144,7 +143,7 @@ public class Ribbon extends JRibbon
   }
 
   /**
-   * Gibt alle Components zurück, die mit "RibbonComponent"
+   * Gibt alle Components zurück, die mit "RibbonAction"
    * annotiert wurden. Sie werden auch gleich nach Kategorie
    * sortiert in einer ArrayListMultimap abgelegt
    *
@@ -160,7 +159,7 @@ public class Ribbon extends JRibbon
     {
       try
       {
-        RibbonComponent annotation = currField.getAnnotation(RibbonComponent.class);
+        RibbonAction annotation = currField.getAnnotation(RibbonAction.class);
         if (annotation != null)
         {
           ERibbonCategory category = annotation.category();
