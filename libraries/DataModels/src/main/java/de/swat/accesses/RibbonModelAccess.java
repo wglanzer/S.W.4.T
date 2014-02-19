@@ -21,104 +21,14 @@ public class RibbonModelAccess implements IModelAccess
 		INSTANCE.setButtonWidth(pParam);
 	}
 
-	public org.pushingpixels.flamingo.api.common.JCommandButton getFinishPoly()
+	public java.util.Set<de.swat.IRibbonAction> getChildren()
 	{
-		return INSTANCE.getFinishPoly();
+		return INSTANCE.getChildren();
 	}
 
-	public void setFinishPoly(org.pushingpixels.flamingo.api.common.JCommandButton pParam)
+	public void setChildren(java.util.Set<de.swat.IRibbonAction> pParam)
 	{
-		INSTANCE.setFinishPoly(pParam);
-	}
-
-	public org.pushingpixels.flamingo.api.common.JCommandButton getSetBackground()
-	{
-		return INSTANCE.getSetBackground();
-	}
-
-	public void setSetBackground(org.pushingpixels.flamingo.api.common.JCommandButton pParam)
-	{
-		INSTANCE.setSetBackground(pParam);
-	}
-
-	public org.pushingpixels.flamingo.api.common.JCommandButton getSaveMap()
-	{
-		return INSTANCE.getSaveMap();
-	}
-
-	public void setSaveMap(org.pushingpixels.flamingo.api.common.JCommandButton pParam)
-	{
-		INSTANCE.setSaveMap(pParam);
-	}
-
-	public org.pushingpixels.flamingo.api.common.JCommandButton getLoadMap()
-	{
-		return INSTANCE.getLoadMap();
-	}
-
-	public void setLoadMap(org.pushingpixels.flamingo.api.common.JCommandButton pParam)
-	{
-		INSTANCE.setLoadMap(pParam);
-	}
-
-	public org.pushingpixels.flamingo.api.common.JCommandButton getClearPoints()
-	{
-		return INSTANCE.getClearPoints();
-	}
-
-	public void setClearPoints(org.pushingpixels.flamingo.api.common.JCommandButton pParam)
-	{
-		INSTANCE.setClearPoints(pParam);
-	}
-
-	public javax.swing.JLabel getXOffPanel()
-	{
-		return INSTANCE.getXOffPanel();
-	}
-
-	public void setXOffPanel(javax.swing.JLabel pParam)
-	{
-		INSTANCE.setXOffPanel(pParam);
-	}
-
-	public javax.swing.JLabel getYOffPanel()
-	{
-		return INSTANCE.getYOffPanel();
-	}
-
-	public void setYOffPanel(javax.swing.JLabel pParam)
-	{
-		INSTANCE.setYOffPanel(pParam);
-	}
-
-	public javax.swing.JPanel getPlaceholder2()
-	{
-		return INSTANCE.getPlaceholder2();
-	}
-
-	public void setPlaceholder2(javax.swing.JPanel pParam)
-	{
-		INSTANCE.setPlaceholder2(pParam);
-	}
-
-	public javax.swing.JSpinner getXOff()
-	{
-		return INSTANCE.getXOff();
-	}
-
-	public void setXOff(javax.swing.JSpinner pParam)
-	{
-		INSTANCE.setXOff(pParam);
-	}
-
-	public javax.swing.JSpinner getYOff()
-	{
-		return INSTANCE.getYOff();
-	}
-
-	public void setYOff(javax.swing.JSpinner pParam)
-	{
-		INSTANCE.setYOff(pParam);
+		INSTANCE.setChildren(pParam);
 	}
 
 }

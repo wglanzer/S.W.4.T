@@ -1,8 +1,11 @@
 package de.swat;
 
 import de.swat.enums.*;
+import org.jetbrains.annotations.Nullable;
+import org.pushingpixels.flamingo.api.common.icon.ResizableIcon;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
 
 /**
  * Bezeichnet die Actions im Ribbon.
@@ -10,17 +13,25 @@ import javax.swing.*;
  *
  * @author W. Glanzer, 18.02.2014
  */
-public interface IRibbonAction extends IAction
+public interface IRibbonAction extends IAction, Comparable
 {
+  public static final int SMALL = 1;
+  public static final int MEDIUM = 2;
+  public static final int LARGE = 3;
+
   /**
    * Führt sich aus, wenn auf den Button gedrückt wurde
+   *
+   * @param pSourceEvent ActionEvent vom ActionListener
+   * @param pInvoker     Repräsentiert den JCommandButton, auf den gedrückt wurde.
    */
-  void performAction();
+  void actionPerformed(ActionEvent pSourceEvent, JComponent pInvoker, IModelAccess pModelAccess);
 
   /**
    * @return Liefert das Icon zurück, das die Action haben soll
    */
-  Icon getIcon();
+  @Nullable
+  ResizableIcon getIcon();
 
   /**
    * @return Titel, bzw. Caption, des Buttons
@@ -33,6 +44,11 @@ public interface IRibbonAction extends IAction
   int getPosition();
 
   /**
+   * @return Gibt die Größe des CommandButtons zurück, SMALL, MEDIUM oder LARGE
+   */
+  int getSize();
+
+  /**
    * @return Haupt-Kategorie, in die der Button einzuordnen ist
    */
   ERibbonCategory getCategory();
@@ -41,4 +57,7 @@ public interface IRibbonAction extends IAction
    * @return Unter-Kategorie, in die der Button einzuordnen ist
    */
   ERibbonSubCategory getSubCategory();
+
+  @Override
+  int compareTo(Object o);
 }

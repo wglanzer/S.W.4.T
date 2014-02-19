@@ -2,18 +2,11 @@ package de.swat.MapCreator.gui;
 
 import de.swat.*;
 import de.swat.MapCreator.gui.DrawContainer.DrawContainer;
+import de.swat.accesses.MapCreatorModelAccess;
 import de.swat.constants.IWindowConstants;
-import de.swat.dataModels.Map.StructureCollisionObjectDataModel;
-import de.swat.enums.ERibbonComponentType;
-import de.swat.utils.ImageUtil;
-import org.pushingpixels.flamingo.api.common.JCommandButton;
 
 import javax.swing.*;
-import javax.swing.event.*;
 import java.awt.*;
-import java.awt.event.*;
-import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 
 /**
  * GUI-Implementierung
@@ -24,16 +17,18 @@ public class Window extends JFrame
 {
   private static final String TITLE = "S.W.4.T - MapCreator - Version 1.0.0";
   private final Map map;
+  private final MapCreatorModelAccess modelAccess;
   /*GUI-Komponenten*/
   private DrawContainer drawContainer;
   private Ribbon ribbon;
   private JSpinner xOffSpinner;
   private JSpinner yOffSpinner;
 
-  public Window(Map pMap)
+  public Window(MapCreatorModelAccess pModelAccess)
   {
-    map = pMap;
-    drawContainer = new DrawContainer(pMap);
+    modelAccess = pModelAccess;
+    map = modelAccess.getMap();
+    drawContainer = new DrawContainer(map);
     ribbon = new Ribbon();
 
     setSize(new Dimension(IWindowConstants.WINDOW_WIDTH, IWindowConstants.WINDOW_HEIGHT));
@@ -100,155 +95,155 @@ public class Window extends JFrame
    */
   private void _addActionListenersToRibbonButtons()
   {
-    for (ComponentContainer currButton : ribbon.buttons)
-    {
-      String buttonName = currButton.name;
-      JComponent component = currButton.component;
-
-      if ((currButton.componentType == ERibbonComponentType.JCommandButton || currButton.componentType == ERibbonComponentType.JSpinner))
-        switch (buttonName == null ? "" : buttonName)
-        {
-          //FinishPoly-Button
-          case "finishPoly":
-            JCommandButton finishPoly = (JCommandButton) component;
-            finishPoly.addActionListener(new ActionListener()
-            {
-              @Override
-              public void actionPerformed(ActionEvent e)
-              {
-                ArrayList<Point> clickedPoints = drawContainer.getClickedPoints();
-                if (clickedPoints.size() > 1)
-                {
-                  map.addPoints(clickedPoints);
-                  StructureCollisionObjectDataModel newObject = map.finishStructure();
-                  drawContainer.addStructureObject(newObject);
-                  repaint();
-                }
-              }
-            });
-            break;
-
-          case "setBackground":
-            JCommandButton setBackground = (JCommandButton) component;
-            setBackground.addActionListener(new ActionListener()
-            {
-              @Override
-              public void actionPerformed(ActionEvent e)
-              {
-                JFileChooser fileChooser = new JFileChooser();
-                int returnValue = fileChooser.showOpenDialog(Window.this);
-
-                if (returnValue == JFileChooser.APPROVE_OPTION)
-                {
-                  BufferedImage image = ImageUtil.loadFileAsImage(fileChooser.getSelectedFile());
-                  drawContainer.setBackgroundimage(image, false);
-                }
-              }
-            });
-            break;
-
-          case "xOff":
-            xOffSpinner = (JSpinner) component;
-            xOffSpinner.addChangeListener(new ChangeListener()
-            {
-              @Override
-              public void stateChanged(ChangeEvent e)
-              {
-                drawContainer.setXOff((Integer) xOffSpinner.getValue(), false);
-              }
-            });
-            break;
-
-          case "yOff":
-            yOffSpinner = (JSpinner) component;
-            yOffSpinner.addChangeListener(new ChangeListener()
-            {
-              @Override
-              public void stateChanged(ChangeEvent e)
-              {
-                drawContainer.setYOff((Integer) yOffSpinner.getValue(), false);
-              }
-            });
-            break;
-
-          case "saveMap":
-            JCommandButton saveMap = (JCommandButton) component;
-            ActionListener saveAction = new ActionListener()
-            {
-              @Override
-              public void actionPerformed(ActionEvent e)
-              {
-                final JFileChooser fileChooser = new JFileChooser();
-                drawContainer.setBlocked(true);
-                fileChooser.addActionListener(new ActionListener()
-                {
-                  @Override
-                  public void actionPerformed(ActionEvent e)
-                  {
-                    //fileChooser.removeActionListener(this);
-                    //if (fileChooser.getSelectedFile() != null)
-                    //  SaveUtil.save(dataModel, fileChooser.getSelectedFile().getPath());
-                    //drawContainer.setBlocked(false);
-                    throw new RuntimeException("Not implemented yet!");
-                  }
-                });
-                fileChooser.showOpenDialog(Window.this);
-              }
-            };
-            saveMap.addActionListener(saveAction);
-            break;
-
-          case "loadMap":
-            JCommandButton loadMap = (JCommandButton) component;
-            ActionListener loadAction = new ActionListener()
-            {
-              @Override
-              public void actionPerformed(ActionEvent e)
-              {
-                final JFileChooser fileChooser = new JFileChooser();
-                drawContainer.setBlocked(true);
-                fileChooser.addActionListener(new ActionListener()
-                {
-                  @Override
-                  public void actionPerformed(ActionEvent e)
-                  {
-                    fileChooser.removeActionListener(this);
-                    if (fileChooser.getSelectedFile() != null)
-                    {
-                      //MapDataModel newDataModel = SaveUtil.load(fileChooser.getSelectedFile().getPath());
-                      //map.setNewModel(newDataModel);
-                      //drawContainer.reloadFromDataModel();
-                      //drawContainer.setBlocked(false);
-                      //repaint();
-                      throw new RuntimeException("Not implemented yet!");
-                    }
-                    drawContainer.setBlocked(false);
-                  }
-                });
-                fileChooser.showOpenDialog(Window.this);
-              }
-            };
-            loadMap.addActionListener(loadAction);
-            break;
-
-          case "clearPoints":
-            JCommandButton clearPoints = (JCommandButton) component;
-            clearPoints.addActionListener(new ActionListener()
-            {
-              @Override
-              public void actionPerformed(ActionEvent e)
-              {
-                drawContainer.clearAll();
-                drawContainer.repaint();
-              }
-            });
-            break;
-
-          default:
-            System.out.println("No actionListener known to this component '" + buttonName + "'"); //TODO
-            break;
-        }
-    }
+    //for (ComponentContainer currButton : ribbon.actions)
+    //{
+    //  String buttonName = currButton.name;
+    //  JComponent component = currButton.component;
+    //
+    //  if ((currButton.componentType == ERibbonComponentType.JCommandButton || currButton.componentType == ERibbonComponentType.JSpinner))
+    //    switch (buttonName == null ? "" : buttonName)
+    //    {
+    //      //FinishPoly-Button
+    //      case "finishPoly":
+    //        JCommandButton finishPoly = (JCommandButton) component;
+    //        finishPoly.addActionListener(new ActionListener()
+    //        {
+    //          @Override
+    //          public void actionPerformed(ActionEvent e)
+    //          {
+    //            ArrayList<Point> clickedPoints = drawContainer.getClickedPoints();
+    //            if (clickedPoints.size() > 1)
+    //            {
+    //              map.addPoints(clickedPoints);
+    //              StructureCollisionObjectDataModel newObject = map.finishStructure();
+    //              drawContainer.addStructureObject(newObject);
+    //              repaint();
+    //            }
+    //          }
+    //        });
+    //        break;
+    //
+    //      case "setBackground":
+    //        JCommandButton setBackground = (JCommandButton) component;
+    //        setBackground.addActionListener(new ActionListener()
+    //        {
+    //          @Override
+    //          public void actionPerformed(ActionEvent e)
+    //          {
+    //            JFileChooser fileChooser = new JFileChooser();
+    //            int returnValue = fileChooser.showOpenDialog(Window.this);
+    //
+    //            if (returnValue == JFileChooser.APPROVE_OPTION)
+    //            {
+    //              BufferedImage image = ImageUtil.loadFileAsImage(fileChooser.getSelectedFile());
+    //              drawContainer.setBackgroundimage(image, false);
+    //            }
+    //          }
+    //        });
+    //        break;
+    //
+    //      case "xOff":
+    //        xOffSpinner = (JSpinner) component;
+    //        xOffSpinner.addChangeListener(new ChangeListener()
+    //        {
+    //          @Override
+    //          public void stateChanged(ChangeEvent e)
+    //          {
+    //            drawContainer.setXOff((Integer) xOffSpinner.getValue(), false);
+    //          }
+    //        });
+    //        break;
+    //
+    //      case "yOff":
+    //        yOffSpinner = (JSpinner) component;
+    //        yOffSpinner.addChangeListener(new ChangeListener()
+    //        {
+    //          @Override
+    //          public void stateChanged(ChangeEvent e)
+    //          {
+    //            drawContainer.setYOff((Integer) yOffSpinner.getValue(), false);
+    //          }
+    //        });
+    //        break;
+    //
+    //      case "saveMap":
+    //        JCommandButton saveMap = (JCommandButton) component;
+    //        ActionListener saveAction = new ActionListener()
+    //        {
+    //          @Override
+    //          public void actionPerformed(ActionEvent e)
+    //          {
+    //            final JFileChooser fileChooser = new JFileChooser();
+    //            drawContainer.setBlocked(true);
+    //            fileChooser.addActionListener(new ActionListener()
+    //            {
+    //              @Override
+    //              public void actionPerformed(ActionEvent e)
+    //              {
+    //                //fileChooser.removeActionListener(this);
+    //                //if (fileChooser.getSelectedFile() != null)
+    //                //  SaveUtil.save(dataModel, fileChooser.getSelectedFile().getPath());
+    //                //drawContainer.setBlocked(false);
+    //                throw new RuntimeException("Not implemented yet!");
+    //              }
+    //            });
+    //            fileChooser.showOpenDialog(Window.this);
+    //          }
+    //        };
+    //        saveMap.addActionListener(saveAction);
+    //        break;
+    //
+    //      case "loadMap":
+    //        JCommandButton loadMap = (JCommandButton) component;
+    //        ActionListener loadAction = new ActionListener()
+    //        {
+    //          @Override
+    //          public void actionPerformed(ActionEvent e)
+    //          {
+    //            final JFileChooser fileChooser = new JFileChooser();
+    //            drawContainer.setBlocked(true);
+    //            fileChooser.addActionListener(new ActionListener()
+    //            {
+    //              @Override
+    //              public void actionPerformed(ActionEvent e)
+    //              {
+    //                fileChooser.removeActionListener(this);
+    //                if (fileChooser.getSelectedFile() != null)
+    //                {
+    //                  //MapDataModel newDataModel = SaveUtil.load(fileChooser.getSelectedFile().getPath());
+    //                  //map.setNewModel(newDataModel);
+    //                  //drawContainer.reloadFromDataModel();
+    //                  //drawContainer.setBlocked(false);
+    //                  //repaint();
+    //                  throw new RuntimeException("Not implemented yet!");
+    //                }
+    //                drawContainer.setBlocked(false);
+    //              }
+    //            });
+    //            fileChooser.showOpenDialog(Window.this);
+    //          }
+    //        };
+    //        loadMap.addActionListener(loadAction);
+    //        break;
+    //
+    //      case "clearPoints":
+    //        JCommandButton clearPoints = (JCommandButton) component;
+    //        clearPoints.addActionListener(new ActionListener()
+    //        {
+    //          @Override
+    //          public void actionPerformed(ActionEvent e)
+    //          {
+    //            drawContainer.clearAll();
+    //            drawContainer.repaint();
+    //          }
+    //        });
+    //        break;
+    //
+    //      default:
+    //        System.out.println("No actionListener known to this component '" + buttonName + "'"); //TODO
+    //        break;
+    //    }
+    //}
   }
 
   /**

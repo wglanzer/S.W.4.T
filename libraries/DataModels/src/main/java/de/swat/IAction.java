@@ -1,5 +1,8 @@
 package de.swat;
 
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+
 /**
  * Beschreibt eine Action, kann allgemein
  * verwendet werden
@@ -9,6 +12,6 @@ package de.swat;
 public interface IAction
 {
 
-  void performAction();
+  void actionPerformed(ActionEvent pSourceEvent, JComponent pInvoker, IModelAccess pModelAccess);
 
 }

@@ -1,16 +1,20 @@
 package de.swat.MapCreator.gui;
 
 import com.google.common.collect.*;
-import de.swat.annotations.*;
-import de.swat.datamodels.RibbonDataModel;
+import de.swat.IRibbonAction;
+import de.swat.MapCreator.MapCreator;
+import de.swat.accesses.*;
+import de.swat.constants.IRibbonConstants;
 import de.swat.enums.*;
-import de.swat.exceptions.DataModelException;
+import org.pushingpixels.flamingo.api.common.JCommandButton;
+import org.pushingpixels.flamingo.api.common.icon.*;
 import org.pushingpixels.flamingo.api.ribbon.*;
 import org.pushingpixels.flamingo.api.ribbon.resize.*;
 
-import javax.swing.*;
-import java.lang.reflect.Field;
+import java.awt.*;
+import java.awt.event.*;
 import java.util.*;
+import java.util.List;
 
 /**
  * Hier wird der Ribbon zusammengebastelt.
@@ -24,7 +28,10 @@ import java.util.*;
  */
 public class Ribbon extends JRibbon
 {
-  public List<ComponentContainer> buttons = new ArrayList<>();
+  public List<IRibbonAction> actions = new ArrayList<>();
+
+  private RibbonModelAccess modelAccess = new RibbonModelAccess();
+  private MapCreatorModelAccess mapCreatorModelAccess = MapCreator.getMapCreatorModelAccess();
 
   public Ribbon()
   {
@@ -38,7 +45,7 @@ public class Ribbon extends JRibbon
   private void _createRibbon()
   {
     //Alle CommandButtons holen, die mit Annotation markiert wurden
-    ArrayListMultimap<ERibbonCategory, ComponentContainer> commandButtons = _getRibbonComponents();
+    ArrayListMultimap<ERibbonCategory, IRibbonAction> commandButtons = _getRibbonComponents();
     //Aus diesen CommandButtons nun RibbonTasks erstellen, die zum Ribbon hinzugefügt werden können
     List<RibbonTask> ribbonTasks = _getRibbonTasks(commandButtons);
     for (RibbonTask currTask : ribbonTasks)
@@ -55,20 +62,21 @@ public class Ribbon extends JRibbon
    *                        enthält
    * @return Liste aus RibbonTasks
    */
-  private List<RibbonTask> _getRibbonTasks(ArrayListMultimap<ERibbonCategory, ComponentContainer> pCommandButtons)
+  private List<RibbonTask> _getRibbonTasks(ArrayListMultimap<ERibbonCategory, IRibbonAction> pCommandButtons)
   {
     List<RibbonTask> returnList = new ArrayList<>();
 
     for (ERibbonCategory currCategory : pCommandButtons.keySet())
     {
       List<JRibbonBand> ribbonBands = new ArrayList<>();
-      ArrayListMultimap<ERibbonSubCategory, ComponentContainer> ribbonBandSubCategories = ArrayListMultimap.create();
-      for (ComponentContainer currCommandButton : pCommandButtons.get(currCategory))
+      ArrayListMultimap<ERibbonSubCategory, IRibbonAction> ribbonBandSubCategories = ArrayListMultimap.create();
+
+      for (IRibbonAction currAction : pCommandButtons.get(currCategory))
       {
-        ribbonBandSubCategories.put(currCommandButton.subCategory, currCommandButton);
-        buttons.add(currCommandButton);
+        ribbonBandSubCategories.put(currAction.getSubCategory(), currAction);
+        actions.add(currAction);
       }
-      TreeMultimap<ERibbonSubCategory, ComponentContainer> sortedSubCategories = _sortSubcategoriesByOrdinal(ribbonBandSubCategories);
+      TreeMultimap<ERibbonSubCategory, IRibbonAction> sortedSubCategories = _sortSubcategoriesByOrdinal(ribbonBandSubCategories);
 
       //Hier werden die RibbonBands erzeugt, mit Buttons versehen, der RibbonTask erzeugt und zur returnList hinzugefügt
       for (ERibbonSubCategory currSubCategory : sortedSubCategories.keySet())
@@ -79,13 +87,13 @@ public class Ribbon extends JRibbon
         result.add(new CoreRibbonResizePolicies.None(ribbonBand.getControlPanel()));
         ribbonBand.setResizePolicies(result);
 
-        Collection<ComponentContainer> commandButtonsToAdd = ribbonBandSubCategories.asMap().get(currSubCategory);
-        List<ComponentContainer> sortedCommandButtons = _sortListByComponentID(commandButtonsToAdd);
-        for (ComponentContainer currButton : sortedCommandButtons)
-        {
-          ERibbonComponentType componentType = currButton.componentType;
-          ribbonBand.addRibbonComponent(_getComponentFromEnum(componentType, currButton), currButton.rowspan);
-        }
+        Collection<IRibbonAction> commandButtonActions = ribbonBandSubCategories.asMap().get(currSubCategory);  //null kann hier nicht vorkommen
+        List<IRibbonAction> sortedCommandButtonActions = _sortListByComponentID(commandButtonActions);
+
+        for (IRibbonAction currAction : sortedCommandButtonActions)
+          ribbonBand.addRibbonComponent(_getCommandButtonFromRibbonAction(currAction), currAction.getSize());
+
+        ribbonBand.setMinimumSize(new Dimension(800, 120));
 
         ribbonBands.add(ribbonBand);
       }
@@ -98,47 +106,42 @@ public class Ribbon extends JRibbon
     return returnList;
   }
 
-  private List<ComponentContainer> _sortListByComponentID(Collection<ComponentContainer> pComponentContainers)
+  private List<IRibbonAction> _sortListByComponentID(Collection<IRibbonAction> pComponentContainers)
   {
-    List<ComponentContainer> componentContainers = new ArrayList<>(pComponentContainers);
-    Collections.sort(componentContainers, new Comparator<ComponentContainer>()
+    List<IRibbonAction> componentContainers = new ArrayList<>(pComponentContainers);
+    Collections.sort(componentContainers, new Comparator<IRibbonAction>()
     {
       @Override
-      public int compare(ComponentContainer o1, ComponentContainer o2)
+      public int compare(IRibbonAction o1, IRibbonAction o2)
       {
-        return (o1.ID - o2.ID);
+        return (o1.getPosition() - o2.getPosition());
       }
     });
     return componentContainers;
   }
 
-  private TreeMultimap<ERibbonSubCategory, ComponentContainer> _sortSubcategoriesByOrdinal(ArrayListMultimap<ERibbonSubCategory, ComponentContainer> pContainers)
+  private TreeMultimap<ERibbonSubCategory, IRibbonAction> _sortSubcategoriesByOrdinal(ArrayListMultimap<ERibbonSubCategory, IRibbonAction> pContainers)
   {
-    TreeMultimap<ERibbonSubCategory, ComponentContainer> returnMap = TreeMultimap.create();
+    TreeMultimap<ERibbonSubCategory, IRibbonAction> returnMap = TreeMultimap.create();
     returnMap.putAll(pContainers);
     return returnMap;
   }
 
-  /**
-   * Liefert ein JRibbonComonent, das durch
-   * den RibbonComponentType und den ComponentContainer
-   * bestimmt ist.
-   *
-   * @param pType      RibbonComponentType
-   * @param pComponent Komponente
-   * @return JRibbonComponent
-   */
-  private JRibbonComponent _getComponentFromEnum(ERibbonComponentType pType, ComponentContainer pComponent)
+  private JRibbonComponent _getCommandButtonFromRibbonAction(final IRibbonAction pAction)
   {
-    JRibbonComponent component = null;
-
-    switch (pType != null ? pType : ERibbonComponentType.JCommandButton)
+    ResizableIcon icon = pAction.getIcon();
+    String title = pAction.getTitle();
+    final JCommandButton commandButton = new JCommandButton(title, icon == null ? new EmptyResizableIcon(IRibbonConstants.ICON_SIZE) : icon);
+    JRibbonComponent component = new JRibbonComponent(commandButton);
+    commandButton.setPreferredSize(new Dimension(IRibbonConstants.BUTTON_SIZE, IRibbonConstants.BUTTON_SIZE));
+    commandButton.addActionListener(new ActionListener()
     {
-      default:
-        component = new JRibbonComponent(pComponent.component);
-        break;
-    }
-
+      @Override
+      public void actionPerformed(ActionEvent e)
+      {
+        pAction.actionPerformed(e, commandButton, mapCreatorModelAccess);
+      }
+    });
     return component;
   }
 
@@ -150,45 +153,16 @@ public class Ribbon extends JRibbon
    * @return ArrayListMultimap mit JCommandButtons, sortiert nach
    * Kategorie
    */
-  private ArrayListMultimap<ERibbonCategory, ComponentContainer> _getRibbonComponents()
+  private ArrayListMultimap<ERibbonCategory, IRibbonAction> _getRibbonComponents()
   {
-    ArrayListMultimap<ERibbonCategory, ComponentContainer> allCommandButtons = ArrayListMultimap.create();
-    RibbonDataModel dataModelInstance = new RibbonDataModel();
-    Field[] fields = dataModelInstance.getClass().getDeclaredFields();
-    for (Field currField : fields)
-    {
-      try
-      {
-        RibbonAction annotation = currField.getAnnotation(RibbonAction.class);
-        if (annotation != null)
-        {
-          ERibbonCategory category = annotation.category();
-          ERibbonSubCategory subCategory = annotation.subcategory();
-          ERibbonComponentType type = ERibbonComponentType.valueOf(currField.getType().getSimpleName());
-          String commandButtonName = currField.getName();
-          int posID = annotation.posID();
-          int rowspan = annotation.rowspan();
-          Object object = currField.get(dataModelInstance);
-          if (object != null && object instanceof JComponent)
-          {
-            JComponent jCommandButton = (JComponent) (object);
-            ComponentContainer container = new ComponentContainer(jCommandButton, type, subCategory, commandButtonName, posID, rowspan);
-            allCommandButtons.put(category, container);
-          }
-        }
-      }
-      catch (IllegalAccessException e)
-      {
-        throw new DataModelException("Error while loading dataModel (Ribbon)", e);
-      }
-      catch (IllegalArgumentException e)
-      {
-        throw new DataModelException("Not supported componentType found in RibbonDataModel (" + currField.getType().getSimpleName() + ")", e);
-      }
-    }
+    ArrayListMultimap<ERibbonCategory, IRibbonAction> allCommandButtons = ArrayListMultimap.create();
 
-    //noinspection UnusedAssignment
-    dataModelInstance = null;
+    Set<IRibbonAction> ribbonActions = modelAccess.getChildren();
+    for (IRibbonAction currRibbonAction : ribbonActions)
+    {
+      ERibbonCategory category = currRibbonAction.getCategory();
+      allCommandButtons.put(category, currRibbonAction);
+    }
 
     return allCommandButtons;
   }

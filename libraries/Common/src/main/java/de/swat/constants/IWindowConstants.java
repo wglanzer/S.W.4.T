@@ -3,7 +3,7 @@ package de.swat.constants;
 /**
  * @author W. Glanzer, 08.12.13
  */
-public class IWindowConstants
+public interface IWindowConstants
 {
 
   public static int WINDOW_SCALE = 100;

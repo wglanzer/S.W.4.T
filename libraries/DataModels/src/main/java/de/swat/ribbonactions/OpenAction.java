@@ -1,16 +1,24 @@
 package de.swat.ribbonactions;
 
 import de.swat.*;
+import de.swat.accesses.*;
+import de.swat.annotations.RibbonAction;
+import de.swat.constants.IRibbonConstants;
 import de.swat.enums.*;
+import de.swat.util.ImageUtil;
 import org.pushingpixels.flamingo.api.common.icon.ResizableIcon;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
+import java.io.File;
 
 /**
- * @author W. Glanzer, 18.02.2014
+ * Action, um ein MapDataModel zu von der Festplatte zu laden
+ *
+ * @author W. Glanzer, 18.02.14
  */
-public class DummyRibbonAction implements IRibbonAction
+@RibbonAction
+public class OpenAction implements IRibbonAction
 {
   @Override
   public void actionPerformed(ActionEvent pSourceEvent, JComponent pInvoker, IModelAccess pModelAccess)
@@ -20,13 +28,13 @@ public class DummyRibbonAction implements IRibbonAction
   @Override
   public ResizableIcon getIcon()
   {
-    return null;
+    return ImageUtil.loadResizableIcon(OpenAction.class.getResource(""), IRibbonConstants.ICON_SIZE);
   }
 
   @Override
   public String getTitle()
   {
-    return "asdfasdfasdfasdfasdf";
+    return "Open...";
   }
 
   @Override
@@ -38,19 +46,19 @@ public class DummyRibbonAction implements IRibbonAction
   @Override
   public int getSize()
   {
-    return 0;
+    return LARGE;
   }
 
   @Override
   public ERibbonCategory getCategory()
   {
-    return null;
+    return ERibbonCategory.Anderes;
   }
 
   @Override
   public ERibbonSubCategory getSubCategory()
   {
-    return null;
+    return ERibbonSubCategory.Map;
   }
 
   @Override
