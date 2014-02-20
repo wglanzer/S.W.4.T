@@ -3,7 +3,7 @@ package de.swat.MapCreator.gui;
 import de.swat.*;
 import de.swat.MapCreator.gui.DrawContainer.DrawContainer;
 import de.swat.accesses.MapCreatorModelAccess;
-import de.swat.constants.IWindowConstants;
+import de.swat.constants.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -55,7 +55,12 @@ public class Window extends JFrame
     int dividerSize = 3; //TODO
 
     /*Ribbon*/
-    add(ribbon, BorderLayout.NORTH);
+    JPanel ribbonPanel = new JPanel(null);
+    ribbon.setLocation(0, -28);
+    ribbon.setSize(IWindowConstants.WINDOW_WIDTH, (IRibbonConstants.BUTTON_SIZE + 45) - ribbon.getY());
+    ribbonPanel.add(ribbon);
+    ribbonPanel.setPreferredSize(new Dimension(0, ribbon.getSize().height + ribbon.getY()));
+    add(ribbonPanel, BorderLayout.NORTH);
 
     JTabbedPane trees = new JTabbedPane();
     trees.addTab("Dummy-Tree1", _getDummyTree());
