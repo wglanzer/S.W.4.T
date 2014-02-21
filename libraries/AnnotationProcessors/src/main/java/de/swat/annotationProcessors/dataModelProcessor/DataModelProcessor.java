@@ -30,42 +30,42 @@ public class DataModelProcessor extends AbstractProcessor
 
         try (PrintWriter out = new PrintWriter(processingEnv.getFiler().createSourceFile(newClassName).openWriter()))
         {
-          out.write("package de.swat.accesses;\n");
-          out.write("\n");
-          out.write("import de.swat.datamodels." + oldClassName + ";\n");
-          out.write("import de.swat.IModelAccess;\n");
-          out.write("import java.io.*;\n");
-          out.write("/**\n");
-          out.write(" * Klasse automatisch generiert! Nicht veraendern oder ueberschreiben!!\n");
-          out.write(" * @see " + this.getClass().getName() + "\n");
-          out.write(" */\n");
-          out.write("public class " + newClassName + " implements " + implementedClasses + "\n");
-          out.write("{\n");
-          out.write("\n");
-          out.write("\tprivate static final long serialVersionUID = " + IVersion.DataModelVersion + "L;\n");
-          out.write("\tprivate static final " + oldClassName + " INSTANCE = new " + oldClassName + "();\n");
-          out.write("\n");
+          out.write("package de.swat.accesses;\r\n");
+          out.write("\r\n");
+          out.write("import de.swat.datamodels." + oldClassName + ";\r\n");
+          out.write("import de.swat.IModelAccess;\r\n");
+          out.write("import java.io.*;\r\n");
+          out.write("/**\r\n");
+          out.write(" * Klasse automatisch generiert! Nicht veraendern oder ueberschreiben!!\r\n");
+          out.write(" * @see " + this.getClass().getName() + "\r\n");
+          out.write(" */\r\n");
+          out.write("public class " + newClassName + " implements " + implementedClasses + "\r\n");
+          out.write("{\r\n");
+          out.write("\r\n");
+          out.write("\tprivate static final long serialVersionUID = " + IVersion.DataModelVersion + "L;\r\n");
+          out.write("\tprivate static final " + oldClassName + " INSTANCE = new " + oldClassName + "();\r\n");
+          out.write("\r\n");
 
           for (VariableElement currElement : ElementFilter.fieldsIn(elem.getEnclosedElements()))
           {
             String type = currElement.asType().toString();
 
             //Getter
-            out.write("\tpublic " + type + " get" + capitalizeFirstLetter(currElement.getSimpleName()) + "()\n");
-            out.write("\t{\n");
-            out.write("\t\treturn INSTANCE.get" + capitalizeFirstLetter(currElement.getSimpleName()) + "();\n");
-            out.write("\t}\n");
-            out.write("\n");
+            out.write("\tpublic " + type + " get" + capitalizeFirstLetter(currElement.getSimpleName()) + "()\r\n");
+            out.write("\t{\r\n");
+            out.write("\t\treturn INSTANCE.get" + capitalizeFirstLetter(currElement.getSimpleName()) + "();\r\n");
+            out.write("\t}\r\n");
+            out.write("\r\n");
 
             //Setter
-            out.write("\tpublic void set" + capitalizeFirstLetter(currElement.getSimpleName()) + "(" + type + " pParam)\n");
-            out.write("\t{\n");
-            out.write("\t\tINSTANCE.set" + capitalizeFirstLetter(currElement.getSimpleName()) + "(pParam);\n");
-            out.write("\t}\n");
-            out.write("\n");
+            out.write("\tpublic void set" + capitalizeFirstLetter(currElement.getSimpleName()) + "(" + type + " pParam)\r\n");
+            out.write("\t{\r\n");
+            out.write("\t\tINSTANCE.set" + capitalizeFirstLetter(currElement.getSimpleName()) + "(pParam);\r\n");
+            out.write("\t}\r\n");
+            out.write("\r\n");
           }
 
-          out.write("}\n");
+          out.write("}\r\n");
         }
         catch (Exception e)
         {
