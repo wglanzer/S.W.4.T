@@ -13,12 +13,12 @@ public class RasterModelAccess implements IModelAccess, Serializable
 	private static final long serialVersionUID = 1L;
 	private static final RasterDataModel INSTANCE = new RasterDataModel();
 
-	public java.util.ArrayList[][] getRaster()
+	public java.util.ArrayList<java.lang.Integer>[][] getRaster()
 	{
 		return INSTANCE.getRaster();
 	}
 
-	public void setRaster(java.util.ArrayList[][] pParam)
+	public void setRaster(java.util.ArrayList<java.lang.Integer>[][] pParam)
 	{
 		INSTANCE.setRaster(pParam);
 	}

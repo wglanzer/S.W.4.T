@@ -16,7 +16,7 @@ public class RasterDataModel implements Serializable
    * 2-Dimensionales Feld, das eine Arraylist mit
    * Indices zu AbstractCollisionObjectDataModels liefert
    */
-  private ArrayList[][] raster;
+  private ArrayList<Integer>[][] raster;
 
   /**
    * Größe der Raster (quadratisch) - überprüfung der Effizienz notwendig
@@ -25,12 +25,12 @@ public class RasterDataModel implements Serializable
 
   private Map map;
 
-  public ArrayList[][] getRaster()
+  public ArrayList<Integer>[][] getRaster()
   {
     return raster;
   }
 
-  public void setRaster(ArrayList[][] pRaster)
+  public void setRaster(ArrayList<Integer>[][] pRaster)
   {
     raster = pRaster;
   }
