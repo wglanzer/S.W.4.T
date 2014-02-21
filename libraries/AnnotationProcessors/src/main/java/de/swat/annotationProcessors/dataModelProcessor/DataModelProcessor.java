@@ -1,6 +1,7 @@
 package de.swat.annotationProcessors.dataModelProcessor;
 
 import de.swat.annotations.*;
+import de.swat.constants.IVersion;
 
 import javax.annotation.processing.*;
 import javax.lang.model.SourceVersion;
@@ -14,6 +15,7 @@ import java.util.Set;
 @SupportedSourceVersion(SourceVersion.RELEASE_7)
 public class DataModelProcessor extends AbstractProcessor
 {
+  private static final String implementedClasses = "IModelAccess, Serializable";
 
   @Override
   public boolean process(Set<? extends TypeElement> arg0, RoundEnvironment roundEnv)
@@ -32,13 +34,15 @@ public class DataModelProcessor extends AbstractProcessor
           out.write("\n");
           out.write("import de.swat.datamodels." + oldClassName + ";\n");
           out.write("import de.swat.IModelAccess;\n");
+          out.write("import java.io.*;\n");
           out.write("/**\n");
           out.write(" * Klasse automatisch generiert! Nicht veraendern oder ueberschreiben!!\n");
           out.write(" * @see " + this.getClass().getName() + "\n");
           out.write(" */\n");
-          out.write("public class " + newClassName + " implements IModelAccess\n");
+          out.write("public class " + newClassName + " implements " + implementedClasses + "\n");
           out.write("{\n");
           out.write("\n");
+          out.write("\tprivate static final long serialVersionUID = " + IVersion.DataModelVersion + "L;\n");
           out.write("\tprivate static final " + oldClassName + " INSTANCE = new " + oldClassName + "();\n");
           out.write("\n");
 
