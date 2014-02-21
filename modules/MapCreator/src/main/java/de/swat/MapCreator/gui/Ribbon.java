@@ -93,17 +93,31 @@ public class Ribbon extends JRibbon
         for (IRibbonAction currAction : sortedCommandButtonActions)
           ribbonBand.addRibbonComponent(_getCommandButtonFromRibbonAction(currAction), currAction.getSize());
 
-        ribbonBand.setMinimumSize(new Dimension(800, 120));
+        //ribbonBand.setMinimumSize(new Dimension(800, 120));
 
         ribbonBands.add(ribbonBand);
       }
 
       JRibbonBand[] ribbonTasks = ribbonBands.toArray(new JRibbonBand[ribbonBands.size()]);
       RibbonTask task = new RibbonTask(currCategory.name(), ribbonTasks);
+      task.setPosition(currCategory.ordinal());
       returnList.add(task);
     }
 
+    _sortTasksByName(returnList);
     return returnList;
+  }
+
+  private void _sortTasksByName(List<RibbonTask> pTasks)
+  {
+    Collections.sort(pTasks, new Comparator<RibbonTask>()
+    {
+      @Override
+      public int compare(RibbonTask o1, RibbonTask o2)
+      {
+        return o1.getPosition() - o2.getPosition();
+      }
+    });
   }
 
   private List<IRibbonAction> _sortListByComponentID(Collection<IRibbonAction> pComponentContainers)

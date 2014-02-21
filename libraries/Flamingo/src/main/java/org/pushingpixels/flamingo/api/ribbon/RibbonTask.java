@@ -31,6 +31,7 @@ package org.pushingpixels.flamingo.api.ribbon;
 
 import java.util.*;
 
+import org.jetbrains.annotations.NotNull;
 import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizeSequencingPolicies;
 import org.pushingpixels.flamingo.api.ribbon.resize.RibbonBandResizeSequencingPolicy;
 
@@ -40,7 +41,7 @@ import org.pushingpixels.flamingo.api.ribbon.resize.RibbonBandResizeSequencingPo
  * 
  * @author Kirill Grouchnikov
  */
-public class RibbonTask {
+public class RibbonTask implements Comparable{
 	/**
 	 * The associated ribbon.
 	 */
@@ -71,6 +72,11 @@ public class RibbonTask {
 	 * The key tip for the task button of this task.
 	 */
 	private String keyTip;
+
+  /**
+   * Position im Ribbon
+   */
+  private int position;
 
 	/**
 	 * Creates a ribbon task that contains the specified bands.
@@ -234,4 +240,36 @@ public class RibbonTask {
 	public void setKeyTip(String keyTip) {
 		this.keyTip = keyTip;
 	}
+
+  /**
+   * Liefert die Position des RibbonTasks im Ribbon
+   *
+   * @return Position
+   */
+  public int getPosition()
+  {
+    return position;
+  }
+
+  /**
+   * Setzt die Position im Ribbon
+   *
+   * @param pPosition Position
+   */
+  public void setPosition(int pPosition)
+  {
+    position = pPosition;
+  }
+
+  @Override
+  public int compareTo(@NotNull Object pObject)
+  {
+    if(pObject instanceof RibbonTask)
+    {
+      RibbonTask task = (RibbonTask) pObject;
+      return task.getPosition() - ((RibbonTask) pObject).getPosition();
+    }
+
+    return this.getClass().getSimpleName().compareTo(pObject.getClass().getSimpleName());
+  }
 }
