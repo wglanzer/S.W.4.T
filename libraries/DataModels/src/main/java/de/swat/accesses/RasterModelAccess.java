@@ -2,13 +2,15 @@ package de.swat.accesses;
 
 import de.swat.datamodels.RasterDataModel;
 import de.swat.IModelAccess;
+import java.io.*;
 /**
  * Klasse automatisch generiert! Nicht veraendern oder ueberschreiben!!
  * @see de.swat.annotationProcessors.dataModelProcessor.DataModelProcessor
  */
-public class RasterModelAccess implements IModelAccess
+public class RasterModelAccess implements IModelAccess, Serializable
 {
 
+	private static final long serialVersionUID = 1L;
 	private static final RasterDataModel INSTANCE = new RasterDataModel();
 
 	public java.util.ArrayList[][] getRaster()

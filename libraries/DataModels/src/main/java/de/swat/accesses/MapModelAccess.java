@@ -2,13 +2,15 @@ package de.swat.accesses;
 
 import de.swat.datamodels.MapDataModel;
 import de.swat.IModelAccess;
+import java.io.*;
 /**
  * Klasse automatisch generiert! Nicht veraendern oder ueberschreiben!!
  * @see de.swat.annotationProcessors.dataModelProcessor.DataModelProcessor
  */
-public class MapModelAccess implements IModelAccess
+public class MapModelAccess implements IModelAccess, Serializable
 {
 
+	private static final long serialVersionUID = 1L;
 	private static final MapDataModel INSTANCE = new MapDataModel();
 
 	public de.swat.Raster getRaster()
