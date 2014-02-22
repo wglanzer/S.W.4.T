@@ -40,7 +40,7 @@ public class DataModelProcessor extends AbstractProcessor
           out.write(" * Klasse automatisch generiert! Nicht veraendern oder ueberschreiben!!\r\n");
           out.write(" * @see " + this.getClass().getName() + "\r\n");
           out.write(" */\r\n");
-          out.write("@Generated(value = \"" + this.getClass().getName() + "\")\r\n");
+          out.write("@Generated(value = \"" + this.getClass().getName() + "\", date = \"" + _getDate() + "\")\r\n");
           out.write("public class " + newClassName + " extends AbstractModelAccess\r\n");
           out.write("{\r\n");
           out.write("\r\n");
@@ -77,6 +77,13 @@ public class DataModelProcessor extends AbstractProcessor
       }
     }
     return true;
+  }
+
+  private String _getDate()
+  {
+    Date date = new Date();
+    DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy-HH:mm:ss");
+    return dateFormat.format(date);
   }
 
   /**
