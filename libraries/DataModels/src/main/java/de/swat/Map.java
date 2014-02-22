@@ -16,11 +16,17 @@ import java.util.ArrayList;
 public class Map
 {
 
-  private MapModelAccess modelAccess = (MapModelAccess) DataModelHandler.newModelAccess(MapModelAccess.class);
+  private MapModelAccess modelAccess;
 
   public Map()
   {
+    modelAccess = (MapModelAccess) DataModelHandler.newModelAccess(MapModelAccess.class);
     modelAccess.setRaster(new Raster(10, new Dimension(IWindowConstants.MAX_RASTERWIDTH, IWindowConstants.MAX_RASTERHEIGHT), this));
+  }
+
+  public Map(MapModelAccess pModelAccess)
+  {
+    modelAccess = pModelAccess;
   }
 
   /**
