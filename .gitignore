@@ -37,4 +37,5 @@ dependency-reduced-pom.xml
 /*.iml
 
 
-accesses
+**/accesses/
+/libraries/**/accesses/
