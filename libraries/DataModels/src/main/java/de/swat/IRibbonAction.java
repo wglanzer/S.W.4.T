@@ -15,10 +15,6 @@ import java.awt.event.ActionEvent;
  */
 public interface IRibbonAction extends IAction, Comparable
 {
-  public static final int SMALL = 1;
-  public static final int MEDIUM = 2;
-  public static final int LARGE = 3;
-
   /**
    * Führt sich aus, wenn auf den Button gedrückt wurde
    *
@@ -42,11 +38,6 @@ public interface IRibbonAction extends IAction, Comparable
    * @return Position des Commandbuttons im vergleich dann zu anderen
    */
   int getPosition();
-
-  /**
-   * @return Gibt die Größe des CommandButtons zurück, SMALL, MEDIUM oder LARGE
-   */
-  int getSize();
 
   /**
    * @return Haupt-Kategorie, in die der Button einzuordnen ist

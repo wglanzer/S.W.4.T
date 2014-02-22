@@ -5,12 +5,11 @@ import de.swat.accesses.*;
 import de.swat.annotations.RibbonAction;
 import de.swat.constants.IRibbonConstants;
 import de.swat.enums.*;
-import de.swat.util.ImageUtil;
+import de.swat.util.*;
 import org.pushingpixels.flamingo.api.common.icon.ResizableIcon;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.io.File;
+import java.awt.event.*;
 
 /**
  * Action, um ein MapDataModel zu von der Festplatte zu laden
@@ -23,12 +22,33 @@ public class OpenAction implements IRibbonAction
   @Override
   public void actionPerformed(ActionEvent pSourceEvent, JComponent pInvoker, IModelAccess pModelAccess)
   {
+    if (pModelAccess instanceof MapCreatorModelAccess)
+    {
+      final MapCreatorModelAccess modelAccess = (MapCreatorModelAccess) pModelAccess;
+
+      final JFileChooser fileChooser = new JFileChooser();
+      fileChooser.addActionListener(new ActionListener()
+      {
+        @Override
+        public void actionPerformed(ActionEvent e)
+        {
+          fileChooser.removeActionListener(this);
+          if (fileChooser.getSelectedFile() != null)
+          {
+            MapModelAccess newDataModel = (MapModelAccess) SaveUtil.load(fileChooser.getSelectedFile());
+            Map map = new Map(newDataModel);
+            modelAccess.setMap(map);
+          }
+        }
+      });
+      fileChooser.showOpenDialog(null);
+    }
   }
 
   @Override
   public ResizableIcon getIcon()
   {
-    return ImageUtil.loadResizableIcon(OpenAction.class.getResource(""), IRibbonConstants.ICON_SIZE);
+    return ImageUtil.loadResizableIcon(OpenAction.class.getResource("folder.png"), IRibbonConstants.ICON_SIZE);
   }
 
   @Override
@@ -40,19 +60,13 @@ public class OpenAction implements IRibbonAction
   @Override
   public int getPosition()
   {
-    return 0;
-  }
-
-  @Override
-  public int getSize()
-  {
-    return LARGE;
+    return 100;
   }
 
   @Override
   public ERibbonCategory getCategory()
   {
-    return ERibbonCategory.Anderes;
+    return ERibbonCategory.COMMON;
   }
 
   @Override

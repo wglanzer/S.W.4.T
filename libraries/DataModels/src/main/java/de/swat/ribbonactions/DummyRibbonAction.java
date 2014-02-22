@@ -36,12 +36,6 @@ public class DummyRibbonAction implements IRibbonAction
   }
 
   @Override
-  public int getSize()
-  {
-    return 0;
-  }
-
-  @Override
   public ERibbonCategory getCategory()
   {
     return null;
