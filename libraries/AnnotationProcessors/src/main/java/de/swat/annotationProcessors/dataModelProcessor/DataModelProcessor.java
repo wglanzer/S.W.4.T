@@ -9,7 +9,8 @@ import javax.lang.model.element.*;
 import javax.lang.model.util.ElementFilter;
 import javax.tools.Diagnostic;
 import java.io.PrintWriter;
-import java.util.Set;
+import java.text.*;
+import java.util.*;
 
 @SupportedAnnotationTypes("de.swat.annotations.DataModel")
 @SupportedSourceVersion(SourceVersion.RELEASE_7)
@@ -34,10 +35,12 @@ public class DataModelProcessor extends AbstractProcessor
           out.write("\r\n");
           out.write("import de.swat.datamodels." + oldClassName + ";\r\n");
           out.write("import de.swat.AbstractModelAccess;\r\n");
+          out.write("import javax.annotation.Generated;\r\n");
           out.write("/**\r\n");
           out.write(" * Klasse automatisch generiert! Nicht veraendern oder ueberschreiben!!\r\n");
           out.write(" * @see " + this.getClass().getName() + "\r\n");
           out.write(" */\r\n");
+          out.write("@Generated(value = \"" + this.getClass().getName() + "\")\r\n");
           out.write("public class " + newClassName + " extends AbstractModelAccess\r\n");
           out.write("{\r\n");
           out.write("\r\n");
@@ -50,16 +53,16 @@ public class DataModelProcessor extends AbstractProcessor
             String type = currElement.asType().toString();
 
             //Getter
-            out.write("\tpublic " + type + " get" + capitalizeFirstLetter(currElement.getSimpleName()) + "()\r\n");
+            out.write("\tpublic " + type + " get" + _capitalizeFirstLetter(currElement.getSimpleName()) + "()\r\n");
             out.write("\t{\r\n");
-            out.write("\t\treturn INSTANCE.get" + capitalizeFirstLetter(currElement.getSimpleName()) + "();\r\n");
+            out.write("\t\treturn INSTANCE.get" + _capitalizeFirstLetter(currElement.getSimpleName()) + "();\r\n");
             out.write("\t}\r\n");
             out.write("\r\n");
 
             //Setter
-            out.write("\tpublic void set" + capitalizeFirstLetter(currElement.getSimpleName()) + "(" + type + " pParam)\r\n");
+            out.write("\tpublic void set" + _capitalizeFirstLetter(currElement.getSimpleName()) + "(" + type + " pParam)\r\n");
             out.write("\t{\r\n");
-            out.write("\t\tINSTANCE.set" + capitalizeFirstLetter(currElement.getSimpleName()) + "(pParam);\r\n");
+            out.write("\t\tINSTANCE.set" + _capitalizeFirstLetter(currElement.getSimpleName()) + "(pParam);\r\n");
             out.write("\t\t_fireFieldChanged(this, getFieldByName(\"" + currElement.getSimpleName() + "\", " + oldClassName + ".class), pParam);\r\n");
             out.write("\t}\r\n");
             out.write("\r\n");
@@ -82,7 +85,7 @@ public class DataModelProcessor extends AbstractProcessor
    * @param pObject Object, das verwendet werden soll
    * @return String mit Anfangsbuchstaben groß
    */
-  private String capitalizeFirstLetter(Object pObject)
+  private String _capitalizeFirstLetter(Object pObject)
   {
     String objectString = pObject.toString();
     return Character.toString(objectString.charAt(0)).toUpperCase() + objectString.substring(1);
