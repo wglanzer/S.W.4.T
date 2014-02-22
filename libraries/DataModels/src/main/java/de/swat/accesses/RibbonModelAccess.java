@@ -1,13 +1,12 @@
 package de.swat.accesses;
 
 import de.swat.datamodels.RibbonDataModel;
-import de.swat.IModelAccess;
-import java.io.*;
+import de.swat.AbstractModelAccess;
 /**
  * Klasse automatisch generiert! Nicht veraendern oder ueberschreiben!!
  * @see de.swat.annotationProcessors.dataModelProcessor.DataModelProcessor
  */
-public class RibbonModelAccess implements IModelAccess, Serializable
+public class RibbonModelAccess extends AbstractModelAccess
 {
 
 	private static final long serialVersionUID = 1L;
@@ -21,6 +20,7 @@ public class RibbonModelAccess implements IModelAccess, Serializable
 	public void setButtonWidth(int pParam)
 	{
 		INSTANCE.setButtonWidth(pParam);
+		_fireFieldChanged(this, getFieldByName("buttonWidth", RibbonDataModel.class), pParam);
 	}
 
 	public java.util.Set<de.swat.IRibbonAction> getChildren()
@@ -31,6 +31,7 @@ public class RibbonModelAccess implements IModelAccess, Serializable
 	public void setChildren(java.util.Set<de.swat.IRibbonAction> pParam)
 	{
 		INSTANCE.setChildren(pParam);
+		_fireFieldChanged(this, getFieldByName("children", RibbonDataModel.class), pParam);
 	}
 
 }

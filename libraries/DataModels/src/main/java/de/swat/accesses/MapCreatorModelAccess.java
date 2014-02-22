@@ -1,13 +1,12 @@
 package de.swat.accesses;
 
 import de.swat.datamodels.MapCreatorDataModel;
-import de.swat.IModelAccess;
-import java.io.*;
+import de.swat.AbstractModelAccess;
 /**
  * Klasse automatisch generiert! Nicht veraendern oder ueberschreiben!!
  * @see de.swat.annotationProcessors.dataModelProcessor.DataModelProcessor
  */
-public class MapCreatorModelAccess implements IModelAccess, Serializable
+public class MapCreatorModelAccess extends AbstractModelAccess
 {
 
 	private static final long serialVersionUID = 1L;
@@ -21,6 +20,7 @@ public class MapCreatorModelAccess implements IModelAccess, Serializable
 	public void setMap(de.swat.Map pParam)
 	{
 		INSTANCE.setMap(pParam);
+		_fireFieldChanged(this, getFieldByName("map", MapCreatorDataModel.class), pParam);
 	}
 
 }

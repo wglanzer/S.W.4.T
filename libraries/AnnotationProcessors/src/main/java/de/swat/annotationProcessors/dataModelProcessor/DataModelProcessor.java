@@ -33,13 +33,12 @@ public class DataModelProcessor extends AbstractProcessor
           out.write("package de.swat.accesses;\r\n");
           out.write("\r\n");
           out.write("import de.swat.datamodels." + oldClassName + ";\r\n");
-          out.write("import de.swat.IModelAccess;\r\n");
-          out.write("import java.io.*;\r\n");
+          out.write("import de.swat.AbstractModelAccess;\r\n");
           out.write("/**\r\n");
           out.write(" * Klasse automatisch generiert! Nicht veraendern oder ueberschreiben!!\r\n");
           out.write(" * @see " + this.getClass().getName() + "\r\n");
           out.write(" */\r\n");
-          out.write("public class " + newClassName + " implements " + implementedClasses + "\r\n");
+          out.write("public class " + newClassName + " extends AbstractModelAccess\r\n");
           out.write("{\r\n");
           out.write("\r\n");
           out.write("\tprivate static final long serialVersionUID = " + IVersion.DataModelVersion + "L;\r\n");
@@ -61,6 +60,7 @@ public class DataModelProcessor extends AbstractProcessor
             out.write("\tpublic void set" + capitalizeFirstLetter(currElement.getSimpleName()) + "(" + type + " pParam)\r\n");
             out.write("\t{\r\n");
             out.write("\t\tINSTANCE.set" + capitalizeFirstLetter(currElement.getSimpleName()) + "(pParam);\r\n");
+            out.write("\t\t_fireFieldChanged(this, getFieldByName(\"" + currElement.getSimpleName() + "\", " + oldClassName + ".class), pParam);\r\n");
             out.write("\t}\r\n");
             out.write("\r\n");
           }
