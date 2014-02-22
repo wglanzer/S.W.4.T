@@ -252,7 +252,8 @@ public class CoreRibbonResizePolicies {
 				if (hasLeadingContent) {
 					result += gap;
 				}
-				result += getPreferredWidth(top, RibbonElementPriority.TOP);
+				//result += getPreferredWidth(top, RibbonElementPriority.TOP);    //Hat nicht funktioniert, deswegen umtausch
+        result += top.getPreferredSize().getWidth();
 				hasLeadingContent = true;
 			}
 

@@ -91,7 +91,7 @@ public class Ribbon extends JRibbon
         List<IRibbonAction> sortedCommandButtonActions = _sortListByComponentID(commandButtonActions);
 
         for (IRibbonAction currAction : sortedCommandButtonActions)
-          ribbonBand.addRibbonComponent(_getCommandButtonFromRibbonAction(currAction), currAction.getSize());
+            ribbonBand.addCommandButton(_getCommandButtonFromRibbonAction(currAction), RibbonElementPriority.TOP);
 
         //ribbonBand.setMinimumSize(new Dimension(800, 120));
 
@@ -99,8 +99,8 @@ public class Ribbon extends JRibbon
       }
 
       JRibbonBand[] ribbonTasks = ribbonBands.toArray(new JRibbonBand[ribbonBands.size()]);
-      RibbonTask task = new RibbonTask(currCategory.name(), ribbonTasks);
-      task.setPosition(currCategory.ordinal());
+      RibbonTask task = new RibbonTask(currCategory.getDisplayName(), ribbonTasks);
+      task.setPosition(currCategory.getPosition());
       returnList.add(task);
     }
 
@@ -141,7 +141,7 @@ public class Ribbon extends JRibbon
     return returnMap;
   }
 
-  private JRibbonComponent _getCommandButtonFromRibbonAction(final IRibbonAction pAction)
+  private JCommandButton _getCommandButtonFromRibbonAction(final IRibbonAction pAction)
   {
     ResizableIcon icon = pAction.getIcon();
     String title = pAction.getTitle();
@@ -156,7 +156,7 @@ public class Ribbon extends JRibbon
         pAction.actionPerformed(e, commandButton, mapCreatorModelAccess);
       }
     });
-    return component;
+    return commandButton;
   }
 
   /**
