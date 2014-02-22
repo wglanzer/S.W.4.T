@@ -2,10 +2,12 @@ package de.swat.accesses;
 
 import de.swat.datamodels.PropertySheetDataModel;
 import de.swat.AbstractModelAccess;
+import javax.annotation.Generated;
 /**
  * Klasse automatisch generiert! Nicht veraendern oder ueberschreiben!!
  * @see de.swat.annotationProcessors.dataModelProcessor.DataModelProcessor
  */
+@Generated(value = "de.swat.annotationProcessors.dataModelProcessor.DataModelProcessor")
 public class PropertySheetModelAccess extends AbstractModelAccess
 {
 
