@@ -886,6 +886,8 @@ public class BasicRibbonBandUI extends RibbonBandUI {
 		int result = font.getSize() + 5;
 		if (result % 2 == 0)
 			result++;
+
+    //Titel ausgeschalten
 		return result;
 	}
 
@@ -933,7 +935,8 @@ public class BasicRibbonBandUI extends RibbonBandUI {
 				int width, int height) {
 			Graphics2D g2d = (Graphics2D) g.create();
 			g2d.setColor(this.color);
-			g2d.drawRoundRect(x, y, width - 1, height - 1, 3, 3);
+			//g2d.drawRoundRect(x, y, width - 1, height - 1, 3, 3);
+      g2d.drawLine(x + width - 1, y - 1, x + width - 1, y + height + 1);
 			g2d.dispose();
 		}
 

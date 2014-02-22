@@ -736,7 +736,8 @@ public class BasicCommandButtonUI extends CommandButtonUI {
                 : null;
 
         // first time - paint the full background passing both models
-        this.paintButtonBackground(graphics, toFill, actionModel, popupModel);
+        //Dann nicht mehr ganz so extrem
+        //this.paintButtonBackground(graphics, toFill, actionModel, popupModel);
 
         Rectangle actionArea = this.getLayoutInfo().actionClickArea;
         Rectangle popupArea = this.getLayoutInfo().popupClickArea;

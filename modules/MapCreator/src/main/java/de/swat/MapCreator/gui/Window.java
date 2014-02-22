@@ -57,7 +57,7 @@ public class Window extends JFrame
     /*Ribbon*/
     JPanel ribbonPanel = new JPanel(null);
     ribbon.setLocation(0, -28);
-    ribbon.setSize(IWindowConstants.WINDOW_WIDTH, (IRibbonConstants.BUTTON_SIZE + 45) - ribbon.getY());
+    ribbon.setSize(IWindowConstants.WINDOW_WIDTH, (IRibbonConstants.BUTTON_SIZE + 28 + 17) - ribbon.getY());
     ribbonPanel.add(ribbon);
     ribbonPanel.setPreferredSize(new Dimension(0, ribbon.getSize().height + ribbon.getY()));
     add(ribbonPanel, BorderLayout.NORTH);
