@@ -10,7 +10,7 @@ import java.awt.event.ActionEvent;
 /**
  * @author W. Glanzer, 18.02.2014
  */
-public class DummyRibbonAction implements IRibbonAction
+public class DummyRibbonAction extends AbstractRibbonAction
 {
   @Override
   public void actionPerformed(ActionEvent pSourceEvent, JComponent pInvoker, IModelAccess pModelAccess)
@@ -47,9 +47,4 @@ public class DummyRibbonAction implements IRibbonAction
     return null;
   }
 
-  @Override
-  public int compareTo(Object o)
-  {
-    return 0;
-  }
 }

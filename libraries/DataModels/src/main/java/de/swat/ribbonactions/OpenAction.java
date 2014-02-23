@@ -17,7 +17,7 @@ import java.awt.event.*;
  * @author W. Glanzer, 18.02.14
  */
 @RibbonAction
-public class OpenAction implements IRibbonAction
+public class OpenAction extends AbstractRibbonAction
 {
   @Override
   public void actionPerformed(ActionEvent pSourceEvent, JComponent pInvoker, IModelAccess pModelAccess)
@@ -72,12 +72,7 @@ public class OpenAction implements IRibbonAction
   @Override
   public ERibbonSubCategory getSubCategory()
   {
-    return ERibbonSubCategory.Map;
+    return ERibbonSubCategory.FILE;
   }
 
-  @Override
-  public int compareTo(Object o)
-  {
-    return 0;
-  }
 }

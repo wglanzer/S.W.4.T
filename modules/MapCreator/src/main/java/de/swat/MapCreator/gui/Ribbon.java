@@ -29,7 +29,6 @@ import java.util.List;
 public class Ribbon extends JRibbon
 {
   public List<IRibbonAction> actions = new ArrayList<>();
-
   private RibbonModelAccess modelAccess = new RibbonModelAccess();
   private MapCreatorModelAccess mapCreatorModelAccess = MapCreator.getMapCreatorModelAccess();
 
@@ -82,7 +81,7 @@ public class Ribbon extends JRibbon
       for (ERibbonSubCategory currSubCategory : sortedSubCategories.keySet())
       {
         //JRibbonBand initialisieren und ResizePolicy hinzufügen
-        JRibbonBand ribbonBand = new JRibbonBand(currSubCategory.name(), null);
+        JRibbonBand ribbonBand = new JRibbonBand(currSubCategory.getDisplayName(), null);
         List<RibbonBandResizePolicy> result = new ArrayList<>();
         result.add(new CoreRibbonResizePolicies.None(ribbonBand.getControlPanel()));
         ribbonBand.setResizePolicies(result);
@@ -91,7 +90,7 @@ public class Ribbon extends JRibbon
         List<IRibbonAction> sortedCommandButtonActions = _sortListByComponentID(commandButtonActions);
 
         for (IRibbonAction currAction : sortedCommandButtonActions)
-            ribbonBand.addCommandButton(_getCommandButtonFromRibbonAction(currAction), RibbonElementPriority.TOP);
+          ribbonBand.addCommandButton(_getCommandButtonFromRibbonAction(currAction), RibbonElementPriority.TOP);
 
         //ribbonBand.setMinimumSize(new Dimension(800, 120));
 
@@ -136,7 +135,25 @@ public class Ribbon extends JRibbon
 
   private TreeMultimap<ERibbonSubCategory, IRibbonAction> _sortSubcategoriesByOrdinal(ArrayListMultimap<ERibbonSubCategory, IRibbonAction> pContainers)
   {
-    TreeMultimap<ERibbonSubCategory, IRibbonAction> returnMap = TreeMultimap.create();
+    Comparator<ERibbonSubCategory> compKeys = new Comparator<ERibbonSubCategory>()
+    {
+      @Override
+      public int compare(ERibbonSubCategory o1, ERibbonSubCategory o2)
+      {
+        return o1.getPosition() - o2.getPosition();
+      }
+    };
+
+    Comparator<IRibbonAction> compValues = new Comparator<IRibbonAction>()
+    {
+      @Override
+      public int compare(IRibbonAction o1, IRibbonAction o2)
+      {
+        return 0;
+      }
+    };
+
+    TreeMultimap<ERibbonSubCategory, IRibbonAction> returnMap = TreeMultimap.create(compKeys, compValues);
     returnMap.putAll(pContainers);
     return returnMap;
   }
@@ -165,7 +182,7 @@ public class Ribbon extends JRibbon
    * sortiert in einer ArrayListMultimap abgelegt
    *
    * @return ArrayListMultimap mit JCommandButtons, sortiert nach
-   * Kategorie
+   *         Kategorie
    */
   private ArrayListMultimap<ERibbonCategory, IRibbonAction> _getRibbonComponents()
   {
