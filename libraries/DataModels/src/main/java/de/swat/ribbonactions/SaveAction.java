@@ -33,7 +33,7 @@ public class SaveAction extends AbstractRibbonAction
         {
           fileChooser.removeActionListener(this);
           if (fileChooser.getSelectedFile() != null)
-            SaveUtil.save(modelAccess.getMap().getModelAccess(), fileChooser.getSelectedFile());
+            SaveUtil.save(modelAccess.getMapCreatorMap().getModelAccess(), fileChooser.getSelectedFile());
         }
       });
       fileChooser.showOpenDialog(null);

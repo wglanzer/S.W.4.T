@@ -36,8 +36,8 @@ public class OpenAction extends AbstractRibbonAction
           if (fileChooser.getSelectedFile() != null)
           {
             MapModelAccess newDataModel = (MapModelAccess) SaveUtil.load(fileChooser.getSelectedFile());
-            Map map = new Map(newDataModel);
-            modelAccess.setMap(map);
+            MapCreatorMap map = new MapCreatorMap(modelAccess, new Map(newDataModel));
+            modelAccess.setMapCreatorMap(map);
           }
         }
       });

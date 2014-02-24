@@ -24,7 +24,7 @@ public class NewFileAction extends AbstractRibbonAction
     if(pModelAccess instanceof MapCreatorModelAccess)
     {
       MapCreatorModelAccess modelAccess = (MapCreatorModelAccess) pModelAccess;
-      modelAccess.setMap(new Map());
+      modelAccess.setMapCreatorMap(new MapCreatorMap(modelAccess));
     }
   }
 
