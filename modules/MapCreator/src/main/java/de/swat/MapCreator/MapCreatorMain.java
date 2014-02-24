@@ -17,7 +17,7 @@ public class MapCreatorMain
 
   public static void main(String[] args)
   {
-    _setLookAndFeel();
+    //_setLookAndFeel();
     new MapCreatorMain();
   }
 
