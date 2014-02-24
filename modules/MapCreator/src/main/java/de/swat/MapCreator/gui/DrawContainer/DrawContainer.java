@@ -1,10 +1,12 @@
 package de.swat.MapCreator.gui.DrawContainer;
 
-import de.swat.Map;
+import de.swat.*;
 import de.swat.MapCreator.brushes.*;
+import de.swat.accesses.MapCreatorModelAccess;
 import de.swat.dataModels.Map.*;
 import de.swat.exceptions.SwatRuntimeException;
 import de.swat.utils.PointUtil;
+import javafx.collections.ObservableList;
 import net.coobird.thumbnailator.Thumbnails;
 import org.jetbrains.annotations.Nullable;
 
@@ -14,7 +16,6 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  * Dieser Container kann DrawableImages darstellen
@@ -24,12 +25,8 @@ import java.util.ArrayList;
  */
 public class DrawContainer extends JPanel
 {
-  private final Map map;
-  private ArrayList<DrawableImage> pImagesToDraw = new ArrayList<>();
-  private ArrayList<Point> clickedPoints = new ArrayList<>();
-  private ArrayList<AbstractCollisionObjectDataModel> structureRectangles = new ArrayList<>();
-  private BufferedImage backgroundimage = null;
-  private ArrayList<Point> collisionPoints = new ArrayList<>();
+  private final MapCreatorModelAccess modelAccess;
+  private MapCreatorMap map;
   public int xOff = 0;
   public int yOff = 0;
   private boolean isInitialised = false;
@@ -37,14 +34,20 @@ public class DrawContainer extends JPanel
   private Point actualMousePoint = new Point(0, 0);
   private IBrush actualBrush = new PointBrush();
 
-  public DrawContainer(Map pMap)
+  public DrawContainer(MapCreatorModelAccess pModelAccess)
   {
-    map = pMap;
+    modelAccess = pModelAccess;
+    map = pModelAccess.getMapCreatorMap();
     setOpaque(true);
     setUI(new BasicPanelUI());
     setBackground(Color.BLACK);
     addMouseListener(new Mouse());
     addMouseMotionListener(new MouseMove());
+    _setListeners();
+  }
+
+  private void _setListeners()
+  {
     addComponentListener(new ComponentAdapter()
     {
       @Override
@@ -57,19 +60,39 @@ public class DrawContainer extends JPanel
         }
       }
     });
+
+    map.addFieldChangeListener(new IFieldChangeListener()
+    {
+      @Override
+      public void fieldChanged(FieldChangeObject pFieldObject)
+      {
+        repaint();
+      }
+    });
+
+    modelAccess.addFieldChangeListener(new IFieldChangeListener()
+    {
+      @Override
+      public void fieldChanged(FieldChangeObject pFieldObject)
+      {
+        if(pFieldObject.getSourceField().getName().equalsIgnoreCase("mapCreatorMap"))
+        {
+          map = (MapCreatorMap) pFieldObject.getNewValue();
+          repaint();
+        }
+      }
+    });
   }
 
   @Override
   protected void paintComponent(Graphics g)
   {
     super.paintComponent(g);
+    ObservableList<Point> clickedPoints = map.getClickedPoints();
 
+    BufferedImage backgroundimage = map.getBackgroundimage();
     if (backgroundimage != null)
       g.drawImage(backgroundimage, -xOff, -yOff, null);
-
-    /*Geht die Images durch, die gezeichnet werden sollen*/
-    for (DrawableImage currImage : pImagesToDraw)
-      g.drawImage(currImage.image, currImage.x - xOff, currImage.y - yOff, null);
 
     /*Zeichnet die Punkte, die bereits schon geklickt wurden. Ebenso eine Linie, die die letzen beiden Punkte verbindet*/
     for (int i = 0; i < clickedPoints.size(); i++)
@@ -91,13 +114,11 @@ public class DrawContainer extends JPanel
 
     /*Zeichnet die Kollisionspunkte*/
     g.setColor(Color.BLUE);
-    for (Point currPoint : collisionPoints)
-    {
+    for (Point currPoint : map.getCollisionPoints())
       g.drawRoundRect(currPoint.x - 4 - xOff, currPoint.y - 4 - yOff, 8, 8, 8, 8);
-    }
 
     /*Zeichnet die structureRectangles, die durch addStructureRectangle gesetzt werden*/
-    for (AbstractCollisionObjectDataModel objectDataModel : structureRectangles)
+    for (AbstractCollisionObjectDataModel objectDataModel : map.getStructureRectangles())
     {
       if (objectDataModel instanceof StructureCollisionObjectDataModel)
       {
@@ -143,50 +164,16 @@ public class DrawContainer extends JPanel
     if (pShouldBeResized)
       try
       {
-        backgroundimage = Thumbnails.of(pImage).size(getWidth(), getHeight()).asBufferedImage();
+        map.setBackgroundimage(Thumbnails.of(pImage).size(getWidth(), getHeight()).asBufferedImage());
       }
       catch (IOException e)
       {
         throw new SwatRuntimeException("Background image could not be set! Error in module 'Thumbnails'", e);
       }
     else
-      backgroundimage = pImage;
+      map.setBackgroundimage(pImage);
 
     repaint();
-  }
-
-  /**
-   * Zeichnet ein Bild an eine bestimmte Stelle im Container.
-   * Die Koordinaten müssen relativ zum Panel angegeben werden.
-   *
-   * @param pX X-Koordinate
-   * @param pY Y-Koordinate
-   */
-  public void drawPicAt(@Nullable BufferedImage pImage, int pID, int pX, int pY)
-  {
-    if (pImage == null)
-      return;
-
-    DrawableImage picToAdd = new DrawableImage(pImage, pID, pX, pY);
-    pImagesToDraw.add(picToAdd);
-    repaint();
-  }
-
-  /**
-   * Liefert die aktuellen Punkte, die gedrückt wurden und
-   * löscht danach die Liste der Punkte, sodass wieder
-   * neue Punkte hinzugefügt werden können und keine
-   * Überreste überbleiben
-   *
-   * @return ClickedPoints
-   */
-  public ArrayList<Point> getClickedPoints()
-  {
-    //TODO sollte evtl. bei Zeiten schöner gemacht werden
-    ArrayList<Point> returnList = new ArrayList<>();
-    returnList.addAll(clickedPoints);
-    clickedPoints.clear();
-    return returnList;
   }
 
   /**
@@ -194,7 +181,7 @@ public class DrawContainer extends JPanel
    */
   public void clearClickedPoints()
   {
-    clickedPoints.clear();
+    map.getClickedPoints().clear();
     repaint();
   }
 
@@ -211,7 +198,7 @@ public class DrawContainer extends JPanel
   public void addStructureObject(@Nullable StructureCollisionObjectDataModel pStructureObject)
   {
     if (pStructureObject != null)
-      structureRectangles.add(pStructureObject);
+      map.getStructureRectangles().add(pStructureObject);
   }
 
   private class MouseMove extends MouseMotionAdapter
@@ -246,11 +233,11 @@ public class DrawContainer extends JPanel
         {
           /**LINKE MAUSTASTE*/
           case MouseEvent.BUTTON1:
-            if (clickedPoints.size() > 1)
+            if (map.getClickedPoints().size() > 1)
             {
-              if (PointUtil.checkProximity(clickedPoints.get(0), clickPoint, proxRadius))
+              if (PointUtil.checkProximity(map.getClickedPoints().get(0), clickPoint, proxRadius))
               {
-                map.addPoints(clickedPoints);
+                map.addPoints(map.getClickedPoints());
                 clearClickedPoints();
                 StructureCollisionObjectDataModel newObject = map.finishStructure();
                 addStructureObject(newObject);
@@ -258,14 +245,14 @@ public class DrawContainer extends JPanel
               }
               else
               {
-                actualBrush.drawBrush(clickedPoints, clickPoint);
+                actualBrush.drawBrush(map.getClickedPoints(), clickPoint);
               }
             }
             else
             {
-              actualBrush.drawBrush(clickedPoints, clickPoint);
+              actualBrush.drawBrush(map.getClickedPoints(), clickPoint);
             }
-            if (clickedPoints.size() > 1)
+            if (map.getClickedPoints().size() > 1)
             {
               //  //Point possPoint = dataModel.checkFirstCollision(new Vector2D(new Point2D(clickedPoints.get(clickedPoints.size() - 2).x, clickedPoints.get(clickedPoints.size() - 2).y), new Point2D(clickedPoints.get(clickedPoints.size() - 1).x, clickedPoints.get(clickedPoints.size() - 1).y)));
               //  //if (possPoint != null)
@@ -285,10 +272,8 @@ public class DrawContainer extends JPanel
               //  collisionPoints.add(edgePoint);
               //}
 
-              if (clickedPoints.size() == 10)
-              {
-                collisionPoints = (map.findPath(new Point(100, 100), new Point(800, 800), 10));
-              }
+              if (map.getClickedPoints().size() == 10)
+                map.setCollisionPoints(map.findPath(new Point(100, 100), new Point(800, 800), 10));
             }
             repaint();
             break;
@@ -296,11 +281,11 @@ public class DrawContainer extends JPanel
           /**RECHTE MAUSTASTE*/
           case MouseEvent.BUTTON3:
 
-            for (Point currPoint : clickedPoints)
+            for (Point currPoint : map.getClickedPoints())
             {
               if (PointUtil.checkProximity(currPoint, clickPoint, proxRadius))
               {
-                clickedPoints.remove(currPoint);
+                map.getClickedPoints().remove(currPoint);
                 repaint();
                 break;
               }

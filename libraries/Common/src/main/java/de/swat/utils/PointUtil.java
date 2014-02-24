@@ -1,9 +1,9 @@
 package de.swat.utils;
 
 import de.swat.math.*;
+import javafx.collections.ObservableList;
 
 import java.awt.*;
-import java.util.ArrayList;
 
 /**
  * @author W. Glanzer, 01.12.13
@@ -86,7 +86,7 @@ public class PointUtil
    * @param pPointList Die zu überprüfende Struktur
    * @return Die Länge der Struktur
    */
-  public static double getLengthFromStructure(ArrayList<Point> pPointList)
+  public static double getLengthFromStructure(ObservableList<Point> pPointList)
   {
     double returnValue = 0;
     for (int i = 1; i < pPointList.size(); i++)

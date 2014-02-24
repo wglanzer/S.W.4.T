@@ -1,10 +1,6 @@
 package de.swat.util;
 
-import de.ruedigermoeller.serialization.FSTObjectInput;
-import de.ruedigermoeller.serialization.util.FSTOutputStream;
 import de.swat.IModelAccess;
-import de.swat.datamodels.IDataModel;
-import de.swat.exceptions.SwatRuntimeException;
 
 import java.io.*;
 
@@ -21,40 +17,42 @@ public class SaveUtil
 {
   public static void save(IModelAccess pModelAccess, File pSaveToFile)
   {
-    try (FSTOutputStream outputStream = new FSTOutputStream(new FileOutputStream(pSaveToFile)))
-    {
-      // Objektausgabekanal für Serialisierung Öffnen
-      ObjectOutputStream objectOutput = new ObjectOutputStream(outputStream);
-
-      // Objekte serialisiert in Datei ausgeben
-      objectOutput.writeObject(pModelAccess);
-
-      // Ausgabekanal schließen
-      objectOutput.close();
-    }
-    catch (IOException e)
-    {
-      throw new SwatRuntimeException("DataModel could not be saved! (" + pModelAccess.getClass().getName() + ", " + pSaveToFile.exists() + ")", e);
-    }
+    //try (FSTOutputStream outputStream = new FSTOutputStream(new FileOutputStream(pSaveToFile)))
+    //{
+    //  // Objektausgabekanal für Serialisierung Öffnen
+    //  ObjectOutputStream objectOutput = new ObjectOutputStream(outputStream);
+    //
+    //  // Objekte serialisiert in Datei ausgeben
+    //  objectOutput.writeObject(pModelAccess);
+    //
+    //  // Ausgabekanal schließen
+    //  objectOutput.close();
+    //}
+    //catch (IOException e)
+    //{
+    //  throw new SwatRuntimeException("DataModel could not be saved! (" + pModelAccess.getClass().getName() + ", " + pSaveToFile.exists() + ")", e);
+    //}
+    throw new RuntimeException("Not implemented yet!");
   }
 
   public static IModelAccess load(File pFile)
   {
-    IModelAccess returnModel;
-
-    try (FSTObjectInput inputStream = new FSTObjectInput(new FileInputStream(pFile)))
-    {
-      // Deserialisierung
-      ObjectInputStream objectInput = new ObjectInputStream(inputStream);
-
-      // Auslesen
-      returnModel = (IModelAccess) objectInput.readObject();
-    }
-    catch (IOException | ClassNotFoundException e)
-    {
-      throw new SwatRuntimeException("File could not be loaded! (" + pFile.getAbsolutePath() + ")", e);
-    }
-
-    return returnModel;
+    //IModelAccess returnModel;
+    //
+    //try (FSTObjectInput inputStream = new FSTObjectInput(new FileInputStream(pFile)))
+    //{
+    //  // Deserialisierung
+    //  ObjectInputStream objectInput = new ObjectInputStream(inputStream);
+    //
+    //  // Auslesen
+    //  returnModel = (IModelAccess) objectInput.readObject();
+    //}
+    //catch (IOException | ClassNotFoundException e)
+    //{
+    //  throw new SwatRuntimeException("File could not be loaded! (" + pFile.getAbsolutePath() + ")", e);
+    //}
+    //
+    //return returnModel;
+    throw new RuntimeException("Not implemented yet!");
   }
 }

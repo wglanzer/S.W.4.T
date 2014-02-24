@@ -16,7 +16,7 @@ import java.awt.*;
 public class Window extends JFrame
 {
   private static final String TITLE = "S.W.4.T - MapCreator - Version 1.0.0";
-  private final Map map;
+  private final MapCreatorMap map;
   private final MapCreatorModelAccess modelAccess;
   /*GUI-Komponenten*/
   private DrawContainer drawContainer;
@@ -27,8 +27,8 @@ public class Window extends JFrame
   public Window(MapCreatorModelAccess pModelAccess)
   {
     modelAccess = pModelAccess;
-    map = modelAccess.getMap();
-    drawContainer = new DrawContainer(map);
+    map = modelAccess.getMapCreatorMap();
+    drawContainer = new DrawContainer(pModelAccess);
     ribbon = new Ribbon();
 
     setSize(new Dimension(IWindowConstants.WINDOW_WIDTH, IWindowConstants.WINDOW_HEIGHT));

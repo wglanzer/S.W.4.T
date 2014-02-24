@@ -1,7 +1,8 @@
 package de.swat.MapCreator.brushes;
 
+import javafx.collections.ObservableList;
+
 import java.awt.*;
-import java.util.ArrayList;
 
 /**
  * Brush-Interface das dazu verwendet wird,
@@ -13,6 +14,6 @@ import java.util.ArrayList;
 public interface IBrush
 {
 
-  public void drawBrush(ArrayList<Point> pActualPoints, Point pActualMousePosition);
+  public void drawBrush(ObservableList<Point> pActualPoints, Point pActualMousePosition);
 
 }

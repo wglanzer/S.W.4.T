@@ -1,10 +1,10 @@
 package de.swat;
 
 import de.swat.accesses.*;
-import de.swat.constants.IWindowConstants;
 import de.swat.dataModels.Map.*;
 import de.swat.math.*;
 import de.swat.util.DataModelHandler;
+import javafx.collections.*;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -28,14 +28,15 @@ public class Raster
     int boundX = (int) pMapSizeDimension.getWidth();
     int boundY = (int) pMapSizeDimension.getHeight();
 
-    ArrayList[][] currRasterList = new ArrayList[boundX][boundY];
+    ObservableList[][] currRasterList = new ObservableList[boundX][boundY];
     for (int i = 0; i < boundX; i++)
     {
       for (int k = 0; k < boundY; k++)
       {
-        currRasterList[i][k] = new ArrayList();
+        currRasterList[i][k] = FXCollections.observableArrayList();
       }
     }
+    //noinspection unchecked
     modelAccess.setRaster(currRasterList);
   }
 
@@ -273,11 +274,11 @@ public class Raster
    * @param pVector Kollisionsvektor
    * @return Array aus Kollisionspunkten
    */
-  public ArrayList<Point> checkAllCollisions(Vector2D pVector)
+  public ObservableList<Point> checkAllCollisions(Vector2D pVector)
   {
     int rasterSize = modelAccess.getRasterSize();
     //System.out.println("Methode aufgerufen");
-    ArrayList<Point> returnPoints = new ArrayList<>(0);
+    ObservableList<Point> returnPoints = FXCollections.observableArrayList();
     ArrayList<Integer> checkedObjects = new ArrayList<>(0);
     float aX = (float) pVector.getPoint1().getX();
     float aY = (float) pVector.getPoint1().getY();
@@ -407,7 +408,7 @@ public class Raster
   }
 
 
-  public ArrayList<Integer> getIndicesFromRaster(int x, int y)
+  public ObservableList<Integer> getIndicesFromRaster(int x, int y)
   {
     return modelAccess.getRaster()[x][y];
   }
@@ -424,7 +425,7 @@ public class Raster
    */
   public Point checkFirstCollisionFromRaster(int x, int y, Vector2D pVector, ArrayList<Integer> pCheckedObjects)
   {
-    ArrayList[][] raster = modelAccess.getRaster();
+    ObservableList[][] raster = modelAccess.getRaster();
     ////System.out.println(x + "   " + y);
     MapModelAccess mapModel = modelAccess.getMap().getModelAccess();
     if (mapModel.getCollisionObjects().size() > 0 && raster[x][y].size() > 0)
@@ -490,9 +491,9 @@ public class Raster
    * @param pReturnPoints   Punktliste, an die die Kollisionpunkte angehängt werden
    * @return Punktliste, an die die Kollisionpunkte angehängt werden
    */
-  private ArrayList<Point> checkAllCollisionsFromRaster(int x, int y, Vector2D pVector, ArrayList<Integer> pCheckedObjects, ArrayList<Point> pReturnPoints)
+  private ObservableList<Point> checkAllCollisionsFromRaster(int x, int y, Vector2D pVector, ArrayList<Integer> pCheckedObjects, ObservableList<Point> pReturnPoints)
   {
-    ArrayList[][] raster = modelAccess.getRaster();
+    ObservableList[][] raster = modelAccess.getRaster();
     MapModelAccess mapModel = modelAccess.getMap().getModelAccess();
     if (mapModel.getCollisionObjects().size() > 0 && raster[x][y].size() > 0)
     {
@@ -526,7 +527,7 @@ public class Raster
   public AbstractCollisionObjectDataModel getInteractableFromMousePosition(int pMouseX, int pMouseY)
   {
     int rasterSize = modelAccess.getRasterSize();
-    ArrayList[][] raster = modelAccess.getRaster();
+    ObservableList[][] raster = modelAccess.getRaster();
     MapModelAccess mapModel = modelAccess.getMap().getModelAccess();
     int checkX = pMouseX / rasterSize;
     int checkY = pMouseY / rasterSize;
@@ -548,14 +549,13 @@ public class Raster
    * @param pRadius     Kurvenradius
    * @return Pfad als Arraylist
    */
-  public ArrayList<Point> findPath(Point pStartPoint, Point pEndPoint, int pRadius, ArrayList<Integer> pCheckedObjects, ArrayList<Point> pCurrentPoints)
+  public ObservableList<Point> findPath(Point pStartPoint, Point pEndPoint, int pRadius, ArrayList<Integer> pCheckedObjects, ObservableList<Point> pCurrentPoints)
   {
     Vector2D pathVector = new Vector2D(new Point2D(pStartPoint.x, pStartPoint.y), new Point2D(pEndPoint.x, pEndPoint.y));
     Point collPoint = checkFirstCollision(pathVector);
     if (collPoint == null)
-    {
       return pCurrentPoints;
-    }
+
     int rasterSize = modelAccess.getRasterSize();
     int checkX = collPoint.x / rasterSize;
     int checkY = collPoint.y / rasterSize;
@@ -776,9 +776,9 @@ public class Raster
   //  return pCurrentPoints;
   //}
 
-  public ArrayList<Point> findPathFromRaster(int x, int y, Vector2D pVector, int pRadius, ArrayList<Integer> pCheckedObjects, ArrayList<Point> pCurrentPoints)
+  public ObservableList<Point> findPathFromRaster(int x, int y, Vector2D pVector, int pRadius, ArrayList<Integer> pCheckedObjects, ObservableList<Point> pCurrentPoints)
   {
-    ArrayList[][] raster = modelAccess.getRaster();
+    ObservableList[][] raster = modelAccess.getRaster();
     MapModelAccess mapModel = modelAccess.getMap().getModelAccess();
     //System.out.println(x + "   " + y);
     if (mapModel.getCollisionObjects().size() > 0 && raster[x][y].size() > 0)
@@ -837,7 +837,7 @@ public class Raster
         }
       }
 
-      ArrayList<Point> currPoints = mapModel.getCollisionObjects().get(checkIndex).findPath(pVector, pRadius);
+      ObservableList<Point> currPoints = mapModel.getCollisionObjects().get(checkIndex).findPath(pVector, pRadius);
       pCurrentPoints.addAll(currPoints);
       if (checkFirstCollision(new Vector2D(new Point2D(pCurrentPoints.get(pCurrentPoints.size() - 1).x, pCurrentPoints.get(pCurrentPoints.size() - 1).y), pVector.point2)) == null)
       {

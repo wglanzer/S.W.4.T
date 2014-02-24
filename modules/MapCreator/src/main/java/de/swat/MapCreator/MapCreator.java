@@ -1,6 +1,6 @@
 package de.swat.MapCreator;
 
-import de.swat.Map;
+import de.swat.*;
 import de.swat.MapCreator.gui.Window;
 import de.swat.accesses.MapCreatorModelAccess;
 
@@ -17,8 +17,8 @@ public class MapCreator
 
   public MapCreator()
   {
-    Map map = new Map();
-    modelAccess.setMap(map);
+    MapCreatorMap map = new MapCreatorMap(modelAccess);
+    modelAccess.setMapCreatorMap(map);
 
     Window window = new Window(modelAccess);
   }

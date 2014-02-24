@@ -1,6 +1,6 @@
 package de.swat.datamodels;
 
-import de.swat.Map;
+import de.swat.*;
 import de.swat.annotations.DataModel;
 
 /**
@@ -12,15 +12,15 @@ import de.swat.annotations.DataModel;
 public class MapCreatorDataModel
 {
 
-  private Map map;
+  private MapCreatorMap mapCreatorMap;
 
-  public Map getMap()
+  public MapCreatorMap getMapCreatorMap()
   {
-    return map;
+    return mapCreatorMap;
   }
 
-  public void setMap(Map pMap)
+  public void setMapCreatorMap(MapCreatorMap pMapCreatorMap)
   {
-    map = pMap;
+    mapCreatorMap = pMapCreatorMap;
   }
 }

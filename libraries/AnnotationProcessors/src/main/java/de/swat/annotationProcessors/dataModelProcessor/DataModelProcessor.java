@@ -63,7 +63,7 @@ public class DataModelProcessor extends AbstractProcessor
             out.write("\tpublic void set" + _capitalizeFirstLetter(currElement.getSimpleName()) + "(" + type + " pParam)\r\n");
             out.write("\t{\r\n");
             out.write("\t\tINSTANCE.set" + _capitalizeFirstLetter(currElement.getSimpleName()) + "(pParam);\r\n");
-            out.write("\t\t_fireFieldChanged(this, getFieldByName(\"" + currElement.getSimpleName() + "\", " + oldClassName + ".class), pParam);\r\n");
+            out.write("\t\tfireChange(this, \"" + currElement.getSimpleName() + "\", " + oldClassName + ".class, pParam);\r\n");
             out.write("\t}\r\n");
             out.write("\r\n");
           }

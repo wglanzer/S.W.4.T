@@ -6,6 +6,8 @@ import de.swat.dataModels.Map.*;
 import de.swat.datamodels.MapDataModel;
 import de.swat.math.Vector2D;
 import de.swat.util.DataModelHandler;
+import javafx.collections.*;
+import org.jetbrains.annotations.Nullable;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -13,7 +15,7 @@ import java.util.ArrayList;
 /**
  * @author W. Glanzer, 16.02.14
  */
-public class Map
+public class Map extends AbstractFieldChangeListener
 {
 
   private MapModelAccess modelAccess;
@@ -24,9 +26,10 @@ public class Map
     modelAccess.setRaster(new Raster(10, new Dimension(IWindowConstants.MAX_RASTERWIDTH, IWindowConstants.MAX_RASTERHEIGHT), this));
   }
 
-  public Map(MapModelAccess pModelAccess)
+  public Map(@Nullable MapModelAccess pModelAccess)
   {
-    modelAccess = pModelAccess;
+    if (pModelAccess != null)
+      modelAccess = pModelAccess;
   }
 
   /**
@@ -35,13 +38,14 @@ public class Map
    *
    * @param pPoint Die Punkte, die hinzugefügt werden sollen
    */
-  public void addPoints(ArrayList<Point> pPoint)
+  public void addPoints(ObservableList<Point> pPoint)
   {
     if (modelAccess.getCurrentStructure() == null)
     {
       newStructure();
     }
     modelAccess.getCurrentStructure().getPointList().addAll(pPoint);  //Hinzufügen des Punktes zum Structure
+    fireChange(this, "currentStructure", MapDataModel.class, modelAccess.getCurrentStructure());
   }
 
   /**
@@ -122,7 +126,7 @@ public class Map
    * @param pVector Kollisionsvektor
    * @return Kollisionspunkte
    */
-  public ArrayList<Point> checkAllCollsions(Vector2D pVector)
+  public ObservableList<Point> checkAllCollsions(Vector2D pVector)
   {
     return modelAccess.getRaster().checkAllCollisions(pVector);
   }
@@ -135,9 +139,9 @@ public class Map
    * @param pRadius     der Radius, der um Kurven eingehalten werden soll
    * @return Der Pfad als Arraylist
    */
-  public ArrayList<Point> findPath(Point pStartPoint, Point pEndPoint, int pRadius)
+  public ObservableList<Point> findPath(Point pStartPoint, Point pEndPoint, int pRadius)
   {
-    ArrayList<Point> pointList = new ArrayList<>();
+    ObservableList<Point> pointList = FXCollections.observableArrayList();
     pointList.add(pStartPoint);
     return modelAccess.getRaster().findPath(pStartPoint, pEndPoint, pRadius, new ArrayList<Integer>(), pointList);
   }
@@ -172,5 +176,10 @@ public class Map
   public MapModelAccess getModelAccess()
   {
     return modelAccess;
+  }
+
+  private void _fireChange(String pFieldName, Object pNewValue)
+  {
+    fireChange(this, pFieldName, MapDataModel.class, pNewValue);
   }
 }

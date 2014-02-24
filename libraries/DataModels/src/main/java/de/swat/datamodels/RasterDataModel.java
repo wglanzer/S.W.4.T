@@ -2,9 +2,9 @@ package de.swat.datamodels;
 
 import de.swat.Map;
 import de.swat.annotations.DataModel;
+import javafx.collections.ObservableList;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 /**
  * @author Alex Biederer, 30.11.13
@@ -16,7 +16,7 @@ public class RasterDataModel implements Serializable
    * 2-Dimensionales Feld, das eine Arraylist mit
    * Indices zu AbstractCollisionObjectDataModels liefert
    */
-  private ArrayList<Integer>[][] raster;
+  private ObservableList<Integer>[][] raster;
 
   /**
    * Größe der Raster (quadratisch) - überprüfung der Effizienz notwendig
@@ -25,12 +25,12 @@ public class RasterDataModel implements Serializable
 
   private Map map;
 
-  public ArrayList<Integer>[][] getRaster()
+  public ObservableList<Integer>[][] getRaster()
   {
     return raster;
   }
 
-  public void setRaster(ArrayList<Integer>[][] pRaster)
+  public void setRaster(ObservableList<Integer>[][] pRaster)
   {
     raster = pRaster;
   }
