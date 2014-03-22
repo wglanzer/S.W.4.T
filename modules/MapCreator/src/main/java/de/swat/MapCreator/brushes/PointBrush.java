@@ -1,6 +1,6 @@
 package de.swat.MapCreator.brushes;
 
-import javafx.collections.ObservableList;
+import de.swat.observableList2.ObservableList2;
 
 import java.awt.*;
 
@@ -16,7 +16,7 @@ public class PointBrush extends AbstractBrush
 {
 
   @Override
-  public void drawBrush(ObservableList<Point> pActualPoints, Point pActualMousePosition)
+  public void drawBrush(ObservableList2<Point> pActualPoints, Point pActualMousePosition)
   {
     pActualPoints.add(pActualMousePosition);
   }

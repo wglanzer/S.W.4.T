@@ -5,8 +5,8 @@ import de.swat.MapCreator.brushes.*;
 import de.swat.accesses.MapCreatorModelAccess;
 import de.swat.dataModels.Map.*;
 import de.swat.exceptions.SwatRuntimeException;
+import de.swat.observableList2.ObservableList2;
 import de.swat.utils.PointUtil;
-import javafx.collections.ObservableList;
 import net.coobird.thumbnailator.Thumbnails;
 import org.jetbrains.annotations.Nullable;
 
@@ -88,7 +88,7 @@ public class DrawContainer extends JPanel
   protected void paintComponent(Graphics g)
   {
     super.paintComponent(g);
-    ObservableList<Point> clickedPoints = map.getClickedPoints();
+    ObservableList2<Point> clickedPoints = map.getClickedPoints();
 
     BufferedImage backgroundimage = map.getBackgroundimage();
     if (backgroundimage != null)

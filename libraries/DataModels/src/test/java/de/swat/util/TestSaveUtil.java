@@ -1,10 +1,9 @@
 package de.swat.util;
 
 import de.swat.*;
-import de.swat.accesses.MapModelAccess;
+import de.swat.accesses.*;
 import org.junit.*;
 
-import java.awt.*;
 import java.io.*;
 
 /**
@@ -22,11 +21,9 @@ public class TestSaveUtil
   @Test
   public void Test_SaveUtil() throws IOException
   {
-    Map map = new Map();
-    Raster raster = new Raster(10, new Dimension(800, 600), map);
-
-    MapModelAccess mapModelAccess = map.getModelAccess();
-    mapModelAccess.setRaster(raster);
+    MapCreatorModelAccess mapModelAccess = new MapCreatorModelAccess();
+    MapCreatorMap map = new MapCreatorMap(mapModelAccess);
+    mapModelAccess.setMapCreatorMap(map);
 
     File file = new File("libraries\\DataModels\\src\\test\\java\\de\\swat\\util\\SaveUtilTest.txt");
 
@@ -39,9 +36,9 @@ public class TestSaveUtil
     SaveUtil.save(mapModelAccess, file);
 
     IModelAccess loaded = SaveUtil.load(file);
-    MapModelAccess modelAccess = (MapModelAccess) loaded;
-    Raster rasterGot = modelAccess.getRaster();
-    Assert.assertEquals(raster, rasterGot);
+    MapCreatorModelAccess modelAccess = (MapCreatorModelAccess) loaded;
+    MapCreatorMap map2 = modelAccess.getMapCreatorMap();
+    Assert.assertEquals(map, map2);
   }
 
 }

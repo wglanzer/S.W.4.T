@@ -1,7 +1,7 @@
 package de.swat.dataModels.Map;
 
+import de.swat.observableList2.ObservableList2;
 import de.swat.math.Vector2D;
-import javafx.collections.ObservableList;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -35,5 +35,5 @@ public abstract class AbstractCollisionObjectDataModel
 
   public abstract ArrayList<Point> checkAllCollisions(Vector2D pVector2D);
 
-  public abstract ObservableList<Point> findPath(Vector2D pVector, int pRadius);
+  public abstract ObservableList2<Point> findPath(Vector2D pVector, int pRadius);
 }

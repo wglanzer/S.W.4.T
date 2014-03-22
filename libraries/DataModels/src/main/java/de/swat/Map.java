@@ -5,17 +5,19 @@ import de.swat.constants.IWindowConstants;
 import de.swat.dataModels.Map.*;
 import de.swat.datamodels.MapDataModel;
 import de.swat.math.Vector2D;
+import de.swat.observableList2.ObservableList2;
 import de.swat.util.DataModelHandler;
 import javafx.collections.*;
 import org.jetbrains.annotations.Nullable;
 
 import java.awt.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * @author W. Glanzer, 16.02.14
  */
-public class Map extends AbstractFieldChangeListener
+public class Map extends AbstractFieldChangeListener implements Serializable
 {
 
   private MapModelAccess modelAccess;
@@ -38,7 +40,7 @@ public class Map extends AbstractFieldChangeListener
    *
    * @param pPoint Die Punkte, die hinzugefügt werden sollen
    */
-  public void addPoints(ObservableList<Point> pPoint)
+  public void addPoints(ObservableList2<Point> pPoint)
   {
     if (modelAccess.getCurrentStructure() == null)
     {
@@ -126,7 +128,7 @@ public class Map extends AbstractFieldChangeListener
    * @param pVector Kollisionsvektor
    * @return Kollisionspunkte
    */
-  public ObservableList<Point> checkAllCollsions(Vector2D pVector)
+  public ObservableList2<Point> checkAllCollsions(Vector2D pVector)
   {
     return modelAccess.getRaster().checkAllCollisions(pVector);
   }
@@ -139,9 +141,9 @@ public class Map extends AbstractFieldChangeListener
    * @param pRadius     der Radius, der um Kurven eingehalten werden soll
    * @return Der Pfad als Arraylist
    */
-  public ObservableList<Point> findPath(Point pStartPoint, Point pEndPoint, int pRadius)
+  public ObservableList2<Point> findPath(Point pStartPoint, Point pEndPoint, int pRadius)
   {
-    ObservableList<Point> pointList = FXCollections.observableArrayList();
+    ObservableList2<Point> pointList = new ObservableList2<>();
     pointList.add(pStartPoint);
     return modelAccess.getRaster().findPath(pStartPoint, pEndPoint, pRadius, new ArrayList<Integer>(), pointList);
   }

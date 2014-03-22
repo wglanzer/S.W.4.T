@@ -1,8 +1,8 @@
 package de.swat.dataModels.Map;
 
 import de.swat.math.*;
+import de.swat.observableList2.ObservableList2;
 import de.swat.utils.VectorUtil;
-import javafx.collections.ObservableList;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -63,7 +63,7 @@ public class EntityCollisionObjectDataModel extends AbstractCollisionObjectDataM
   }
 
   @Override
-  public ObservableList<Point> findPath(Vector2D pVector, int pRadius)
+  public ObservableList2<Point> findPath(Vector2D pVector, int pRadius)
   {
     return null;
   }

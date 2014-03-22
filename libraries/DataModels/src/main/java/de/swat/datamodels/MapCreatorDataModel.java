@@ -9,7 +9,7 @@ import de.swat.annotations.DataModel;
  * @author W. Glanzer, 19.02.14
  */
 @DataModel
-public class MapCreatorDataModel
+public class MapCreatorDataModel extends SimpleDataModel
 {
 
   private MapCreatorMap mapCreatorMap;

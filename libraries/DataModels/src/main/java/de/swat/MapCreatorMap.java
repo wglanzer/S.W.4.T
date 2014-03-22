@@ -2,9 +2,11 @@ package de.swat;
 
 import de.swat.accesses.MapCreatorModelAccess;
 import de.swat.dataModels.Map.AbstractCollisionObjectDataModel;
+import de.swat.observableList2.ObservableList2;
 import javafx.collections.*;
 import org.jetbrains.annotations.NotNull;
 
+import javax.swing.event.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
@@ -19,10 +21,10 @@ public class MapCreatorMap extends Map
 {
   @SuppressWarnings({"UnusedDeclaration", "FieldCanBeLocal"})
   private final MapCreatorModelAccess modelAccess;
-  private ObservableList<Point> clickedPoints = FXCollections.observableArrayList();
-  private ObservableList<AbstractCollisionObjectDataModel> structureRectangles = FXCollections.observableArrayList();
+  private ObservableList2<Point> clickedPoints = new ObservableList2<>();
+  private ObservableList2<AbstractCollisionObjectDataModel> structureRectangles = new ObservableList2<>();
   private BufferedImage backgroundimage = null;
-  private ObservableList<Point> collisionPoints = FXCollections.observableArrayList();
+  private ObservableList2<Point> collisionPoints = new ObservableList2<>();
 
   public MapCreatorMap(MapCreatorModelAccess pModelAccess)
   {
@@ -35,9 +37,9 @@ public class MapCreatorMap extends Map
     modelAccess = pModelAccess;
 
     //Wenn sich in den Listen intern was ändert, wird hier benachrichtigt
-    clickedPoints.addListener(new _Listener<Point>("clickedPoints"));
-    structureRectangles.addListener(new _Listener<AbstractCollisionObjectDataModel>("structureRectangles"));
-    collisionPoints.addListener(new _Listener<Point>("collisionPoints"));
+    clickedPoints.addListDataListener(new _Listener("clickedPoints"));
+    structureRectangles.addListDataListener(new _Listener("structureRectangles"));
+    collisionPoints.addListDataListener(new _Listener("collisionPoints"));
   }
 
   /**
@@ -67,7 +69,7 @@ public class MapCreatorMap extends Map
    *
    * @return CollisionPoints
    */
-  public ObservableList<Point> getCollisionPoints()
+  public ObservableList2<Point> getCollisionPoints()
   {
     return collisionPoints;
   }
@@ -78,7 +80,7 @@ public class MapCreatorMap extends Map
    *
    * @param pCollisionPoints CollisionPoints
    */
-  public void setCollisionPoints(ObservableList<Point> pCollisionPoints)
+  public void setCollisionPoints(ObservableList2<Point> pCollisionPoints)
   {
     collisionPoints = pCollisionPoints;
     _fireChangeEvent("collisionPoints", backgroundimage);
@@ -89,7 +91,7 @@ public class MapCreatorMap extends Map
    *
    * @return StructureRectangles
    */
-  public ObservableList<AbstractCollisionObjectDataModel> getStructureRectangles()
+  public ObservableList2<AbstractCollisionObjectDataModel> getStructureRectangles()
   {
     return structureRectangles;
   }
@@ -99,7 +101,7 @@ public class MapCreatorMap extends Map
    *
    * @return clickedPoints
    */
-  public ObservableList<Point> getClickedPoints()
+  public ObservableList2<Point> getClickedPoints()
   {
     return clickedPoints;
   }
@@ -110,10 +112,8 @@ public class MapCreatorMap extends Map
    * D.h. wenn ein .add(), etc. aufgerufen wird.
    * Ansonsten, wenn einfach ein setClickedPoints() o.Ä.
    * aufgerufen wird, wird einfach die _fireChangeEvent aufgerufen
-   *
-   * @param <E>
    */
-  private class _Listener<E> implements ListChangeListener<E>
+  private class _Listener implements ListDataListener
   {
     private final String fieldName;
 
@@ -123,9 +123,21 @@ public class MapCreatorMap extends Map
     }
 
     @Override
-    public void onChanged(Change<? extends E> pChange)
+    public void intervalAdded(ListDataEvent e)
     {
-      _fireChangeEvent(fieldName, pChange.getList());
+      _fireChangeEvent(fieldName, e.getSource());
+    }
+
+    @Override
+    public void intervalRemoved(ListDataEvent e)
+    {
+      _fireChangeEvent(fieldName, e.getSource());
+    }
+
+    @Override
+    public void contentsChanged(ListDataEvent e)
+    {
+      _fireChangeEvent(fieldName, e.getSource());
     }
   }
 

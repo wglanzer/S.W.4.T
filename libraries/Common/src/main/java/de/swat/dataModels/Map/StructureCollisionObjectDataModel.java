@@ -1,6 +1,7 @@
 package de.swat.dataModels.Map;
 
 import de.swat.math.*;
+import de.swat.observableList2.ObservableList2;
 import de.swat.utils.*;
 import javafx.collections.*;
 
@@ -189,7 +190,7 @@ public class StructureCollisionObjectDataModel extends AbstractCollisionObjectDa
     return returnPoints;
   }
 
-  public ObservableList<Point> findPath(Vector2D pVector, int pRadius)
+  public ObservableList2<Point> findPath(Vector2D pVector, int pRadius)
   {
     //System.out.println("Wir sind beim test angekommen");
     Rectangle boundingBox = getBoundingBox();
@@ -260,8 +261,8 @@ public class StructureCollisionObjectDataModel extends AbstractCollisionObjectDa
     int pointListSize = structure.getPointList().size();
     boolean prePointFound = false;
     boolean postPointFound = false;
-    ObservableList<Point> preList = FXCollections.observableArrayList();
-    ObservableList<Point> postList = FXCollections.observableArrayList();
+    ObservableList2<Point> preList = new ObservableList2<>();
+    ObservableList2<Point> postList = new ObservableList2<>();
 
     while (!(prePointFound && postPointFound) && dist < pointListSize)
     {

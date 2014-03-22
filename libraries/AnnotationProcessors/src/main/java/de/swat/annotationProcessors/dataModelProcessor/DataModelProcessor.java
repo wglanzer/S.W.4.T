@@ -16,8 +16,6 @@ import java.util.*;
 @SupportedSourceVersion(SourceVersion.RELEASE_7)
 public class DataModelProcessor extends AbstractProcessor
 {
-  private static final String implementedClasses = "IModelAccess, Serializable";
-
   @Override
   public boolean process(Set<? extends TypeElement> arg0, RoundEnvironment roundEnv)
   {
@@ -33,7 +31,7 @@ public class DataModelProcessor extends AbstractProcessor
         {
           out.write("package de.swat.accesses;\r\n");
           out.write("\r\n");
-          out.write("import de.swat.datamodels." + oldClassName + ";\r\n");
+          out.write("import de.swat.datamodels.*;\r\n");
           out.write("import de.swat.AbstractModelAccess;\r\n");
           out.write("import javax.annotation.Generated;\r\n");
           out.write("/**\r\n");
@@ -67,6 +65,12 @@ public class DataModelProcessor extends AbstractProcessor
             out.write("\t}\r\n");
             out.write("\r\n");
           }
+
+          out.write("\tpublic IDataModel getDataModel()\r\n");
+          out.write("\t{\r\n");
+          out.write("\t\treturn INSTANCE;\r\n");
+          out.write("\t}\r\n");
+          out.write("\r\n");
 
           out.write("}\r\n");
         }

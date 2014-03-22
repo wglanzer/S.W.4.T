@@ -9,7 +9,7 @@ import java.io.PrintStream;
  */
 abstract class AbstractRuntimeException extends RuntimeException
 {
-  private ShowState howToPrintStackTrace = ShowState.FAKE_MESSAGE;
+  private ShowState howToPrintStackTrace = ShowState.REAL_MESSAGE;
   private Exception stackTrace = null;
 
   protected AbstractRuntimeException(String pMessage, Exception pStackTrace)
