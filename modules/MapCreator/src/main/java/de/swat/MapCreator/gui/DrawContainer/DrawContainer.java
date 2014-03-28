@@ -2,7 +2,6 @@ package de.swat.MapCreator.gui.DrawContainer;
 
 import de.swat.*;
 import de.swat.MapCreator.brushes.*;
-import de.swat.accesses.MapModelAccess;
 import de.swat.dataModels.Map.*;
 import de.swat.exceptions.SwatRuntimeException;
 import de.swat.observableList2.ObservableList2;
@@ -361,6 +360,11 @@ public class DrawContainer extends JPanel
   public boolean isInitialised()
   {
     return isInitialised;
+  }
+
+  public ObservableList2<Point> getClickedPoints()
+  {
+    return clickedPoints;
   }
 
   /**

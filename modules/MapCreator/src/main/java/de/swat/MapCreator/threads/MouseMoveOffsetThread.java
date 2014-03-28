@@ -41,7 +41,7 @@ public class MouseMoveOffsetThread
         int radius = IWindowConstants.DRAWCONTAINER_OFFSET_SCROLLRADIUS;
         int scrollSpeed = IWindowConstants.DRAWCONTAINER_OFFSET_MAXSCROLLSPEED;
 
-        while(!thread.isInterrupted())
+        while (!thread.isInterrupted())
         {
           int width = workingContainer.getWidth();
           int height = workingContainer.getHeight();
@@ -52,30 +52,30 @@ public class MouseMoveOffsetThread
           Rectangle bottom = new Rectangle(0, height - radius, width, height);
 
           Point currMousePoint = workingContainer.getMousePosition();
-          if(workingContainer.isInitialised() && currMousePoint != null && !workingContainer.isBlocked())
+          if (workingContainer.isInitialised() && currMousePoint != null && !workingContainer.isBlocked())
           {
-            if(left.contains(currMousePoint))
+            if (left.contains(currMousePoint))
             {
               workingContainer.setXOff(-scrollSpeed, true);
-              window.updateSpinner();
+              //window.updateSpinner();
             }
 
-            if(right.contains(currMousePoint))
+            if (right.contains(currMousePoint))
             {
               workingContainer.setXOff(scrollSpeed, true);
-              window.updateSpinner();
+              //window.updateSpinner();
             }
 
-            if(top.contains(currMousePoint))
+            if (top.contains(currMousePoint))
             {
               workingContainer.setYOff(-scrollSpeed, true);
-              window.updateSpinner();
+              //window.updateSpinner();
             }
 
-            if(bottom.contains(currMousePoint))
+            if (bottom.contains(currMousePoint))
             {
               workingContainer.setYOff(scrollSpeed, true);
-              window.updateSpinner();
+              //window.updateSpinner();
             }
           }
 

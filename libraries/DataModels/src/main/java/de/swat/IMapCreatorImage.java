@@ -1,5 +1,10 @@
 package de.swat;
 
+import de.swat.dataModels.Map.StructureCollisionObjectDataModel;
+import de.swat.observableList2.ObservableList2;
+
+import java.awt.*;
+
 /**
  * @author W. Glanzer, 28.03.2014
  */
@@ -10,4 +15,9 @@ public interface IMapCreatorImage
 
   public void setMap(Map pMap);
 
+  public void clearClickedPoints();
+
+  public ObservableList2<Point> getClickedPoints();
+
+  public void addStructureObject(StructureCollisionObjectDataModel pNewObject);
 }

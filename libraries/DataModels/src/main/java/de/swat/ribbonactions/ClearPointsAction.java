@@ -20,6 +20,7 @@ public class ClearPointsAction extends AbstractRibbonAction
   @Override
   public void actionPerformed(ActionEvent pSourceEvent, JComponent pInvoker, IMapCreatorImage pMapCreatorImage)
   {
+    pMapCreatorImage.clearClickedPoints();
   }
 
   @Nullable

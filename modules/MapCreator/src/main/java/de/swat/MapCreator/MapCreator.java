@@ -4,6 +4,8 @@ import de.swat.*;
 import de.swat.MapCreator.gui.Window;
 import de.swat.accesses.MapModelAccess;
 import de.swat.constants.IWindowConstants;
+import de.swat.dataModels.Map.StructureCollisionObjectDataModel;
+import de.swat.observableList2.ObservableList2;
 import de.swat.util.DataModelHandler;
 
 import java.awt.*;
@@ -47,5 +49,20 @@ public class MapCreator
   public Map getMap()
   {
     return currentLoadedMap;
+  }
+
+  public void clearClickedPoints()
+  {
+    window.getDrawContainer().clearClickedPoints();
+  }
+
+  public ObservableList2<Point> getClickedPoints()
+  {
+    return window.getDrawContainer().getClickedPoints();
+  }
+
+  public void addStructureObject(StructureCollisionObjectDataModel pNewObject)
+  {
+    window.getDrawContainer().addStructureObject(pNewObject);
   }
 }
