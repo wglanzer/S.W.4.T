@@ -1,7 +1,6 @@
 package de.swat;
 
 import de.swat.annotations.FormProperty;
-import de.swat.util.DataModelHandler;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.event.TableModelListener;

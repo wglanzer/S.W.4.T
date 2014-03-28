@@ -5,15 +5,15 @@ import de.swat.dataModels.Map.*;
 import de.swat.math.*;
 import de.swat.observableList2.ObservableList2;
 import de.swat.util.DataModelHandler;
-import javafx.collections.*;
 
 import java.awt.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * @author W. Glanzer, 16.02.14
  */
-public class Raster
+public class Raster implements Serializable
 {
 
   RasterModelAccess modelAccess = (RasterModelAccess) DataModelHandler.newModelAccess(RasterModelAccess.class);

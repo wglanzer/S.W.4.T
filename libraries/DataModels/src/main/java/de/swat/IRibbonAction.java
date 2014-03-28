@@ -4,9 +4,6 @@ import de.swat.enums.*;
 import org.jetbrains.annotations.Nullable;
 import org.pushingpixels.flamingo.api.common.icon.ResizableIcon;
 
-import javax.swing.*;
-import java.awt.event.ActionEvent;
-
 /**
  * Bezeichnet die Actions im Ribbon.
  * Diese werden dann per Reflection aufgerufen
@@ -15,13 +12,6 @@ import java.awt.event.ActionEvent;
  */
 public interface IRibbonAction extends IAction, Comparable
 {
-  /**
-   * Führt sich aus, wenn auf den Button gedrückt wurde
-   *  @param pSourceEvent ActionEvent vom ActionListener
-   * @param pInvoker     Repräsentiert den JCommandButton, auf den gedrückt wurde.
-   */
-  void actionPerformed(ActionEvent pSourceEvent, JComponent pInvoker);
-
   /**
    * @return Liefert das Icon zurück, das die Action haben soll
    */

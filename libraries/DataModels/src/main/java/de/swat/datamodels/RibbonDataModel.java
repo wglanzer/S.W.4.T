@@ -2,14 +2,8 @@ package de.swat.datamodels;
 
 import de.swat.IRibbonAction;
 import de.swat.annotations.*;
-import de.swat.constants.IWindowConstants;
-import de.swat.enums.*;
 import de.swat.utils.LookupUtil;
-import org.pushingpixels.flamingo.api.common.JCommandButton;
-import org.reflections.Reflections;
 
-import javax.swing.*;
-import java.awt.*;
 import java.util.*;
 
 /**

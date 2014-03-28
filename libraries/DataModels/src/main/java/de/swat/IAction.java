@@ -12,6 +12,6 @@ import java.awt.event.ActionEvent;
 public interface IAction
 {
 
-  void actionPerformed(ActionEvent pSourceEvent, JComponent pInvoker);
+  void actionPerformed(ActionEvent pSourceEvent, JComponent pInvoker, IMapCreatorImage pMapCreatorImage);
 
 }

@@ -2,14 +2,16 @@ package de.swat.dataModels.Map;
 
 import de.swat.observableList2.ObservableList2;
 import de.swat.math.Vector2D;
+import org.jetbrains.annotations.Nullable;
 
 import java.awt.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * @author Werner Glanzer, 28.11.13
  */
-public abstract class AbstractCollisionObjectDataModel
+public abstract class AbstractCollisionObjectDataModel implements Serializable
 {
   /**
    * Boundingbox des Objects
@@ -26,6 +28,7 @@ public abstract class AbstractCollisionObjectDataModel
     boundingBox = pBoundingBox;
   }
 
+  @Nullable
   public Rectangle getBoundingBox()
   {
     return boundingBox;

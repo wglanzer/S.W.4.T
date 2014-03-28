@@ -18,7 +18,7 @@ import java.awt.event.ActionEvent;
 public class ClearPointsAction extends AbstractRibbonAction
 {
   @Override
-  public void actionPerformed(ActionEvent pSourceEvent, JComponent pInvoker)
+  public void actionPerformed(ActionEvent pSourceEvent, JComponent pInvoker, IMapCreatorImage pMapCreatorImage)
   {
   }
 

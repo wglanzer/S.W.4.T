@@ -1,13 +1,10 @@
 package de.swat;
 
 import de.swat.accesses.MapModelAccess;
-import de.swat.constants.IWindowConstants;
 import de.swat.dataModels.Map.*;
 import de.swat.datamodels.MapDataModel;
 import de.swat.math.Vector2D;
 import de.swat.observableList2.ObservableList2;
-import de.swat.util.DataModelHandler;
-import javafx.collections.*;
 import org.jetbrains.annotations.Nullable;
 
 import java.awt.*;
@@ -28,7 +25,7 @@ public class Map extends AbstractFieldChangeListener implements Serializable
     if (pModelAccess != null)
     {
       modelAccess = pModelAccess;
-      structureRectangles = modelAccess.getCollisionObjects();
+      structureRectangles = pModelAccess.getCollisionObjects();
     }
   }
 

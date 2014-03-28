@@ -17,14 +17,35 @@ public class MapCreator
 {
   //Dieses modelAccess ist statisch, da es nur einmal vorkommen kann / darf.
   //Ebenso ist es dann möglich, von überall darauf zuzugreifen, da statisch
-  private static MapModelAccess modelAccess = new MapModelAccess();
+  private MapModelAccess modelAccess;
+  private static MapCreatorImage image = new MapCreatorImage();
+  private Map currentLoadedMap;
+  private Window window;
 
   public MapCreator()
   {
+    image.setMapCreator(this);
     modelAccess = (MapModelAccess) DataModelHandler.newModelAccess(MapModelAccess.class);
-    modelAccess.setRaster(new Raster(10, new Dimension(IWindowConstants.MAX_RASTERWIDTH, IWindowConstants.MAX_RASTERHEIGHT), new Map(modelAccess)));
+    Map map = new Map(modelAccess);
+    modelAccess.setRaster(new Raster(10, new Dimension(IWindowConstants.MAX_RASTERWIDTH, IWindowConstants.MAX_RASTERHEIGHT), map));
+    currentLoadedMap = map;
 
-    new Window(modelAccess);
+    window = new Window(currentLoadedMap);
   }
 
+  public static MapCreatorImage getMapCreatorImage()
+  {
+    return image;
+  }
+
+  public void setMap(Map pMap)
+  {
+    currentLoadedMap = pMap;
+    window.mapChanged(pMap);
+  }
+
+  public Map getMap()
+  {
+    return currentLoadedMap;
+  }
 }

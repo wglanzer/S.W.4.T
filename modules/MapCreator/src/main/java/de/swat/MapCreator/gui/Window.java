@@ -1,7 +1,7 @@
 package de.swat.MapCreator.gui;
 
+import de.swat.*;
 import de.swat.MapCreator.gui.DrawContainer.DrawContainer;
-import de.swat.PropertySheet;
 import de.swat.accesses.MapModelAccess;
 import de.swat.constants.*;
 
@@ -16,17 +16,15 @@ import java.awt.*;
 public class Window extends JFrame
 {
   private static final String TITLE = "S.W.4.T - MapCreator - Version 1.0.0";
-  private final MapModelAccess modelAccess;
   /*GUI-Komponenten*/
   private DrawContainer drawContainer;
   private Ribbon ribbon;
   private JSpinner xOffSpinner;
   private JSpinner yOffSpinner;
 
-  public Window(MapModelAccess pModelAccess)
+  public Window(Map pMap)
   {
-    modelAccess = pModelAccess;
-    drawContainer = new DrawContainer(pModelAccess);
+    drawContainer = new DrawContainer(pMap);
     ribbon = new Ribbon();
 
     setSize(new Dimension(IWindowConstants.WINDOW_WIDTH, IWindowConstants.WINDOW_HEIGHT));
@@ -80,6 +78,11 @@ public class Window extends JFrame
 
     add(splitContainer_Properties, BorderLayout.CENTER);
 
+  }
+
+  public void mapChanged(Map pNewMap)
+  {
+    drawContainer.mapChanged(pNewMap);
   }
 
   private JTree _getDummyTree()

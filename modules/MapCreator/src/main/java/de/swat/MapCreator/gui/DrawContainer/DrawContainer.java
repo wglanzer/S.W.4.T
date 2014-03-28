@@ -42,15 +42,29 @@ public class DrawContainer extends JPanel
   private BufferedImage backgroundimage = null;
   private ObservableList2<Point> collisionPoints = new ObservableList2<>();
   
-  public DrawContainer(MapModelAccess pModelAccess)
+  public DrawContainer(Map pMap)
   {
-    map = new Map(pModelAccess);
+    map = pMap;
     setOpaque(true);
     setUI(new BasicPanelUI());
     setBackground(Color.BLACK);
     addMouseListener(new Mouse());
     addMouseMotionListener(new MouseMove());
     _setListeners();
+  }
+
+  public void mapChanged(Map pNewMap)
+  {
+    map = pNewMap;
+    reloadFromDataModel();
+    SwingUtilities.invokeLater(new Runnable()
+    {
+      @Override
+      public void run()
+      {
+        repaint();
+      }
+    });
   }
 
   private void _setListeners()
@@ -117,7 +131,8 @@ public class DrawContainer extends JPanel
         StructureCollisionObjectDataModel currObj = (StructureCollisionObjectDataModel) objectDataModel;
         g.setColor(Color.PINK);
         Rectangle currRect = currObj.getBoundingBox();
-        g.drawRect(currRect.x - xOff, currRect.y - yOff, currRect.width, currRect.height);
+        if (currRect != null)
+          g.drawRect(currRect.x - xOff, currRect.y - yOff, currRect.width, currRect.height);
 
         g.setColor(Color.WHITE);
         Polygon poly = currObj.getStructure().getPolygon();
@@ -363,14 +378,12 @@ public class DrawContainer extends JPanel
     isBlocked = pIsBlocked;
   }
 
-  //public void reloadFromDataModel()
-  //{
-  //  pImagesToDraw.clear();
-  //  clickedPoints.clear();
-  //  structureRectangles = map.getCollisionObjects();
-  //  backgroundimage = null;
-  //  collisionPoints.clear();
-  //  xOff = 0;
-  //  yOff = 0;
-  //}
+  public void reloadFromDataModel()
+  {
+    clickedPoints.clear();
+    backgroundimage = null;
+    collisionPoints.clear();
+    xOff = 0;
+    yOff = 0;
+  }
 }

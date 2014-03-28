@@ -43,7 +43,7 @@ public class DataModelProcessor extends AbstractProcessor
           out.write("{\r\n");
           out.write("\r\n");
           out.write("\tprivate static final long serialVersionUID = " + IVersion.DataModelVersion + "L;\r\n");
-          out.write("\tprivate static final " + oldClassName + " INSTANCE = new " + oldClassName + "();\r\n");
+          out.write("\tprivate final " + oldClassName + " INSTANCE = new " + oldClassName + "();\r\n");
           out.write("\r\n");
 
           for (VariableElement currElement : ElementFilter.fieldsIn(elem.getEnclosedElements()))

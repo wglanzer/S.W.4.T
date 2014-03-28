@@ -1,6 +1,7 @@
 package de.swat.MapCreator;
 
 import de.swat.exceptions.SwatRuntimeException;
+import org.jetbrains.annotations.Nullable;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 
 /**
@@ -10,6 +11,7 @@ import org.pushingpixels.substance.api.SubstanceLookAndFeel;
  */
 public class MapCreatorMain
 {
+
   public MapCreatorMain()
   {
     new MapCreator();

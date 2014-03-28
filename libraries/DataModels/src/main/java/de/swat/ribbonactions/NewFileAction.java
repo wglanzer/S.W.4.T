@@ -1,6 +1,6 @@
 package de.swat.ribbonactions;
 
-import de.swat.AbstractRibbonAction;
+import de.swat.*;
 import de.swat.annotations.RibbonAction;
 import de.swat.constants.IRibbonConstants;
 import de.swat.enums.*;
@@ -18,7 +18,7 @@ import java.awt.event.ActionEvent;
 public class NewFileAction extends AbstractRibbonAction
 {
   @Override
-  public void actionPerformed(ActionEvent pSourceEvent, JComponent pInvoker)
+  public void actionPerformed(ActionEvent pSourceEvent, JComponent pInvoker, IMapCreatorImage pMapCreatorImage)
   {
   }
 

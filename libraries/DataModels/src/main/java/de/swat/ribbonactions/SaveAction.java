@@ -18,25 +18,20 @@ import java.awt.event.*;
 public class SaveAction extends AbstractRibbonAction
 {
   @Override
-  public void actionPerformed(ActionEvent pSourceEvent, JComponent pInvoker)
+  public void actionPerformed(ActionEvent pSourceEvent, JComponent pInvoker, final IMapCreatorImage pMapCreatorImage)
   {
-    //if (pModelAccess instanceof MapCreatorModelAccess)
-    //{
-    //  final MapCreatorModelAccess modelAccess = (MapCreatorModelAccess) pModelAccess;
-    //
-    //  final JFileChooser fileChooser = new JFileChooser();
-    //  fileChooser.addActionListener(new ActionListener()
-    //  {
-    //    @Override
-    //    public void actionPerformed(ActionEvent e)
-    //    {
-    //      fileChooser.removeActionListener(this);
-    //      if (fileChooser.getSelectedFile() != null)
-    //        SaveUtil.save(modelAccess.getMapCreatorMap().getModelAccess(), fileChooser.getSelectedFile());
-    //    }
-    //  });
-    //  fileChooser.showOpenDialog(null);
-    //}
+    final JFileChooser fileChooser = new JFileChooser();
+    fileChooser.addActionListener(new ActionListener()
+    {
+      @Override
+      public void actionPerformed(ActionEvent e)
+      {
+        fileChooser.removeActionListener(this);
+        if (fileChooser.getSelectedFile() != null)
+          SaveUtil.save(pMapCreatorImage.getMap().getModelAccess(), fileChooser.getSelectedFile());
+      }
+    });
+    fileChooser.showOpenDialog(null);
   }
 
   @Nullable

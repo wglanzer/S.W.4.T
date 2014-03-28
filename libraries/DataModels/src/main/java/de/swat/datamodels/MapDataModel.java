@@ -2,12 +2,8 @@ package de.swat.datamodels;
 
 import de.swat.Raster;
 import de.swat.annotations.DataModel;
-import de.swat.constants.IWindowConstants;
 import de.swat.dataModels.Map.*;
 import de.swat.observableList2.ObservableList2;
-
-import java.awt.*;
-import java.util.ArrayList;
 
 /**
  * @author Werner Glanzer, 28.11.13

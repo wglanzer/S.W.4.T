@@ -1,6 +1,6 @@
 package de.swat.datamodels;
 
-import de.swat.annotations.*;
+import de.swat.annotations.DataModel;
 
 /**
  * @author W. Glanzer, 02.02.14

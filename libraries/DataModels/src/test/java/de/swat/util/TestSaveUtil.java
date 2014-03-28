@@ -1,13 +1,8 @@
 package de.swat.util;
 
-import de.swat.*;
-import de.swat.accesses.*;
-import de.swat.observableList2.ObservableList2;
-import org.junit.*;
+import org.junit.Test;
 
-import java.awt.*;
-import java.io.*;
-import java.util.ArrayList;
+import java.io.IOException;
 
 /**
  * Testet mit dem MapDataModel, ob das SaveUtil funktioniert.

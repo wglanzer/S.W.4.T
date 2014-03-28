@@ -2,7 +2,7 @@ package de.swat.MapCreator.gui;
 
 import com.google.common.collect.*;
 import de.swat.IRibbonAction;
-import de.swat.MapCreator.MapCreator;
+import de.swat.MapCreator.*;
 import de.swat.accesses.*;
 import de.swat.constants.IRibbonConstants;
 import de.swat.enums.*;
@@ -169,7 +169,7 @@ public class Ribbon extends JRibbon
       @Override
       public void actionPerformed(ActionEvent e)
       {
-        pAction.actionPerformed(e, commandButton);
+        pAction.actionPerformed(e, commandButton, MapCreator.getMapCreatorImage());
       }
     });
     return commandButton;
