@@ -1,7 +1,8 @@
 package de.swat.MapCreator;
 
+import de.swat.constants.IStartArguments;
 import de.swat.exceptions.SwatRuntimeException;
-import org.jetbrains.annotations.Nullable;
+import de.swat.utils.PredefinedParameterUtil;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 
 /**
@@ -20,7 +21,17 @@ public class MapCreatorMain
   public static void main(String[] args)
   {
     _setLookAndFeel();
+    _parseArgs(args);
     new MapCreatorMain();
+  }
+
+  private static void _parseArgs(String[] pArgs)
+  {
+    for (String currArg : pArgs)
+    {
+      if (currArg.equals(IStartArguments.DEBUG))
+        PredefinedParameterUtil.setDebugMode(true);
+    }
   }
 
   /**

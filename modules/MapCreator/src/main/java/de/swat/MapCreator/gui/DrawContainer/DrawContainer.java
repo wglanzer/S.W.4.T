@@ -5,7 +5,7 @@ import de.swat.MapCreator.brushes.*;
 import de.swat.dataModels.Map.*;
 import de.swat.exceptions.SwatRuntimeException;
 import de.swat.observableList2.ObservableList2;
-import de.swat.utils.PointUtil;
+import de.swat.utils.*;
 import net.coobird.thumbnailator.Thumbnails;
 import org.jetbrains.annotations.Nullable;
 
@@ -128,10 +128,13 @@ public class DrawContainer extends JPanel
       if (objectDataModel instanceof StructureCollisionObjectDataModel)
       {
         StructureCollisionObjectDataModel currObj = (StructureCollisionObjectDataModel) objectDataModel;
-        g.setColor(Color.PINK);
-        Rectangle currRect = currObj.getBoundingBox();
-        if (currRect != null)
-          g.drawRect(currRect.x - xOff, currRect.y - yOff, currRect.width, currRect.height);
+        if (PredefinedParameterUtil.isDebugMode())
+        {
+          g.setColor(Color.PINK);
+          Rectangle currRect = currObj.getBoundingBox();
+          if (currRect != null)
+            g.drawRect(currRect.x - xOff, currRect.y - yOff, currRect.width, currRect.height);
+        }
 
         g.setColor(Color.WHITE);
         Polygon poly = currObj.getStructure().getPolygon();
