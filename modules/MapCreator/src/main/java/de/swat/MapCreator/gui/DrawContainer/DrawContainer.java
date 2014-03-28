@@ -2,7 +2,7 @@ package de.swat.MapCreator.gui.DrawContainer;
 
 import de.swat.*;
 import de.swat.MapCreator.brushes.*;
-import de.swat.accesses.MapCreatorModelAccess;
+import de.swat.accesses.MapModelAccess;
 import de.swat.dataModels.Map.*;
 import de.swat.exceptions.SwatRuntimeException;
 import de.swat.observableList2.ObservableList2;
@@ -25,8 +25,7 @@ import java.io.IOException;
  */
 public class DrawContainer extends JPanel
 {
-  private final MapCreatorModelAccess modelAccess;
-  private MapCreatorMap map;
+  private Map map;
   public int xOff = 0;
   public int yOff = 0;
   private boolean isInitialised = false;
@@ -34,10 +33,18 @@ public class DrawContainer extends JPanel
   private Point actualMousePoint = new Point(0, 0);
   private IBrush actualBrush = new PointBrush();
 
-  public DrawContainer(MapCreatorModelAccess pModelAccess)
+  /**
+   * Hier kommen Daten, die nicht unbedingt ins Datenmodell
+   * mitaufgenommen werden müssen, jedoch im DrawContainer
+   * eine wichtige Rolle spielen
+   */
+  private ObservableList2<Point> clickedPoints = new ObservableList2<>();
+  private BufferedImage backgroundimage = null;
+  private ObservableList2<Point> collisionPoints = new ObservableList2<>();
+  
+  public DrawContainer(MapModelAccess pModelAccess)
   {
-    modelAccess = pModelAccess;
-    map = pModelAccess.getMapCreatorMap();
+    map = new Map(pModelAccess);
     setOpaque(true);
     setUI(new BasicPanelUI());
     setBackground(Color.BLACK);
@@ -69,28 +76,13 @@ public class DrawContainer extends JPanel
         repaint();
       }
     });
-
-    modelAccess.addFieldChangeListener(new IFieldChangeListener()
-    {
-      @Override
-      public void fieldChanged(FieldChangeObject pFieldObject)
-      {
-        if(pFieldObject.getSourceField().getName().equalsIgnoreCase("mapCreatorMap"))
-        {
-          map = (MapCreatorMap) pFieldObject.getNewValue();
-          repaint();
-        }
-      }
-    });
   }
 
   @Override
   protected void paintComponent(Graphics g)
   {
     super.paintComponent(g);
-    ObservableList2<Point> clickedPoints = map.getClickedPoints();
 
-    BufferedImage backgroundimage = map.getBackgroundimage();
     if (backgroundimage != null)
       g.drawImage(backgroundimage, -xOff, -yOff, null);
 
@@ -114,7 +106,7 @@ public class DrawContainer extends JPanel
 
     /*Zeichnet die Kollisionspunkte*/
     g.setColor(Color.BLUE);
-    for (Point currPoint : map.getCollisionPoints())
+    for (Point currPoint : collisionPoints)
       g.drawRoundRect(currPoint.x - 4 - xOff, currPoint.y - 4 - yOff, 8, 8, 8, 8);
 
     /*Zeichnet die structureRectangles, die durch addStructureRectangle gesetzt werden*/
@@ -164,14 +156,14 @@ public class DrawContainer extends JPanel
     if (pShouldBeResized)
       try
       {
-        map.setBackgroundimage(Thumbnails.of(pImage).size(getWidth(), getHeight()).asBufferedImage());
+        backgroundimage = Thumbnails.of(pImage).size(getWidth(), getHeight()).asBufferedImage();
       }
       catch (IOException e)
       {
         throw new SwatRuntimeException("Background image could not be set! Error in module 'Thumbnails'", e);
       }
     else
-      map.setBackgroundimage(pImage);
+      backgroundimage = pImage;
 
     repaint();
   }
@@ -181,7 +173,7 @@ public class DrawContainer extends JPanel
    */
   public void clearClickedPoints()
   {
-    map.getClickedPoints().clear();
+    clickedPoints.clear();
     repaint();
   }
 
@@ -233,11 +225,11 @@ public class DrawContainer extends JPanel
         {
           /**LINKE MAUSTASTE*/
           case MouseEvent.BUTTON1:
-            if (map.getClickedPoints().size() > 1)
+            if (clickedPoints.size() > 1)
             {
-              if (PointUtil.checkProximity(map.getClickedPoints().get(0), clickPoint, proxRadius))
+              if (PointUtil.checkProximity(clickedPoints.get(0), clickPoint, proxRadius))
               {
-                map.addPoints(map.getClickedPoints());
+                map.addPoints(clickedPoints);
                 clearClickedPoints();
                 StructureCollisionObjectDataModel newObject = map.finishStructure();
                 addStructureObject(newObject);
@@ -245,14 +237,14 @@ public class DrawContainer extends JPanel
               }
               else
               {
-                actualBrush.drawBrush(map.getClickedPoints(), clickPoint);
+                actualBrush.drawBrush(clickedPoints, clickPoint);
               }
             }
             else
             {
-              actualBrush.drawBrush(map.getClickedPoints(), clickPoint);
+              actualBrush.drawBrush(clickedPoints, clickPoint);
             }
-            if (map.getClickedPoints().size() > 1)
+            if (clickedPoints.size() > 1)
             {
               //  //Point possPoint = dataModel.checkFirstCollision(new Vector2D(new Point2D(clickedPoints.get(clickedPoints.size() - 2).x, clickedPoints.get(clickedPoints.size() - 2).y), new Point2D(clickedPoints.get(clickedPoints.size() - 1).x, clickedPoints.get(clickedPoints.size() - 1).y)));
               //  //if (possPoint != null)
@@ -272,8 +264,8 @@ public class DrawContainer extends JPanel
               //  collisionPoints.add(edgePoint);
               //}
 
-              if (map.getClickedPoints().size() == 10)
-                map.setCollisionPoints(map.findPath(new Point(100, 100), new Point(800, 800), 10));
+              if (clickedPoints.size() == 10)
+                collisionPoints  = map.findPath(new Point(100, 100), new Point(800, 800), 10);
             }
             repaint();
             break;
@@ -281,11 +273,11 @@ public class DrawContainer extends JPanel
           /**RECHTE MAUSTASTE*/
           case MouseEvent.BUTTON3:
 
-            for (Point currPoint : map.getClickedPoints())
+            for (Point currPoint : clickedPoints)
             {
               if (PointUtil.checkProximity(currPoint, clickPoint, proxRadius))
               {
-                map.getClickedPoints().remove(currPoint);
+                clickedPoints.remove(currPoint);
                 repaint();
                 break;
               }

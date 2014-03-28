@@ -1,15 +1,14 @@
 package de.swat.ribbonactions;
 
-import de.swat.*;
-import de.swat.accesses.*;
+import de.swat.AbstractRibbonAction;
 import de.swat.annotations.RibbonAction;
 import de.swat.constants.IRibbonConstants;
 import de.swat.enums.*;
-import de.swat.util.*;
+import de.swat.util.ImageUtil;
 import org.pushingpixels.flamingo.api.common.icon.ResizableIcon;
 
 import javax.swing.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
 
 /**
  * Action, um ein MapDataModel zu von der Festplatte zu laden
@@ -20,29 +19,29 @@ import java.awt.event.*;
 public class OpenAction extends AbstractRibbonAction
 {
   @Override
-  public void actionPerformed(ActionEvent pSourceEvent, JComponent pInvoker, IModelAccess pModelAccess)
+  public void actionPerformed(ActionEvent pSourceEvent, JComponent pInvoker)
   {
-    if (pModelAccess instanceof MapCreatorModelAccess)
-    {
-      final MapCreatorModelAccess modelAccess = (MapCreatorModelAccess) pModelAccess;
-
-      final JFileChooser fileChooser = new JFileChooser();
-      fileChooser.addActionListener(new ActionListener()
-      {
-        @Override
-        public void actionPerformed(ActionEvent e)
-        {
-          fileChooser.removeActionListener(this);
-          if (fileChooser.getSelectedFile() != null)
-          {
-            //MapModelAccess newDataModel = (MapModelAccess) SaveUtil.load(fileChooser.getSelectedFile());
-            //MapCreatorMap map = new MapCreatorMap(modelAccess, new Map(newDataModel));
-            //modelAccess.setMapCreatorMap(map);
-          }
-        }
-      });
-      fileChooser.showOpenDialog(null);
-    }
+    //if (pModelAccess instanceof MapCreatorModelAccess)
+    //{
+    //  final MapCreatorModelAccess modelAccess = (MapCreatorModelAccess) pModelAccess;
+    //
+    //  final JFileChooser fileChooser = new JFileChooser();
+    //  fileChooser.addActionListener(new ActionListener()
+    //  {
+    //    @Override
+    //    public void actionPerformed(ActionEvent e)
+    //    {
+    //      fileChooser.removeActionListener(this);
+    //      if (fileChooser.getSelectedFile() != null)
+    //      {
+    //        MapModelAccess newDataModel = (MapModelAccess) SaveUtil.load(fileChooser.getSelectedFile());
+    //        MapCreatorMap map = new MapCreatorMap(modelAccess, new Map(newDataModel));
+    //        modelAccess.setMapCreatorMap(map);
+    //      }
+    //    }
+    //  });
+    //  fileChooser.showOpenDialog(null);
+    //}
   }
 
   @Override

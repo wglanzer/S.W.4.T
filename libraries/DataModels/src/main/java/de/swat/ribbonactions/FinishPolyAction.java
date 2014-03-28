@@ -14,7 +14,7 @@ import java.awt.event.ActionEvent;
 public class FinishPolyAction extends AbstractRibbonAction
 {
   @Override
-  public void actionPerformed(ActionEvent pSourceEvent, JComponent pInvoker, IModelAccess pModelAccess)
+  public void actionPerformed(ActionEvent pSourceEvent, JComponent pInvoker)
   {
   }
 

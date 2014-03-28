@@ -2,7 +2,11 @@ package de.swat.MapCreator;
 
 import de.swat.*;
 import de.swat.MapCreator.gui.Window;
-import de.swat.accesses.MapCreatorModelAccess;
+import de.swat.accesses.MapModelAccess;
+import de.swat.constants.IWindowConstants;
+import de.swat.util.DataModelHandler;
+
+import java.awt.*;
 
 /**
  * Hauptanfangsklasse des MapCreators
@@ -13,18 +17,14 @@ public class MapCreator
 {
   //Dieses modelAccess ist statisch, da es nur einmal vorkommen kann / darf.
   //Ebenso ist es dann möglich, von überall darauf zuzugreifen, da statisch
-  private static MapCreatorModelAccess modelAccess = new MapCreatorModelAccess();
+  private static MapModelAccess modelAccess = new MapModelAccess();
 
   public MapCreator()
   {
-    MapCreatorMap map = new MapCreatorMap(modelAccess);
-    modelAccess.setMapCreatorMap(map);
+    modelAccess = (MapModelAccess) DataModelHandler.newModelAccess(MapModelAccess.class);
+    modelAccess.setRaster(new Raster(10, new Dimension(IWindowConstants.MAX_RASTERWIDTH, IWindowConstants.MAX_RASTERHEIGHT), new Map(modelAccess)));
 
-    Window window = new Window(modelAccess);
+    new Window(modelAccess);
   }
 
-  public static MapCreatorModelAccess getMapCreatorModelAccess()
-  {
-    return modelAccess;
-  }
 }

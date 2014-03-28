@@ -30,7 +30,6 @@ public class Ribbon extends JRibbon
 {
   public List<IRibbonAction> actions = new ArrayList<>();
   private RibbonModelAccess modelAccess = new RibbonModelAccess();
-  private MapCreatorModelAccess mapCreatorModelAccess = MapCreator.getMapCreatorModelAccess();
 
   public Ribbon()
   {
@@ -170,7 +169,7 @@ public class Ribbon extends JRibbon
       @Override
       public void actionPerformed(ActionEvent e)
       {
-        pAction.actionPerformed(e, commandButton, mapCreatorModelAccess);
+        pAction.actionPerformed(e, commandButton);
       }
     });
     return commandButton;

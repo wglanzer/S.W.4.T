@@ -1,7 +1,6 @@
 package de.swat.ribbonactions;
 
 import de.swat.*;
-import de.swat.accesses.MapCreatorModelAccess;
 import de.swat.annotations.RibbonAction;
 import de.swat.constants.IRibbonConstants;
 import de.swat.enums.*;
@@ -19,13 +18,8 @@ import java.awt.event.ActionEvent;
 public class ClearPointsAction extends AbstractRibbonAction
 {
   @Override
-  public void actionPerformed(ActionEvent pSourceEvent, JComponent pInvoker, IModelAccess pModelAccess)
+  public void actionPerformed(ActionEvent pSourceEvent, JComponent pInvoker)
   {
-    if(pModelAccess instanceof MapCreatorModelAccess)
-    {
-      MapCreatorModelAccess modelAccess = (MapCreatorModelAccess) pModelAccess;
-
-    }
   }
 
   @Nullable

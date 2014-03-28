@@ -4,6 +4,7 @@ import de.swat.Raster;
 import de.swat.annotations.DataModel;
 import de.swat.constants.IWindowConstants;
 import de.swat.dataModels.Map.*;
+import de.swat.observableList2.ObservableList2;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ public class MapDataModel extends SimpleDataModel
    * Ungeordnete Liste aller Collisions-Objekte. Die Indices
    * kommen von der ArrayList eines Rasters.
    */
-  private ArrayList<AbstractCollisionObjectDataModel> collisionObjects = new ArrayList<>();
+  private ObservableList2<AbstractCollisionObjectDataModel> collisionObjects = new ObservableList2<>();
 
   /**
    * Attribute, die nur für das hinzufügen von Strukturen im MapCreator gebraucht werden
@@ -54,12 +55,12 @@ public class MapDataModel extends SimpleDataModel
     currentStructure = pCurrentStructure;
   }
 
-  public ArrayList<AbstractCollisionObjectDataModel> getCollisionObjects()
+  public ObservableList2<AbstractCollisionObjectDataModel> getCollisionObjects()
   {
     return collisionObjects;
   }
 
-  public void setCollisionObjects(ArrayList<AbstractCollisionObjectDataModel> pCollisionObjects)
+  public void setCollisionObjects(ObservableList2<AbstractCollisionObjectDataModel> pCollisionObjects)
   {
     collisionObjects = pCollisionObjects;
   }

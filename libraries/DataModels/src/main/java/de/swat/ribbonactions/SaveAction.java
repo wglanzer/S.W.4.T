@@ -1,7 +1,6 @@
 package de.swat.ribbonactions;
 
 import de.swat.*;
-import de.swat.accesses.*;
 import de.swat.annotations.RibbonAction;
 import de.swat.constants.IRibbonConstants;
 import de.swat.enums.*;
@@ -19,25 +18,25 @@ import java.awt.event.*;
 public class SaveAction extends AbstractRibbonAction
 {
   @Override
-  public void actionPerformed(ActionEvent pSourceEvent, JComponent pInvoker, IModelAccess pModelAccess)
+  public void actionPerformed(ActionEvent pSourceEvent, JComponent pInvoker)
   {
-    if (pModelAccess instanceof MapCreatorModelAccess)
-    {
-      final MapCreatorModelAccess modelAccess = (MapCreatorModelAccess) pModelAccess;
-
-      final JFileChooser fileChooser = new JFileChooser();
-      fileChooser.addActionListener(new ActionListener()
-      {
-        @Override
-        public void actionPerformed(ActionEvent e)
-        {
-          fileChooser.removeActionListener(this);
-          if (fileChooser.getSelectedFile() != null)
-            SaveUtil.save(modelAccess.getMapCreatorMap().getModelAccess(), fileChooser.getSelectedFile());
-        }
-      });
-      fileChooser.showOpenDialog(null);
-    }
+    //if (pModelAccess instanceof MapCreatorModelAccess)
+    //{
+    //  final MapCreatorModelAccess modelAccess = (MapCreatorModelAccess) pModelAccess;
+    //
+    //  final JFileChooser fileChooser = new JFileChooser();
+    //  fileChooser.addActionListener(new ActionListener()
+    //  {
+    //    @Override
+    //    public void actionPerformed(ActionEvent e)
+    //    {
+    //      fileChooser.removeActionListener(this);
+    //      if (fileChooser.getSelectedFile() != null)
+    //        SaveUtil.save(modelAccess.getMapCreatorMap().getModelAccess(), fileChooser.getSelectedFile());
+    //    }
+    //  });
+    //  fileChooser.showOpenDialog(null);
+    //}
   }
 
   @Nullable

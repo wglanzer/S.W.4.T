@@ -1,8 +1,8 @@
 package de.swat.MapCreator.gui;
 
-import de.swat.*;
 import de.swat.MapCreator.gui.DrawContainer.DrawContainer;
-import de.swat.accesses.MapCreatorModelAccess;
+import de.swat.PropertySheet;
+import de.swat.accesses.MapModelAccess;
 import de.swat.constants.*;
 
 import javax.swing.*;
@@ -16,18 +16,16 @@ import java.awt.*;
 public class Window extends JFrame
 {
   private static final String TITLE = "S.W.4.T - MapCreator - Version 1.0.0";
-  private final MapCreatorMap map;
-  private final MapCreatorModelAccess modelAccess;
+  private final MapModelAccess modelAccess;
   /*GUI-Komponenten*/
   private DrawContainer drawContainer;
   private Ribbon ribbon;
   private JSpinner xOffSpinner;
   private JSpinner yOffSpinner;
 
-  public Window(MapCreatorModelAccess pModelAccess)
+  public Window(MapModelAccess pModelAccess)
   {
     modelAccess = pModelAccess;
-    map = modelAccess.getMapCreatorMap();
     drawContainer = new DrawContainer(pModelAccess);
     ribbon = new Ribbon();
 

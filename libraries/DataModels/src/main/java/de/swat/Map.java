@@ -20,18 +20,16 @@ import java.util.ArrayList;
 public class Map extends AbstractFieldChangeListener implements Serializable
 {
 
-  private MapModelAccess modelAccess;
-
-  public Map()
-  {
-    modelAccess = (MapModelAccess) DataModelHandler.newModelAccess(MapModelAccess.class);
-    modelAccess.setRaster(new Raster(10, new Dimension(IWindowConstants.MAX_RASTERWIDTH, IWindowConstants.MAX_RASTERHEIGHT), this));
-  }
+  protected MapModelAccess modelAccess;
+  protected ObservableList2<AbstractCollisionObjectDataModel> structureRectangles = new ObservableList2<>();
 
   public Map(@Nullable MapModelAccess pModelAccess)
   {
     if (pModelAccess != null)
+    {
       modelAccess = pModelAccess;
+      structureRectangles = modelAccess.getCollisionObjects();
+    }
   }
 
   /**
@@ -81,6 +79,16 @@ public class Map extends AbstractFieldChangeListener implements Serializable
   private void setBoundingBox(AbstractCollisionObjectDataModel pObject)
   {
     pObject.setBoundingBox();
+  }
+
+  /**
+   * Liefert die StructureRectangles zurück
+   *
+   * @return StructureRectangles
+   */
+  public ObservableList2<AbstractCollisionObjectDataModel> getStructureRectangles()
+  {
+    return modelAccess.getCollisionObjects();
   }
 
   /**
