@@ -5,6 +5,8 @@ import de.swat.exceptions.SwatRuntimeException;
 import de.swat.utils.PredefinedParameterUtil;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 
+import java.util.*;
+
 /**
  * Einsprungpunkt von außen in den Mapcreator
  *
@@ -27,16 +29,14 @@ public class MapCreatorMain
 
   private static void _parseArgs(String[] pArgs)
   {
-    for (String currArg : pArgs)
-    {
-      if (currArg.equals(IStartArguments.DEBUG))
+    List<String> args = Arrays.asList(pArgs);
+
+    if (args.contains(IStartArguments.DEBUG))
         PredefinedParameterUtil.setDebugMode(true);
-    }
   }
 
   /**
-   * Setzt das LookAndFeel auf "Nimbus".
-   * Dieses ist Standardmäßig bei Java dabei
+   * Setzt das LookAndFeel
    */
   private static void _setLookAndFeel()
   {

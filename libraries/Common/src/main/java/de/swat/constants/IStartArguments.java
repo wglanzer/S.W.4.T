@@ -5,7 +5,8 @@ package de.swat.constants;
  */
 public class IStartArguments
 {
+  public static final String PREFIX = "-D";
 
-  public static final String DEBUG = "Dswat.debug";
+  public static final String DEBUG = PREFIX + "swat.debug";
 
 }
