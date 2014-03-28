@@ -17,11 +17,7 @@ public abstract class DataModelHandler
     {
       return (IModelAccess) pModelAccess.newInstance();
     }
-    catch (InstantiationException e)
-    {
-      e.printStackTrace();
-    }
-    catch (IllegalAccessException e)
+    catch (InstantiationException | IllegalAccessException e)
     {
       e.printStackTrace();
     }

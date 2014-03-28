@@ -7,6 +7,11 @@ import java.io.*;
 import java.util.*;
 
 /**
+ * Liste, die die ObservableList mit
+ * dem Serializable-Interface erweitert, sodass
+ * diese gespeichert werden kann
+ * @see javafx.collections.ObservableList
+ *
  * @param <T>
  * @author Hamish Morgan
  */

@@ -1,6 +1,9 @@
 package de.swat.enums;
 
 /**
+ * Kategorien, die der Ribbon haben kann.
+ * Diese werden derzeit als Reiter im Ribbon dargestellt
+ *
  * @author W. Glanzer, 05.12.13
  */
 public enum ERibbonCategory
