@@ -1,6 +1,7 @@
 package de.swat.MapCreator.gui.DrawContainer;
 
 import de.swat.*;
+import de.swat.MapCreator.GlobalKeyListenerManager;
 import de.swat.MapCreator.brushes.*;
 import de.swat.dataModels.Map.*;
 import de.swat.exceptions.SwatRuntimeException;
@@ -31,6 +32,7 @@ public class DrawContainer extends JPanel
   private boolean isBlocked = false;
   private Point actualMousePoint = new Point(0, 0);
   private IBrush actualBrush = new PointBrush();
+  private boolean isControlDown = false;
 
   /**
    * Hier kommen Daten, die nicht unbedingt ins Datenmodell
@@ -89,6 +91,26 @@ public class DrawContainer extends JPanel
         repaint();
       }
     });
+
+    GlobalKeyListenerManager.getDefault().addKeyEventDispatcher(new KeyEventDispatcher()
+    {
+      @Override
+      public boolean dispatchKeyEvent(KeyEvent e)
+      {
+        if(e.getKeyCode() == KeyEvent.VK_CONTROL)
+          isControlDown = e.getID() == KeyEvent.KEY_PRESSED;
+
+        SwingUtilities.invokeLater(new Runnable()
+        {
+          @Override
+          public void run()
+          {
+            repaint();
+          }
+        });
+        return false;
+      }
+    });
   }
 
   @Override
@@ -144,9 +166,12 @@ public class DrawContainer extends JPanel
       }
     }
 
+    if(isControlDown)
+    {
     /*Aktuelle MousePosition*/
-    g.setColor(Color.GREEN);
-    g.drawRoundRect(actualMousePoint.x - 4, actualMousePoint.y - 4, 8, 8, 8, 8);
+      g.setColor(Color.GREEN);
+      g.drawRoundRect(actualMousePoint.x - 4, actualMousePoint.y - 4, 8, 8, 8, 8);
+    }
 
     /*Verbindungslinie*/
     if (clickedPoints.size() > 0)

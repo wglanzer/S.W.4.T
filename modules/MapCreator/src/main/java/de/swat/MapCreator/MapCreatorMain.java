@@ -17,6 +17,7 @@ public class MapCreatorMain
 
   public MapCreatorMain()
   {
+    GlobalKeyListenerManager.init();
     new MapCreator();
   }
 
