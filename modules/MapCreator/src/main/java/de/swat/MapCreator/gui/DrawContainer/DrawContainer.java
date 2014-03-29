@@ -24,8 +24,6 @@ public class DrawContainer extends JPanel
   private Map map;
   public int xOff = 0;
   public int yOff = 0;
-  private boolean isInitialised = false;
-  private boolean isBlocked = false;
   private Point actualMousePoint = new Point(0, 0);
   private IBrush actualBrush = new PointBrush();
   private EDrawState state = EDrawState.MOUSE;
@@ -44,8 +42,9 @@ public class DrawContainer extends JPanel
     setOpaque(true);
     setUI(new BasicPanelUI());
     setBackground(Color.BLACK);
-    addMouseListener(new Mouse());
-    addMouseMotionListener(new MouseMove());
+    Mouse mouse = new Mouse();
+    addMouseListener(mouse);
+    addMouseMotionListener(mouse);
     _setListeners();
   }
 
@@ -65,19 +64,6 @@ public class DrawContainer extends JPanel
 
   private void _setListeners()
   {
-    addComponentListener(new ComponentAdapter()
-    {
-      @Override
-      public void componentResized(ComponentEvent e)
-      {
-        if (getHeight() > 0 && getWidth() > 0)
-        {
-          removeComponentListener(this);
-          isInitialised = true;
-        }
-      }
-    });
-
     map.addFieldChangeListener(new IFieldChangeListener()
     {
       @Override
@@ -202,26 +188,45 @@ public class DrawContainer extends JPanel
       map.getStructureRectangles().add(pStructureObject);
   }
 
-  private class MouseMove extends MouseMotionAdapter
-  {
-    @Override
-    public void mouseMoved(MouseEvent e)
-    {
-      actualMousePoint = e.getPoint();
-      repaint();
-    }
-  }
-
-
   /**
    * MouseAdapter, der hier verwendet wird. Dieser
    * dient nur zur Übersichtlichkeit.
    */
   private class Mouse extends MouseAdapter
   {
+    private Point oldDragPoint;
+
+    @Override
+    public void mouseMoved(MouseEvent e)
+    {
+      actualMousePoint = e.getPoint();
+      repaint();
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e)
+    {
+      if (state == EDrawState.MOUSE)
+      {
+        Point delta = new Point(oldDragPoint.x - e.getPoint().x, oldDragPoint.y - e.getPoint().y);
+        xOff += xOff + delta.x > 0 ? delta.x : 0;
+        yOff += yOff + delta.y > 0 ? delta.y : 0;
+        oldDragPoint = e.getPoint();
+        repaint();
+      }
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e)
+    {
+      oldDragPoint = e.getPoint();
+    }
+
     @Override
     public void mouseReleased(MouseEvent e)
     {
+      oldDragPoint = null;
+
       Point clickPoint = new Point(e.getX() + xOff, e.getY() + yOff);
       int mouseX = e.getX();
       int mouseY = e.getY();
@@ -349,35 +354,9 @@ public class DrawContainer extends JPanel
     repaint();
   }
 
-  /**
-   * @return ob das Objekt schon initialisiert wurde. Dies passiert, wenn
-   * die Komponente das erste mal vom LayoutManager angefasst wurde, und somit
-   * der ComponentListener sich zu Wort meldet. Dieser wird danach entfernt, und
-   * isInitialised auf <code>true</code> gesetzt.
-   */
-  public boolean isInitialised()
-  {
-    return isInitialised;
-  }
-
   public ObservableList2<Point> getClickedPoints()
   {
     return clickedPoints;
-  }
-
-  /**
-   * @return Liefert zurück, ob das Objekt durch eine andere Aktion
-   * blockiert werden soll. Somit wird bspw. der MouseMoveOffsetThread
-   * geblockt.
-   */
-  public boolean isBlocked()
-  {
-    return isBlocked;
-  }
-
-  public void setBlocked(boolean pIsBlocked)
-  {
-    isBlocked = pIsBlocked;
   }
 
   public void reloadFromDataModel()
