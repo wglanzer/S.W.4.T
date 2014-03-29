@@ -32,7 +32,7 @@ public class DrawContainer extends JPanel
   private boolean isBlocked = false;
   private Point actualMousePoint = new Point(0, 0);
   private IBrush actualBrush = new PointBrush();
-  private boolean isControlDown = false;
+  private EDrawState state = EDrawState.MOUSE;
 
   /**
    * Hier kommen Daten, die nicht unbedingt ins Datenmodell
@@ -42,7 +42,7 @@ public class DrawContainer extends JPanel
   private ObservableList2<Point> clickedPoints = new ObservableList2<>();
   private BufferedImage backgroundimage = null;
   private ObservableList2<Point> collisionPoints = new ObservableList2<>();
-  
+
   public DrawContainer(Map pMap)
   {
     map = pMap;
@@ -97,8 +97,8 @@ public class DrawContainer extends JPanel
       @Override
       public boolean dispatchKeyEvent(KeyEvent e)
       {
-        if(e.getKeyCode() == KeyEvent.VK_CONTROL)
-          isControlDown = e.getID() == KeyEvent.KEY_PRESSED;
+        if (e.getKeyCode() == KeyEvent.VK_CONTROL)
+          state = e.getID() == KeyEvent.KEY_PRESSED ? EDrawState.SETPOINTS : EDrawState.MOUSE;
 
         SwingUtilities.invokeLater(new Runnable()
         {
@@ -166,7 +166,7 @@ public class DrawContainer extends JPanel
       }
     }
 
-    if(isControlDown)
+    if (state == EDrawState.SETPOINTS)
     {
     /*Aktuelle MousePosition*/
       g.setColor(Color.GREEN);
@@ -267,24 +267,27 @@ public class DrawContainer extends JPanel
         {
           /**LINKE MAUSTASTE*/
           case MouseEvent.BUTTON1:
-            if (clickedPoints.size() > 1)
+            if (state == EDrawState.SETPOINTS)
             {
-              if (PointUtil.checkProximity(clickedPoints.get(0), clickPoint, proxRadius))
+              if (clickedPoints.size() > 1)
               {
-                map.addPoints(clickedPoints);
-                clearClickedPoints();
-                StructureCollisionObjectDataModel newObject = map.finishStructure();
-                addStructureObject(newObject);
-                repaint();
+                if (PointUtil.checkProximity(clickedPoints.get(0), clickPoint, proxRadius))
+                {
+                  map.addPoints(clickedPoints);
+                  clearClickedPoints();
+                  StructureCollisionObjectDataModel newObject = map.finishStructure();
+                  addStructureObject(newObject);
+                  repaint();
+                }
+                else
+                {
+                  actualBrush.drawBrush(clickedPoints, clickPoint);
+                }
               }
               else
               {
                 actualBrush.drawBrush(clickedPoints, clickPoint);
               }
-            }
-            else
-            {
-              actualBrush.drawBrush(clickedPoints, clickPoint);
             }
             if (clickedPoints.size() > 1)
             {
@@ -307,7 +310,7 @@ public class DrawContainer extends JPanel
               //}
 
               if (clickedPoints.size() == 10)
-                collisionPoints  = map.findPath(new Point(100, 100), new Point(800, 800), 10);
+                collisionPoints = map.findPath(new Point(100, 100), new Point(800, 800), 10);
             }
             repaint();
             break;
@@ -381,9 +384,9 @@ public class DrawContainer extends JPanel
 
   /**
    * @return ob das Objekt schon initialisiert wurde. Dies passiert, wenn
-   *         die Komponente das erste mal vom LayoutManager angefasst wurde, und somit
-   *         der ComponentListener sich zu Wort meldet. Dieser wird danach entfernt, und
-   *         isInitialised auf <code>true</code> gesetzt.
+   * die Komponente das erste mal vom LayoutManager angefasst wurde, und somit
+   * der ComponentListener sich zu Wort meldet. Dieser wird danach entfernt, und
+   * isInitialised auf <code>true</code> gesetzt.
    */
   public boolean isInitialised()
   {
@@ -397,8 +400,8 @@ public class DrawContainer extends JPanel
 
   /**
    * @return Liefert zurück, ob das Objekt durch eine andere Aktion
-   *         blockiert werden soll. Somit wird bspw. der MouseMoveOffsetThread
-   *         geblockt.
+   * blockiert werden soll. Somit wird bspw. der MouseMoveOffsetThread
+   * geblockt.
    */
   public boolean isBlocked()
   {
