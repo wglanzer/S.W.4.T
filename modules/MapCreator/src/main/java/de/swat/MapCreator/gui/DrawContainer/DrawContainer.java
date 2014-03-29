@@ -4,18 +4,14 @@ import de.swat.*;
 import de.swat.MapCreator.GlobalKeyListenerManager;
 import de.swat.MapCreator.brushes.*;
 import de.swat.dataModels.Map.*;
-import de.swat.exceptions.SwatRuntimeException;
 import de.swat.observableList2.ObservableList2;
 import de.swat.utils.*;
-import net.coobird.thumbnailator.Thumbnails;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicPanelUI;
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
 
 /**
  * Dieser Container kann DrawableImages darstellen
@@ -40,7 +36,6 @@ public class DrawContainer extends JPanel
    * eine wichtige Rolle spielen
    */
   private ObservableList2<Point> clickedPoints = new ObservableList2<>();
-  private BufferedImage backgroundimage = null;
   private ObservableList2<Point> collisionPoints = new ObservableList2<>();
 
   public DrawContainer(Map pMap)
@@ -118,8 +113,8 @@ public class DrawContainer extends JPanel
   {
     super.paintComponent(g);
 
-    if (backgroundimage != null)
-      g.drawImage(backgroundimage, -xOff, -yOff, null);
+    if (map.getBackgroundImage() != null)
+      g.drawImage(map.getBackgroundImage(), -xOff, -yOff, null);
 
     /*Zeichnet die Punkte, die bereits schon geklickt wurden. Ebenso eine Linie, die die letzen beiden Punkte verbindet*/
     for (int i = 0; i < clickedPoints.size(); i++)
@@ -180,34 +175,6 @@ public class DrawContainer extends JPanel
       Point lastPoint = clickedPoints.get(clickedPoints.size() - 1);
       g.drawLine(lastPoint.x - xOff, lastPoint.y - yOff, actualMousePoint.x, actualMousePoint.y);
     }
-  }
-
-  /**
-   * Setzt dem DrawContainer ein Hintergrundbild, das
-   * wahlweise auf die width und height des Containers
-   * skaliert wird.
-   *
-   * @param pImage           Hintergrundbild als BufferedImage
-   * @param pShouldBeResized Soll das Bild resized werden?
-   */
-  public void setBackgroundimage(@Nullable BufferedImage pImage, boolean pShouldBeResized)
-  {
-    if (pImage == null)
-      return;
-
-    if (pShouldBeResized)
-      try
-      {
-        backgroundimage = Thumbnails.of(pImage).size(getWidth(), getHeight()).asBufferedImage();
-      }
-      catch (IOException e)
-      {
-        throw new SwatRuntimeException("Background image could not be set! Error in module 'Thumbnails'", e);
-      }
-    else
-      backgroundimage = pImage;
-
-    repaint();
   }
 
   /**
@@ -416,7 +383,6 @@ public class DrawContainer extends JPanel
   public void reloadFromDataModel()
   {
     clickedPoints.clear();
-    backgroundimage = null;
     collisionPoints.clear();
     xOff = 0;
     yOff = 0;

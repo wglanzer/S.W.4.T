@@ -1,5 +1,13 @@
 package de.swat;
 
+import de.swat.enums.*;
+import de.swat.exceptions.SwatRuntimeException;
+import org.jetbrains.annotations.Nullable;
+import org.pushingpixels.flamingo.api.common.icon.ResizableIcon;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+
 /**
  * Abstrakte Klasse für RibbonActions.
  * Hier wird beispielsweise schon die compareTo-Methode erstellt.
@@ -13,5 +21,42 @@ public abstract class AbstractRibbonAction implements IRibbonAction
   public int compareTo(Object o)
   {
     return 0;
+  }
+
+  @Nullable
+  @Override
+  public ResizableIcon getIcon()
+  {
+    return null;
+  }
+
+  @Override
+  public String getTitle()
+  {
+    return "[dummy]";
+  }
+
+  @Override
+  public int getPosition()
+  {
+    return 0;
+  }
+
+  @Override
+  public ERibbonCategory getCategory()
+  {
+    return ERibbonCategory.COMMON;
+  }
+
+  @Override
+  public ERibbonSubCategory getSubCategory()
+  {
+    return ERibbonSubCategory.FILE;
+  }
+
+  @Override
+  public void actionPerformed(ActionEvent pSourceEvent, JComponent pInvoker, IMapCreatorImage pMapCreatorImage)
+  {
+    throw new SwatRuntimeException("Not implemented yet!", null);
   }
 }

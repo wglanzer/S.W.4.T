@@ -5,12 +5,21 @@ import de.swat.annotations.DataModel;
 import de.swat.dataModels.Map.*;
 import de.swat.observableList2.ObservableList2;
 
+import java.awt.image.BufferedImage;
+
 /**
  * @author Werner Glanzer, 28.11.13
  */
 @DataModel
 public class MapDataModel extends SimpleDataModel
 {
+
+  /**
+   * BufferedImage, das das Hintergrundbild der Map
+   * repräsentiert.
+   */
+  private BufferedImage backgroundImage;
+
   /**
    * 2-Dimensionales Array, welches über x und y Koordinate
    * eines Rasters auf eine Liste mit den Indices der im
@@ -30,6 +39,15 @@ public class MapDataModel extends SimpleDataModel
   private StructureCollisionObjectDataModel currentStructureObject;
   private Structure currentStructure;
 
+  public BufferedImage getBackgroundImage()
+  {
+    return backgroundImage;
+  }
+
+  public void setBackgroundImage(BufferedImage pBackgroundImage)
+  {
+    backgroundImage = pBackgroundImage;
+  }
 
   public StructureCollisionObjectDataModel getCurrentStructureObject()
   {

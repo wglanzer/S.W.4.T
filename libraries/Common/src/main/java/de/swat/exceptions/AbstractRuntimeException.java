@@ -1,5 +1,7 @@
 package de.swat.exceptions;
 
+import org.jetbrains.annotations.Nullable;
+
 import java.io.PrintStream;
 
 /**
@@ -12,12 +14,12 @@ abstract class AbstractRuntimeException extends RuntimeException
   private ShowState howToPrintStackTrace = ShowState.REAL_MESSAGE;
   private Exception stackTrace = null;
 
-  protected AbstractRuntimeException(String pMessage, Exception pStackTrace)
+  protected AbstractRuntimeException(String pMessage, @Nullable Exception pStackTrace)
   {
     this(pMessage, pStackTrace, ShowState.REAL_MESSAGE);
   }
 
-  protected AbstractRuntimeException(String pMessage, Exception pStackTrace, ShowState pShowState)
+  protected AbstractRuntimeException(String pMessage, @Nullable Exception pStackTrace, ShowState pShowState)
   {
     super(pMessage);
     stackTrace = pStackTrace;
@@ -35,8 +37,11 @@ abstract class AbstractRuntimeException extends RuntimeException
 
       case REAL_MESSAGE:
         super.printStackTrace(s);
-        s.print("caused by: ");
-        stackTrace.printStackTrace(s);
+        if (stackTrace != null)
+        {
+          s.print("caused by: ");
+          stackTrace.printStackTrace(s);
+        }
         break;
 
       case NONE:

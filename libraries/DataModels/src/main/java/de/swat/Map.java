@@ -8,6 +8,7 @@ import de.swat.observableList2.ObservableList2;
 import org.jetbrains.annotations.Nullable;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -188,5 +189,15 @@ public class Map extends AbstractFieldChangeListener implements Serializable
   private void _fireChange(String pFieldName, Object pNewValue)
   {
     fireChange(this, pFieldName, MapDataModel.class, pNewValue);
+  }
+
+  public BufferedImage getBackgroundImage()
+  {
+    return modelAccess.getBackgroundImage();
+  }
+
+  public void setBackgroundImage(BufferedImage pImage)
+  {
+    modelAccess.setBackgroundImage(pImage);
   }
 }
