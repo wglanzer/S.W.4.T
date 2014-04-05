@@ -5,20 +5,15 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>S.W.4.T</artifactId>
+        <artifactId>modules</artifactId>
         <groupId>S.W.4.T</groupId>
-        <version>1.0</version>
+        <version>${core.version}</version>
     </parent>
 
-    <artifactId>modules</artifactId>
-    <version>${core.version}</version>
-    <packaging>pom</packaging>
-    <name>S.W.4.T: modules</name>
+    <artifactId>AndroidCore</artifactId>
+    <name>SWmod: AndroidCore</name>
 
-    <modules>
-        <module>AndroidCore</module>
-        <module>Core</module>
-        <module>MapCreator</module>
-    </modules>
+    <dependencies>
+    </dependencies>
 
 </project>
