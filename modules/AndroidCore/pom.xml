@@ -11,7 +11,7 @@
 
     <artifactId>AndroidCore</artifactId>
     <version>${core.version}</version>
-    <!--<packaging>apk</packaging>-->
+    <packaging>apk</packaging>
     <name>SWmod: AndroidCore</name>
 
     <properties>
@@ -25,22 +25,11 @@
             <groupId>com.google.android</groupId>
             <artifactId>android</artifactId>
             <version>${platform.version}</version>
-            <scope>provided</scope>
         </dependency>
     </dependencies>
 
     <build>
-        <finalName>${project.artifactId}</finalName>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>com.jayway.maven.plugins.android.generation2</groupId>
-                    <artifactId>android-maven-plugin</artifactId>
-                    <version>${android.plugin.version}</version>
-                    <extensions>true</extensions>
-                </plugin>
-            </plugins>
-        </pluginManagement>
+        <sourceDirectory>src</sourceDirectory>
         <plugins>
             <plugin>
                 <groupId>com.jayway.maven.plugins.android.generation2</groupId>
@@ -50,16 +39,18 @@
                     <sdk>
                         <platform>15</platform>
                     </sdk>
+                    <!--<device>usb</device>-->
                     <emulator>
                         <avd>E_XperiaU</avd>
-                        <wait>120000</wait>
-                        <!--<options>-no-skin</options> -->
                     </emulator>
-                    <zipalign>
-                        <verbose>true</verbose>
-                    </zipalign>
-                    <undeployBeforeDeploy>true</undeployBeforeDeploy>
+                    <extractDuplicates>true</extractDuplicates>
+                    <undeployBeforeDeploy>false</undeployBeforeDeploy>
                 </configuration>
+                <extensions>true</extensions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
             </plugin>
         </plugins>
     </build>

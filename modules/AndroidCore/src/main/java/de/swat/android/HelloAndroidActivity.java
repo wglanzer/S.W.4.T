@@ -9,7 +9,6 @@ public class HelloAndroidActivity extends Activity
   @Override
   public void onCreate(Bundle savedInstanceState)
   {
-    super.onCreate(savedInstanceState);
   }
 
 }
