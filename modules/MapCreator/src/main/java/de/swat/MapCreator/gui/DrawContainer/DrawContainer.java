@@ -115,8 +115,19 @@ public class DrawContainer extends JPanel
       if (i > 0)
       {
         Point lastPoint = clickedPoints.get(i - 1);
+
+        /*Wählt die Farbe aus, die die Verbindungslinie haben soll und zeichnet diese anschließend*/
         g.setColor(Color.YELLOW);
-        g.drawLine(lastPoint.x - xOff, lastPoint.y - yOff, currPoint.x - xOff, currPoint.y - yOff);
+        Graphics2D g2 = (Graphics2D) g;
+        Stroke oldStroke = g2.getStroke();
+        if (!(state == EDrawState.SETPOINTS))
+        {
+          Color lightGray = Color.LIGHT_GRAY;
+          g2.setStroke(new BasicStroke(1, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{5}, 0));
+          g2.setColor(new Color(lightGray.getRed(), lightGray.getGreen(), lightGray.getBlue(), 100));
+        }
+        g2.drawLine(lastPoint.x - xOff, lastPoint.y - yOff, currPoint.x - xOff, currPoint.y - yOff);
+        g2.setStroke(oldStroke);
       }
     }
 
@@ -149,17 +160,17 @@ public class DrawContainer extends JPanel
 
     if (state == EDrawState.SETPOINTS)
     {
-    /*Aktuelle MousePosition*/
+      /*Aktuelle MousePosition*/
       g.setColor(Color.GREEN);
       g.drawRoundRect(actualMousePoint.x - 4, actualMousePoint.y - 4, 8, 8, 8, 8);
-    }
 
-    /*Verbindungslinie*/
-    if (clickedPoints.size() > 0 && state == EDrawState.SETPOINTS)
-    {
-      g.setColor(Color.CYAN);
-      Point lastPoint = clickedPoints.get(clickedPoints.size() - 1);
-      g.drawLine(lastPoint.x - xOff, lastPoint.y - yOff, actualMousePoint.x, actualMousePoint.y);
+      /*Verbindungslinie*/
+      if (clickedPoints.size() > 0)
+      {
+        g.setColor(Color.CYAN);
+        Point lastPoint = clickedPoints.get(clickedPoints.size() - 1);
+        g.drawLine(lastPoint.x - xOff, lastPoint.y - yOff, actualMousePoint.x, actualMousePoint.y);
+      }
     }
   }
 
