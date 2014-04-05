@@ -102,19 +102,25 @@ public class Map extends AbstractFieldChangeListener implements Serializable
   /**
    * Der interne Befehl zum Beendigen einer Struktur.
    */
+  @Nullable
   public StructureCollisionObjectDataModel finishStructure()
   {
     Structure currentStructure = modelAccess.getCurrentStructure();
     StructureCollisionObjectDataModel currentStructureObject = modelAccess.getCurrentStructureObject();
 
-    if (currentStructure.getPointList().size() > 1)
+    if (currentStructureObject.getBoundingBox() != null)
     {
-      setBoundingBox(currentStructureObject);
-      checkDirection(currentStructure);
+      if (currentStructure.getPointList().size() > 1)
+      {
+        setBoundingBox(currentStructureObject);
+        checkDirection(currentStructure);
+      }
+      modelAccess.getRaster().addToRaster(currentStructureObject.getBoundingBox(), modelAccess.getCollisionObjects().indexOf(currentStructureObject));
+      closeStructure();
+      return currentStructureObject;
     }
-    modelAccess.getRaster().addToRaster(currentStructureObject.getBoundingBox(), modelAccess.getCollisionObjects().indexOf(currentStructureObject));
-    closeStructure();
-    return currentStructureObject;
+
+    return null;
   }
 
   /**
