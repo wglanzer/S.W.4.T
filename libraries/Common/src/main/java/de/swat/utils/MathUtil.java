@@ -34,6 +34,30 @@ public class MathUtil
     return temp;
   }
 
+  public static float round2Decimals(float pToRound)
+  {
+    int intZahl = (int) ((pToRound * 100) + 0.5);
+    return (float) intZahl / 100;
+  }
+
+  public static Polygon zoomPolygon(Polygon pPolygon, double pZoomFactor)
+  {
+    Polygon returnPoly = new Polygon();
+    int[] newXPoints = new int[pPolygon.xpoints.length];
+    int[] newYPoints = new int[pPolygon.ypoints.length];
+    returnPoly.npoints = pPolygon.npoints;
+
+    for (int i = 0; i < pPolygon.xpoints.length; i++)
+      newXPoints[i] = (int) (pPolygon.xpoints[i] * pZoomFactor);
+
+    for (int i = 0; i < pPolygon.ypoints.length; i++)
+      newYPoints[i] = (int) (pPolygon.ypoints[i] * pZoomFactor);
+
+    returnPoly.xpoints = newXPoints;
+    returnPoly.ypoints = newYPoints;
+    return returnPoly;
+  }
+
   /**
    * Gibt den Winkel zwischen 2 Vektoren zurück
    *

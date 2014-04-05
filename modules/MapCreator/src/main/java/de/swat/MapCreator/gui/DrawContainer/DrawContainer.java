@@ -12,6 +12,7 @@ import javax.swing.*;
 import javax.swing.plaf.basic.BasicPanelUI;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
 
 /**
  * Dieser Container kann DrawableImages darstellen
@@ -35,6 +36,7 @@ public class DrawContainer extends JPanel
    */
   private ObservableList2<Point> clickedPoints = new ObservableList2<>();
   private ObservableList2<Point> collisionPoints = new ObservableList2<>();
+  private float zoomFactor = 1.0f;
 
   public DrawContainer(Map pMap)
   {
@@ -45,6 +47,7 @@ public class DrawContainer extends JPanel
     Mouse mouse = new Mouse();
     addMouseListener(mouse);
     addMouseMotionListener(mouse);
+    addMouseWheelListener(mouse);
     _setListeners();
   }
 
@@ -99,8 +102,16 @@ public class DrawContainer extends JPanel
   {
     super.paintComponent(g);
 
-    if (map.getBackgroundImage() != null)
-      g.drawImage(map.getBackgroundImage(), -xOff, -yOff, null);
+    BufferedImage bgImage = map.getBackgroundImage();
+    if (bgImage != null)
+      g.drawImage(bgImage, -xOff, -yOff, (int) (bgImage.getWidth() * zoomFactor), (int) (bgImage.getHeight() * zoomFactor), null);
+
+    //Hier werden evtl. DebugAusgaben am linken, oberen Eck gerendert
+    if (PredefinedParameterUtil.isDebugMode())
+    {
+      g.setColor(Color.WHITE);
+      g.drawString("ZoomFactor: " + zoomFactor, 5, g.getFontMetrics().getHeight() + 5);
+    }
 
     /*Zeichnet die Punkte, die bereits schon geklickt wurden. Ebenso eine Linie, die die letzen beiden Punkte verbindet*/
     for (int i = 0; i < clickedPoints.size(); i++)
@@ -111,7 +122,7 @@ public class DrawContainer extends JPanel
         g.setColor(Color.WHITE);
 
       Point currPoint = clickedPoints.get(i);
-      g.drawRoundRect(currPoint.x - 4 - xOff, currPoint.y - 4 - yOff, 8, 8, 8, 8);
+      g.drawRoundRect((int) ((currPoint.x - 4 - xOff) * zoomFactor), (int) ((currPoint.y - 4 - yOff) * zoomFactor), 8, 8, 8, 8);
       if (i > 0)
       {
         Point lastPoint = clickedPoints.get(i - 1);
@@ -126,7 +137,7 @@ public class DrawContainer extends JPanel
           g2.setStroke(new BasicStroke(1, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{5}, 0));
           g2.setColor(new Color(lightGray.getRed(), lightGray.getGreen(), lightGray.getBlue(), 100));
         }
-        g2.drawLine(lastPoint.x - xOff, lastPoint.y - yOff, currPoint.x - xOff, currPoint.y - yOff);
+        g2.drawLine((int) ((lastPoint.x - xOff) * zoomFactor), (int) ((lastPoint.y - yOff) * zoomFactor), (int) ((currPoint.x - xOff) * zoomFactor), (int) ((currPoint.y - yOff) * zoomFactor));
         g2.setStroke(oldStroke);
       }
     }
@@ -134,7 +145,7 @@ public class DrawContainer extends JPanel
     /*Zeichnet die Kollisionspunkte*/
     g.setColor(Color.BLUE);
     for (Point currPoint : collisionPoints)
-      g.drawRoundRect(currPoint.x - 4 - xOff, currPoint.y - 4 - yOff, 8, 8, 8, 8);
+      g.drawRoundRect((int) ((currPoint.x - 4 - xOff) * zoomFactor), (int) ((currPoint.y - 4 - yOff) * zoomFactor), 8, 8, 8, 8);
 
     /*Zeichnet die structureRectangles, die durch addStructureRectangle gesetzt werden*/
     for (AbstractCollisionObjectDataModel objectDataModel : map.getStructureRectangles())
@@ -147,14 +158,14 @@ public class DrawContainer extends JPanel
           g.setColor(Color.PINK);
           Rectangle currRect = currObj.getBoundingBox();
           if (currRect != null)
-            g.drawRect(currRect.x - xOff, currRect.y - yOff, currRect.width, currRect.height);
+            g.drawRect((int) ((currRect.x - xOff) * zoomFactor), (int) ((currRect.y - yOff) * zoomFactor), (int) ((currRect.width) * zoomFactor), (int) ((currRect.height) * zoomFactor));
         }
 
         g.setColor(Color.WHITE);
         Polygon poly = currObj.getStructure().getPolygon();
         Polygon secondPoly = new Polygon(poly.xpoints, poly.ypoints, poly.npoints);
         secondPoly.translate(-xOff, -yOff);
-        g.drawPolygon(secondPoly);
+        g.drawPolygon(MathUtil.zoomPolygon(secondPoly, zoomFactor));
       }
     }
 
@@ -169,7 +180,7 @@ public class DrawContainer extends JPanel
       {
         g.setColor(Color.CYAN);
         Point lastPoint = clickedPoints.get(clickedPoints.size() - 1);
-        g.drawLine(lastPoint.x - xOff, lastPoint.y - yOff, actualMousePoint.x, actualMousePoint.y);
+        g.drawLine((int) ((lastPoint.x - xOff) * zoomFactor), (int) ((lastPoint.y - yOff) * zoomFactor), actualMousePoint.x, actualMousePoint.y);
       }
     }
   }
@@ -206,6 +217,7 @@ public class DrawContainer extends JPanel
   private class Mouse extends MouseAdapter
   {
     private Point oldDragPoint;
+    private static final float SCROLLFACTOR = 0.05f;
 
     @Override
     public void mouseMoved(MouseEvent e)
@@ -219,6 +231,7 @@ public class DrawContainer extends JPanel
     {
       if (state == EDrawState.MOUSE)
       {
+        //Point delta = new Point((int) ((oldDragPoint.x - e.getPoint().x) * zoomFactor), (int) ((oldDragPoint.y - e.getPoint().y) * zoomFactor));
         Point delta = new Point(oldDragPoint.x - e.getPoint().x, oldDragPoint.y - e.getPoint().y);
         xOff += xOff + delta.x > 0 ? delta.x : 0;
         yOff += yOff + delta.y > 0 ? delta.y : 0;
@@ -238,7 +251,7 @@ public class DrawContainer extends JPanel
     {
       oldDragPoint = null;
 
-      Point clickPoint = new Point(e.getX() + xOff, e.getY() + yOff);
+      Point clickPoint = new Point((int) ((e.getX() + xOff) / zoomFactor), (int) ((e.getY() + yOff) / zoomFactor));
       int mouseX = e.getX();
       int mouseY = e.getY();
       int proxRadius = 100; //TODO
@@ -314,6 +327,15 @@ public class DrawContainer extends JPanel
             break;
         }
       }
+    }
+
+    @Override
+    public void mouseWheelMoved(MouseWheelEvent e)
+    {
+      double zoomOut = e.getPreciseWheelRotation() * -1;
+      zoomFactor += zoomOut * SCROLLFACTOR != 0 ? zoomOut * SCROLLFACTOR : 0;  //Kann zwar nicht vorkommen, dass zoomOut * SCROLLFACTOR 0 ist, aber zur vorosorge die Abfrage
+      zoomFactor = MathUtil.round2Decimals(zoomFactor);
+      repaint();
     }
   }
 
