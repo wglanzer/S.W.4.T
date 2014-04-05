@@ -3,7 +3,6 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <parent>
         <artifactId>modules</artifactId>
         <groupId>S.W.4.T</groupId>
@@ -11,9 +10,57 @@
     </parent>
 
     <artifactId>AndroidCore</artifactId>
+    <version>${core.version}</version>
+    <!--<packaging>apk</packaging>-->
     <name>SWmod: AndroidCore</name>
 
+    <properties>
+        <platform.version>4.0.1.2</platform.version>
+        <android.plugin.version>3.9.0-rc.1</android.plugin.version>
+        <android.sdk.path>Z:\Android\android-sdk</android.sdk.path>
+    </properties>
+
     <dependencies>
+        <dependency>
+            <groupId>com.google.android</groupId>
+            <artifactId>android</artifactId>
+            <version>${platform.version}</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
+    <build>
+        <finalName>${project.artifactId}</finalName>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>com.jayway.maven.plugins.android.generation2</groupId>
+                    <artifactId>android-maven-plugin</artifactId>
+                    <version>${android.plugin.version}</version>
+                    <extensions>true</extensions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>com.jayway.maven.plugins.android.generation2</groupId>
+                <artifactId>android-maven-plugin</artifactId>
+                <version>3.8.2</version>
+                <configuration>
+                    <sdk>
+                        <platform>15</platform>
+                    </sdk>
+                    <emulator>
+                        <avd>E_XperiaU</avd>
+                        <wait>120000</wait>
+                        <!--<options>-no-skin</options> -->
+                    </emulator>
+                    <zipalign>
+                        <verbose>true</verbose>
+                    </zipalign>
+                    <undeployBeforeDeploy>true</undeployBeforeDeploy>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
