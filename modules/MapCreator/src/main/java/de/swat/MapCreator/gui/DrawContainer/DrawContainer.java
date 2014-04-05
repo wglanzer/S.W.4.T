@@ -155,7 +155,7 @@ public class DrawContainer extends JPanel
     }
 
     /*Verbindungslinie*/
-    if (clickedPoints.size() > 0)
+    if (clickedPoints.size() > 0 && state == EDrawState.SETPOINTS)
     {
       g.setColor(Color.CYAN);
       Point lastPoint = clickedPoints.get(clickedPoints.size() - 1);
