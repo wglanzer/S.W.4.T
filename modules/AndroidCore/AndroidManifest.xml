@@ -7,8 +7,8 @@
     <uses-sdk android:minSdkVersion="8" android:targetSdkVersion="15"/>
 
     <application android:allowBackup="true" android:icon="@drawable/icon" android:label="[DUMMY]">
-    <activity android:name="de.swat.android.HelloAndroidActivity">
-        <intent-filter>
+        <activity android:name=".AndroidCoreActivity">
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>

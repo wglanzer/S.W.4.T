@@ -15,10 +15,25 @@
     <packaging>pom</packaging>
     <name>S.W.4.T: modules</name>
 
+    <profiles>
+        <profile>
+            <id>desktop</id>
+            <modules>
+                <module>DesktopCore</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>android</id>
+            <modules>
+                <module>AndroidCore</module>
+            </modules>
+        </profile>
+    </profiles>
+
     <modules>
-        <module>AndroidCore</module>
         <module>Core</module>
         <module>MapCreator</module>
+        <module>RealCore</module>
     </modules>
 
 </project>

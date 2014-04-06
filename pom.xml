@@ -11,12 +11,24 @@
 
     <properties>
         <core.version>1.0</core.version>
+        <gdx.version>0.9.9</gdx.version>
+        <android.version>4.0.1.2</android.version>
+        <android.maven.version>3.8.2</android.maven.version>
+        <gwt.version>2.5.0</gwt.version>
+        <gwt.maven.version>2.5.0</gwt.maven.version>
     </properties>
 
     <modules>
         <module>libraries</module>
         <module>modules</module>
     </modules>
+
+    <repositories>
+        <repository>
+            <id>gdx-nightlies</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+        </repository>
+    </repositories>
 
     <dependencies>
         <dependency>
