@@ -43,16 +43,15 @@
         </dependency>
 
         <dependency>
-            <groupId>S.W.4.T</groupId>
-            <artifactId>RealCore</artifactId>
-            <version>1.0</version>
+            <groupId>com.badlogicgames.gdx</groupId>
+            <artifactId>gdx</artifactId>
+            <version>${gdx.version}</version>
         </dependency>
         <dependency>
             <groupId>com.badlogicgames.gdx</groupId>
             <artifactId>gdx-backend-android</artifactId>
             <version>${gdx.version}</version>
         </dependency>
-
         <dependency>
             <groupId>com.badlogicgames.gdx</groupId>
             <artifactId>gdx-platform</artifactId>
@@ -103,7 +102,7 @@
                     <sdk>
                         <platform>15</platform>
                     </sdk>
-                    <!--<device>usb</device>-->
+                    <device>usb</device>
                     <emulator>
                         <avd>${android.emulator.avd}</avd>
                     </emulator>

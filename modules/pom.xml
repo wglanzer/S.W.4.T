@@ -17,12 +17,6 @@
 
     <profiles>
         <profile>
-            <id>desktop</id>
-            <modules>
-                <module>DesktopCore</module>
-            </modules>
-        </profile>
-        <profile>
             <id>android</id>
             <modules>
                 <module>AndroidCore</module>
@@ -33,7 +27,6 @@
     <modules>
         <module>Core</module>
         <module>MapCreator</module>
-        <module>RealCore</module>
     </modules>
 
 </project>
