@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 /**
  * @author W. Glanzer, 06.04.2014
  */
-public class AndroidCore implements ApplicationListener
+public class AndroidApplicationListener implements ApplicationListener
 {
 
   Texture texture;
@@ -17,7 +17,8 @@ public class AndroidCore implements ApplicationListener
   @Override
   public void create()
   {
-    texture = new Texture(Gdx.files.internal("libgdx-logo.png"));
+    Texture.setEnforcePotImages(false);
+    texture = new Texture(Gdx.files.internal("data/libgdx-logo.png"));
     batch = new SpriteBatch();
   }
 
