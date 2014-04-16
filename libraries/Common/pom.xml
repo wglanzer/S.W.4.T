@@ -20,7 +20,19 @@
             <version>0.9.9-RC1</version>
         </dependency>
         <dependency>
-            <groupId>S.W.4.T</groupId>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.11</version>
+        </dependency>
+        <dependency>
+            <groupId>com.oracle</groupId>
+            <artifactId>javafx</artifactId>
+            <version>2.2</version>
+            <systemPath>${java.home}/lib/jfxrt.jar</systemPath>
+            <scope>system</scope>
+        </dependency>
+        <dependency>
+        <groupId>S.W.4.T</groupId>
             <artifactId>Flamingo</artifactId>
             <version>7.2.1</version>
         </dependency>
