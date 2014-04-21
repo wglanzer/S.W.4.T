@@ -29,7 +29,7 @@
             <groupId>S.W.4.T</groupId>
             <artifactId>Common</artifactId>
             <version>${core.version}</version>
-            <scope>provided</scope>
+            <scope>compile</scope>
             <exclusions>
                 <exclusion>
                     <artifactId>junit</artifactId>
@@ -102,7 +102,7 @@
                     <sdk>
                         <platform>15</platform>
                     </sdk>
-                    <device>usb</device>
+                    <!--<device>usb</device>-->
                     <emulator>
                         <avd>${android.emulator.avd}</avd>
                     </emulator>

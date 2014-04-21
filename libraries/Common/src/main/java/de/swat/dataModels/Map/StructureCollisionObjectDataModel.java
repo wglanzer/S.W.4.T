@@ -1,9 +1,10 @@
 package de.swat.dataModels.Map;
 
-import de.swat.math.*;
+import de.swat.math.Point2D;
+import de.swat.math.Vector2D;
 import de.swat.observableList2.ObservableList2;
-import de.swat.utils.*;
-import javafx.collections.*;
+import de.swat.utils.PointUtil;
+import de.swat.utils.VectorUtil;
 
 import java.awt.*;
 import java.io.Serializable;
@@ -36,17 +37,17 @@ public class StructureCollisionObjectDataModel extends AbstractCollisionObjectDa
     double minY = pointList.get(0).getY();
 
 
-    for (int i = 1; i < pointList.size(); i++)
+    for(int i = 1; i < pointList.size(); i++)
     {
       double currentX = pointList.get(i).getX();
       double currentY = pointList.get(i).getY();
-      if (currentX > maxX)
+      if(currentX > maxX)
         maxX = currentX;
-      else if (currentX < minX)
+      else if(currentX < minX)
         minX = currentX;
-      if (currentY > maxY)
+      if(currentY > maxY)
         maxY = currentY;
-      else if (currentY < minY)
+      else if(currentY < minY)
         minY = currentY;
     }
     setBoundingBox(new Rectangle((int) minX, (int) minY, (int) (maxX - minX), (int) (maxY - minY)));
@@ -72,7 +73,7 @@ public class StructureCollisionObjectDataModel extends AbstractCollisionObjectDa
     Point2D b4 = new Point2D(boundingBox.x, boundingBox.y + boundingBox.height);
 
 
-    if (boundingBox.contains(v1.x, v1.y) ||
+    if(boundingBox.contains(v1.x, v1.y) ||
         boundingBox.contains(v2.x, v2.y) ||
         VectorUtil.isVectorCollision(v1, v2, b1, b2) ||
         VectorUtil.isVectorCollision(v1, v2, b2, b3) ||
@@ -81,11 +82,11 @@ public class StructureCollisionObjectDataModel extends AbstractCollisionObjectDa
         )
     {
       //System.out.println("test");
-      for (int i = 0; i < getStructure().getPointList().size(); i++)
+      for(int i = 0; i < getStructure().getPointList().size(); i++)
       {
         Point a1 = structure.getPointList().get(i);
         Point a2;
-        if (i == structure.getPointList().size() - 1)
+        if(i == structure.getPointList().size() - 1)
         {
           a2 = structure.getPointList().get(0);
         }
@@ -93,34 +94,34 @@ public class StructureCollisionObjectDataModel extends AbstractCollisionObjectDa
         {
           a2 = structure.getPointList().get(i + 1);
         }
-        if (VectorUtil.isVectorCollision(new Point2D(a1.getX(), a1.getY()), new Point2D(a2.getX(), a2.getY()), pVector.getPoint1(), pVector.getPoint2()))
+        if(VectorUtil.isVectorCollision(new Point2D(a1.getX(), a1.getY()), new Point2D(a2.getX(), a2.getY()), pVector.getPoint1(), pVector.getPoint2()))
         {
 
           Point currPoint = VectorUtil.getVectorCollision(new Point2D(a1.getX(), a1.getY()), new Point2D(a2.getX(), a2.getY()), pVector.getPoint1(), pVector.getPoint2());
 
 
-          if (returnPoint == null)
+          if(returnPoint == null)
             returnPoint = currPoint;
 
           //Das folgende ist aus Raster übernommen, ist nicht sicher, ob es stimmt.
-          if (pVector.getPoint1().x == pVector.getPoint2().x)
+          if(pVector.getPoint1().x == pVector.getPoint2().x)
           {
-            if (pVector.getPoint1().y < pVector.getPoint2().y && currPoint.y < returnPoint.y)
+            if(pVector.getPoint1().y < pVector.getPoint2().y && currPoint.y < returnPoint.y)
             {
               returnPoint = currPoint;
             }
-            else if (pVector.getPoint1().y > pVector.getPoint2().y && currPoint.y > returnPoint.y)
+            else if(pVector.getPoint1().y > pVector.getPoint2().y && currPoint.y > returnPoint.y)
             {
               returnPoint = currPoint;
             }
           }
           else
           {
-            if (pVector.getPoint1().x < pVector.getPoint2().x && currPoint.x < returnPoint.x)
+            if(pVector.getPoint1().x < pVector.getPoint2().x && currPoint.x < returnPoint.x)
             {
               returnPoint = currPoint;
             }
-            else if (pVector.getPoint1().x > pVector.getPoint2().x && currPoint.x > returnPoint.x)
+            else if(pVector.getPoint1().x > pVector.getPoint2().x && currPoint.x > returnPoint.x)
             {
               returnPoint = currPoint;
             }
@@ -155,7 +156,7 @@ public class StructureCollisionObjectDataModel extends AbstractCollisionObjectDa
     ArrayList<Point> returnPoints = new ArrayList<>(0);
 
 
-    if (boundingBox.contains(v1.x, v1.y) ||
+    if(boundingBox.contains(v1.x, v1.y) ||
         boundingBox.contains(v2.x, v2.y) ||
         VectorUtil.isVectorCollision(v1, v2, b1, b2) ||
         VectorUtil.isVectorCollision(v1, v2, b2, b3) ||
@@ -164,11 +165,11 @@ public class StructureCollisionObjectDataModel extends AbstractCollisionObjectDa
         )
     {
       //System.out.println("test");
-      for (int i = 0; i < getStructure().getPointList().size(); i++)
+      for(int i = 0; i < getStructure().getPointList().size(); i++)
       {
         Point a1 = structure.getPointList().get(i);
         Point a2;
-        if (i == structure.getPointList().size() - 1)
+        if(i == structure.getPointList().size() - 1)
         {
           a2 = structure.getPointList().get(0);
         }
@@ -176,13 +177,13 @@ public class StructureCollisionObjectDataModel extends AbstractCollisionObjectDa
         {
           a2 = structure.getPointList().get(i + 1);
         }
-        if (VectorUtil.isVectorCollision(new Point2D(a1.getX(), a1.getY()), new Point2D(a2.getX(), a2.getY()), pVector.getPoint1(), pVector.getPoint2()))
+        if(VectorUtil.isVectorCollision(new Point2D(a1.getX(), a1.getY()), new Point2D(a2.getX(), a2.getY()), pVector.getPoint1(), pVector.getPoint2()))
         {
 
           Point currPoint = VectorUtil.getVectorCollision(new Point2D(a1.getX(), a1.getY()), new Point2D(a2.getX(), a2.getY()), pVector.getPoint1(), pVector.getPoint2());
 
 
-          if (currPoint != null)
+          if(currPoint != null)
             returnPoints.add(currPoint);
         }
       }
@@ -199,11 +200,11 @@ public class StructureCollisionObjectDataModel extends AbstractCollisionObjectDa
     Point2D v2 = pVector.getPoint2();
     int vectorId = 0;
 
-    for (int i = 0; i < getStructure().getPointList().size(); i++)
+    for(int i = 0; i < getStructure().getPointList().size(); i++)
     {
       Point a1 = structure.getPointList().get(i);
       Point a2;
-      if (i == structure.getPointList().size() - 1)
+      if(i == structure.getPointList().size() - 1)
       {
         a2 = structure.getPointList().get(0);
       }
@@ -211,27 +212,27 @@ public class StructureCollisionObjectDataModel extends AbstractCollisionObjectDa
       {
         a2 = structure.getPointList().get(i + 1);
       }
-      if (VectorUtil.isVectorCollision(new Point2D(a1.getX(), a1.getY()), new Point2D(a2.getX(), a2.getY()), pVector.getPoint1(), pVector.getPoint2()))
+      if(VectorUtil.isVectorCollision(new Point2D(a1.getX(), a1.getY()), new Point2D(a2.getX(), a2.getY()), pVector.getPoint1(), pVector.getPoint2()))
       {
 
         Point currPoint = VectorUtil.getVectorCollision(new Point2D(a1.getX(), a1.getY()), new Point2D(a2.getX(), a2.getY()), pVector.getPoint1(), pVector.getPoint2());
 
 
-        if (returnPoint == null)
+        if(returnPoint == null)
         {
           returnPoint = currPoint;
           vectorId = i;
         }
 
         //Das folgende ist aus Raster übernommen, ist nicht sicher, ob es stimmt.
-        if (pVector.getPoint1().x == pVector.getPoint2().x)
+        if(pVector.getPoint1().x == pVector.getPoint2().x)
         {
-          if (pVector.getPoint1().y < pVector.getPoint2().y && currPoint.y < returnPoint.y)
+          if(pVector.getPoint1().y < pVector.getPoint2().y && currPoint.y < returnPoint.y)
           {
             returnPoint = currPoint;
             vectorId = i;
           }
-          else if (pVector.getPoint1().y > pVector.getPoint2().y && currPoint.y > returnPoint.y)
+          else if(pVector.getPoint1().y > pVector.getPoint2().y && currPoint.y > returnPoint.y)
           {
             returnPoint = currPoint;
             vectorId = i;
@@ -239,12 +240,12 @@ public class StructureCollisionObjectDataModel extends AbstractCollisionObjectDa
         }
         else
         {
-          if (pVector.getPoint1().x < pVector.getPoint2().x && currPoint.x < returnPoint.x)
+          if(pVector.getPoint1().x < pVector.getPoint2().x && currPoint.x < returnPoint.x)
           {
             returnPoint = currPoint;
             vectorId = i;
           }
-          else if (pVector.getPoint1().x > pVector.getPoint2().x && currPoint.x > returnPoint.x)
+          else if(pVector.getPoint1().x > pVector.getPoint2().x && currPoint.x > returnPoint.x)
           {
             returnPoint = currPoint;
             vectorId = i;
@@ -264,16 +265,16 @@ public class StructureCollisionObjectDataModel extends AbstractCollisionObjectDa
     ObservableList2<Point> preList = new ObservableList2<>();
     ObservableList2<Point> postList = new ObservableList2<>();
 
-    while (!(prePointFound && postPointFound) && dist < pointListSize)
+    while(!(prePointFound && postPointFound) && dist < pointListSize)
     {
       //Die Punkte vor und nach dem berechneten Punkt
       preID = currID - dist;
-      if (preID < 0)
+      if(preID < 0)
       {
         preID = pointListSize + preID;
       }
       postID = currID + dist;
-      if (postID >= pointListSize)
+      if(postID >= pointListSize)
       {
         postID = postID - pointListSize;
       }
@@ -281,15 +282,15 @@ public class StructureCollisionObjectDataModel extends AbstractCollisionObjectDa
 
       //Die Punkte vor und nach dem Punkten davor und danach dem Berechneten Punkt
 
-      if (!prePointFound)
+      if(!prePointFound)
       {
         int prePreID = preID - 1;
-        if (prePreID < 0)
+        if(prePreID < 0)
         {
           prePreID = pointListSize + prePreID;
         }
         int postPreID = preID + 1;
-        if (postPreID >= pointListSize)
+        if(postPreID >= pointListSize)
         {
           postPreID = postPreID - pointListSize;
         }
@@ -297,21 +298,21 @@ public class StructureCollisionObjectDataModel extends AbstractCollisionObjectDa
         System.out.println("Pre  " + prePreID + "  " + preID + "  " + postPreID);
         Point prePoint = PointUtil.getEdgePoint(structure.getPointList().get(prePreID), structure.getPointList().get(preID), structure.getPointList().get(postPreID), pRadius);
         preList.add(prePoint);
-        if (checkFirstCollision(new Vector2D(new Point2D(prePoint.x, prePoint.y), v2)) == null)
+        if(checkFirstCollision(new Vector2D(new Point2D(prePoint.x, prePoint.y), v2)) == null)
         {
           prePointFound = true;
         }
       }
 
-      if (!postPointFound)
+      if(!postPointFound)
       {
         int prePostID = postID - 1;
-        if (prePostID < 0)
+        if(prePostID < 0)
         {
           prePostID = pointListSize + prePostID;
         }
         int postPostID = postID + 1;
-        if (postPostID >= pointListSize)
+        if(postPostID >= pointListSize)
         {
           postPostID = postPostID - pointListSize;
         }
@@ -319,13 +320,13 @@ public class StructureCollisionObjectDataModel extends AbstractCollisionObjectDa
         System.out.println("Post  " + prePostID + "  " + postID + "  " + postPostID);
         Point postPoint = PointUtil.getEdgePoint(structure.getPointList().get(prePostID), structure.getPointList().get(postID), structure.getPointList().get(postPostID), pRadius);
         postList.add(postPoint);
-        if (checkFirstCollision(new Vector2D(new Point2D(postPoint.x, postPoint.y), v2)) == null)
+        if(checkFirstCollision(new Vector2D(new Point2D(postPoint.x, postPoint.y), v2)) == null)
         {
           postPointFound = true;
         }
       }
     }
-    if (PointUtil.getLengthFromStructure(postList) > PointUtil.getLengthFromStructure(preList))
+    if(PointUtil.getLengthFromStructure(postList) > PointUtil.getLengthFromStructure(preList))
     {
       return preList;
     }

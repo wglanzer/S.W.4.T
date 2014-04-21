@@ -18,6 +18,12 @@
             <groupId>org.reflections</groupId>
             <artifactId>reflections</artifactId>
             <version>0.9.9-RC1</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>dom4j</groupId>
+                    <artifactId>dom4j</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -32,7 +38,7 @@
             <scope>system</scope>
         </dependency>
         <dependency>
-        <groupId>S.W.4.T</groupId>
+            <groupId>S.W.4.T</groupId>
             <artifactId>Flamingo</artifactId>
             <version>7.2.1</version>
         </dependency>
