@@ -10,12 +10,14 @@ import de.swat.utils.StringUtil;
  */
 public class AErrorDialog extends AAbstractDialog
 {
+  private boolean nextHideAllowed = true;
+  private boolean detailsShown = false;
 
   public AErrorDialog(Throwable pThrowable)
   {
     String title = StringUtil.replacePlaceholder(AIStaticConstants.DIALOG_ERROR_TITLE, pThrowable.getClass().getName());
-    String message = AIStaticConstants.DIALOG_ERROR_MESSAGE + StringUtil.getLineSeperator();
-    message += StringUtil.getLineSeperator() + StringUtil.convertStacktraceToString(pThrowable.getStackTrace(), 5);
+    final String message = AIStaticConstants.DIALOG_ERROR_MESSAGE + StringUtil.getLineSeperator();
+    final String detailmessage = StringUtil.convertStacktraceToString(pThrowable, 5);
 
     setTitle(title);
     setText(message);
@@ -24,9 +26,31 @@ public class AErrorDialog extends AAbstractDialog
       @Override
       public void actionPerformed()
       {
+        nextHideAllowed = true;
+      }
+    });
+    addButton(AIStaticConstants.DIALOG_BTN_DETAILS, new IActionListener()
+    {
+      @Override
+      public void actionPerformed()
+      {
+        if(!detailsShown)
+        {
+          setText(message + StringUtil.getLineSeperator() + detailmessage);
+          pack();
+          detailsShown = true;
+        }
+        nextHideAllowed = false;
       }
     });
   }
 
+  @Override
+  public void hide()
+  {
+    if(nextHideAllowed)
+      super.hide();
 
+    nextHideAllowed = true;
+  }
 }

@@ -1,6 +1,8 @@
 package de.swat.android.dialog.dialogs;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import de.swat.android.constants.AIStaticConstants;
 
 import java.util.HashMap;
@@ -13,6 +15,8 @@ import java.util.HashMap;
 public class AAbstractDialog extends Dialog
 {
   private HashMap<Object, IActionListener> actionListenerMap = new HashMap<>();
+  private Label text;
+  private Skin skin = AIStaticConstants.SKIN_DEFAULT;
 
   public AAbstractDialog()
   {
@@ -21,7 +25,10 @@ public class AAbstractDialog extends Dialog
 
   public void setText(String pText)
   {
-    text(pText);
+    if(text != null)
+      getContentTable().removeActor(text);
+    text = new Label(pText, skin.get(Label.LabelStyle.class));
+    text(text);
   }
 
   public void addButton(String pCaption, IActionListener pListener)

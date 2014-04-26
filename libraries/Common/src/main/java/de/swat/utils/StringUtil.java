@@ -38,19 +38,23 @@ public class StringUtil
    * Konvertiert einen Stacktrace (bestehend aus StackTraceElement[]) in einen String.
    * Kann wahlweise auch nur die ersten paar Zeilen auslesen
    *
-   * @param pElements StackTrace
+   * @param pThrowable StackTrace
    * @param pNumbers  Anzahl der Zeilen die ausgelesen werden sollen. <tt>-1</tt> für keine Begrenzung
    * @return StackTrace-String
    */
-  public static String convertStacktraceToString(StackTraceElement[] pElements, int pNumbers)
+  public static String convertStacktraceToString(Throwable pThrowable, int pNumbers)
   {
+    StackTraceElement[] stackTrace = pThrowable.getStackTrace();
     String returnString = "";
-    int count = pNumbers == -1 ? pElements.length : pNumbers;
+    int count = pNumbers == -1 ? stackTrace.length : pNumbers;
+
+    String message = pThrowable.toString();
+    returnString += message + getLineSeperator();
 
     for(int i = 0; i < count; i++)
     {
-      StackTraceElement currElement = pElements[i];
-      returnString += currElement.toString() + getLineSeperator();
+      StackTraceElement currElement = stackTrace[i];
+      returnString += getTabSymbol() + currElement.toString() + getLineSeperator();
     }
 
     return returnString;
@@ -65,5 +69,16 @@ public class StringUtil
   {
     String prop = System.getProperty("line.separator");
     return prop == null || prop.isEmpty() ? "\r\n" : prop;
+  }
+
+  /**
+   * Liefert das Symbol, mit dem ein Text eingerückt werden kann
+   * (Ähnlich wie \t, dieser funktioniert allerdings bei LibGDX nicht)
+   *
+   * @return Tab-Symbol
+   */
+  public static String getTabSymbol()
+  {
+    return "    ";
   }
 }
