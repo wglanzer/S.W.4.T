@@ -1,16 +1,24 @@
 package de.swat.annotationProcessors.dataModelProcessor;
 
-import de.swat.annotations.*;
+import de.swat.annotations.DataModel;
+import de.swat.annotations.DoNotProcess;
 import de.swat.constants.IVersion;
 
-import javax.annotation.processing.*;
+import javax.annotation.processing.AbstractProcessor;
+import javax.annotation.processing.RoundEnvironment;
+import javax.annotation.processing.SupportedAnnotationTypes;
+import javax.annotation.processing.SupportedSourceVersion;
 import javax.lang.model.SourceVersion;
-import javax.lang.model.element.*;
+import javax.lang.model.element.Element;
+import javax.lang.model.element.TypeElement;
+import javax.lang.model.element.VariableElement;
 import javax.lang.model.util.ElementFilter;
 import javax.tools.Diagnostic;
 import java.io.PrintWriter;
-import java.text.*;
-import java.util.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Set;
 
 @SupportedAnnotationTypes("de.swat.annotations.DataModel")
 @SupportedSourceVersion(SourceVersion.RELEASE_7)
@@ -42,7 +50,7 @@ public class DataModelProcessor extends AbstractProcessor
           out.write("public class " + newClassName + " extends AbstractModelAccess\r\n");
           out.write("{\r\n");
           out.write("\r\n");
-          out.write("\tprivate static final long serialVersionUID = " + IVersion.DataModelVersion + "L;\r\n");
+          out.write("\tprivate static final long serialVersionUID = " + IVersion.DATA_MODEL_VERSION + "L;\r\n");
           out.write("\tprivate final " + oldClassName + " INSTANCE = new " + oldClassName + "();\r\n");
           out.write("\r\n");
 
