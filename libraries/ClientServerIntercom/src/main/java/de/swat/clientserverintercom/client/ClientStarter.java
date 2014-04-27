@@ -64,7 +64,7 @@ public class ClientStarter
         Socket socket = new Socket(serverAddr, client.getServerPort());
 
         new Thread(new InputReaderThread(socket, client)).start();
-        while(!client.disconnect())
+        while(!client.wantsToDisconnect())
         {
           String messageToSend = client.getMessageToSend();
           if(messageToSend != null)
