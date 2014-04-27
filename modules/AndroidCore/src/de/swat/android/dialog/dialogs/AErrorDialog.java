@@ -3,6 +3,8 @@ package de.swat.android.dialog.dialogs;
 import de.swat.android.constants.AIStaticConstants;
 import de.swat.utils.StringUtil;
 
+import java.text.MessageFormat;
+
 /**
  * Zeigt einen Error an
  *
@@ -15,7 +17,7 @@ public class AErrorDialog extends AAbstractDialog
 
   public AErrorDialog(Throwable pThrowable)
   {
-    String title = StringUtil.replacePlaceholder(AIStaticConstants.DIALOG_ERROR_TITLE, pThrowable.getClass().getName());
+    String title = MessageFormat.format(AIStaticConstants.DIALOG_ERROR_TITLE, pThrowable.getClass().getName());
     final String message = AIStaticConstants.DIALOG_ERROR_MESSAGE + StringUtil.getLineSeperator();
     final String detailmessage = StringUtil.convertStacktraceToString(pThrowable, 5);
 

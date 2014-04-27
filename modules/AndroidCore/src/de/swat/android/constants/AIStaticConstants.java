@@ -15,7 +15,7 @@ public interface AIStaticConstants extends IStaticConstants
 {
 
   //Dialoge
-  public static final String DIALOG_ERROR_TITLE = "ERROR: %1";
+  public static final String DIALOG_ERROR_TITLE = "ERROR: {0}";
   public static final String DIALOG_ERROR_MESSAGE = "An error occurred.\nPlease see your console and contact the developers!";
   public static final String DIALOG_BTN_OK = "OK";
   public static final String DIALOG_BTN_DETAILS = "Details...";

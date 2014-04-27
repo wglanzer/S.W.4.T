@@ -7,15 +7,9 @@ package de.swat.logging;
  */
 public interface ILogger
 {
-  public static final String PREFIX = "[";
-  public static final String POSTFIX = "]";
-  public static final String DELIMITER = ":";
-
-  public static final String ERROR = PREFIX + "ERROR" + POSTFIX + DELIMITER;
-  public static final String INFO = PREFIX + "INFO" + POSTFIX + DELIMITER;
-  public static final String DEBUG = PREFIX + "DEBUG" + POSTFIX + DELIMITER;
-
-  public static final String SPACE = " ";
+  public static final String ERROR = "ERROR";
+  public static final String INFO = "INFO";
+  public static final String DEBUG = "DEBUG";
 
   /**
    * Gibt eine Error-Meldung aus

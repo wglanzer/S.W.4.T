@@ -17,6 +17,7 @@ import de.swat.android.gui.controls.TouchpadImpl;
 public class AScreen extends ScreenAdapter
 {
   private Stage stage = new Stage();
+  private float delt = 0f;
 
   @Override
   public void show()
@@ -36,9 +37,12 @@ public class AScreen extends ScreenAdapter
   @Override
   public void render(float delta)
   {
+    Gdx.gl.glClearColor((float) Math.sin(delt), (float) Math.sin(delt/2), (float) Math.sin(delt/4), 1f);
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     stage.act(delta);
     stage.draw();
+
+    delt += delta;
   }
 
   @Override

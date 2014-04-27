@@ -12,16 +12,16 @@ import de.swat.constants.IVersion;
  */
 public class DesktopStarter
 {
-
-  private static final int FACTOR = 640;
+  private static final int WIDTH = 854;
+  private static final int HEIGHT = 480;
 
   public static void main(String[] args)
   {
     LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
     cfg.title = IVersion.MAJOR_NAME + " - DesktopStarter - Version " + IVersion.ANDROID_VERSION;
     cfg.useGL20 = false;
-    cfg.width = (int) (FACTOR * 1.5);
-    cfg.height = FACTOR;
+    cfg.height = HEIGHT;
+    cfg.width = WIDTH;
 
     new LwjglApplication(new AMainGame(), cfg);
   }

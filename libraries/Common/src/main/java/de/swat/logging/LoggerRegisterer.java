@@ -1,8 +1,8 @@
 package de.swat.logging;
 
 import de.swat.constants.IStaticConstants;
-import de.swat.utils.StringUtil;
 
+import java.text.MessageFormat;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -27,7 +27,7 @@ public class LoggerRegisterer
     synchronized(loggerSet)
     {
       loggerSet.add(pLogger);
-      System.out.println(StringUtil.replacePlaceholder(IStaticConstants.LOGGERREGISTERER_LOGGER_REGISTERED, loggerSet.size()));
+      out(MessageFormat.format(IStaticConstants.LOGGERREGISTERER_LOGGER_REGISTERED, loggerSet.size()));
     }
   }
 
@@ -41,7 +41,7 @@ public class LoggerRegisterer
     synchronized(loggerSet)
     {
       loggerSet.remove(pLogger);
-      System.out.println(StringUtil.replacePlaceholder(IStaticConstants.LOGGERREGISTERER_LOGGER_UNREGISTERED, loggerSet.size()));
+      out(MessageFormat.format(IStaticConstants.LOGGERREGISTERER_LOGGER_UNREGISTERED, loggerSet.size()));
     }
   }
 

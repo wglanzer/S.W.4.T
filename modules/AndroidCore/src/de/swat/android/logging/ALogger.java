@@ -1,9 +1,11 @@
 package de.swat.android.logging;
 
 import de.swat.android.dialog.ADialogDisplayer;
+import de.swat.constants.IStaticConstants;
 import de.swat.logging.ILogger;
 
 import java.io.PrintStream;
+import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -21,19 +23,19 @@ public class ALogger implements ILogger
   @Override
   public void err(String pError)
   {
-    errorPrint.println(_buildString(ERROR) + pError);
+    errorPrint.println(_buildString(ERROR, pError));
   }
 
   @Override
   public void info(String pOut)
   {
-    normalPrint.println(_buildString(INFO) + pOut);
+    normalPrint.println(_buildString(INFO, pOut));
   }
 
   @Override
   public void debug(String pDebug)
   {
-    normalPrint.println(_buildString(DEBUG) + pDebug);
+    normalPrint.println(_buildString(DEBUG, pDebug));
   }
 
   @Override
@@ -46,9 +48,9 @@ public class ALogger implements ILogger
   /**
    * Fügt einen String dieser Art zusammen: 08:30:59 [INFO]: Hier DummyText
    */
-  private String _buildString(String pState)
+  private String _buildString(String pState, String pMessage)
   {
-    return _getTime() + SPACE + pState + SPACE;
+    return MessageFormat.format(IStaticConstants.OUT_PREFIX, _getTime(), pState, pMessage);
   }
 
   private String _getTime()
