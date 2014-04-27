@@ -3,6 +3,8 @@ package de.swat.clientserverintercom;
 import de.swat.clientserverintercom.server.AbstractServer;
 import de.swat.clientserverintercom.server.ServerStarter;
 
+import java.net.Socket;
+
 /**
  * @author W.Glanzer, 27.04.2014.
  */
@@ -22,7 +24,7 @@ public class StartableServer extends AbstractServer
   }
 
   @Override
-  public void onClientMessage(String pMessage)
+  public void onClientMessage(String pMessage, Socket pClient)
   {
     sendClientMessage("A Client sent: " + pMessage);
   }

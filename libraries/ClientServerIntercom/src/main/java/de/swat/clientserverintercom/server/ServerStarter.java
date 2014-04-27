@@ -106,7 +106,7 @@ public class ServerStarter
         BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
         String line;
         while((line = in.readLine()) != null)
-          server.onClientMessage(line);
+          server.onClientMessage(line, client);
       }
       catch(Exception e)
       {

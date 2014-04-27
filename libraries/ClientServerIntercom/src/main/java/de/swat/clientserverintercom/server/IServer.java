@@ -22,9 +22,10 @@ public interface IServer
   /**
    * Wird ausgeführt, wenn der Client eine Nachricht an den Server schickt
    *
-   * @param pMessage
+   * @param pMessage Nachricht, die erhalten wurde
+   * @param pClient  Client, von dem die Nachricht stammt
    */
-  void onClientMessage(String pMessage);
+  void onClientMessage(String pMessage, Socket pClient);
 
   /**
    * Wird ausgeführt, wenn der Client die Verbindung verliert

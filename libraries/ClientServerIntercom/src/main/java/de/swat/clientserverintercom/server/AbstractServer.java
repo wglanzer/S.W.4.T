@@ -37,7 +37,7 @@ public abstract class AbstractServer implements IServer
   }
 
   @Override
-  public abstract void onClientMessage(String pMessage);
+  public abstract void onClientMessage(String pMessage, Socket pClient);
 
   @Override
   public void sendClientMessage(Socket pClient, String pMessage)
