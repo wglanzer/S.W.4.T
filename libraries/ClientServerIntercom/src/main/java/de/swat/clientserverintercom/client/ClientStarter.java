@@ -64,7 +64,7 @@ public class ClientStarter
         Socket socket = new Socket(serverAddr, client.getServerPort());
 
         new Thread(new InputReaderThread(socket, client)).start();
-        while(!client.wantsToDisconnect())
+        while(!client.wantsToDisconnect() && socket.isConnected())
         {
           String messageToSend = client.getMessageToSend();
           if(messageToSend != null)
@@ -81,6 +81,7 @@ public class ClientStarter
           }
         }
         socket.close();
+        System.out.println("Socket closed.");
       }
       catch(Exception e)
       {
@@ -113,7 +114,7 @@ public class ClientStarter
       }
       catch(Exception e)
       {
-        e.printStackTrace();
+        LoggerRegisterer.err("InputReaderThread stopped (" + e.getCause() + ")");
       }
     }
   }
