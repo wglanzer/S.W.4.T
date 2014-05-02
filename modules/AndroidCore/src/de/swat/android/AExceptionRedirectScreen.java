@@ -1,8 +1,8 @@
 package de.swat.android;
 
 import com.badlogic.gdx.Screen;
-import de.swat.android.logging.ALogger;
-import de.swat.logging.LoggerRegisterer;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Dieser Screen leitet an einen anderen weiter.
@@ -14,17 +14,17 @@ import de.swat.logging.LoggerRegisterer;
 public class AExceptionRedirectScreen implements Screen
 {
   private Screen redirectTo;
+  private Logger logger = LogManager.getLogger();
 
   public AExceptionRedirectScreen()
   {
     try
     {
-      LoggerRegisterer.register(new ALogger());
-
       redirectTo = new AScreen();
-    } catch(Throwable e)
+    }
+    catch(Throwable e)
     {
-      _handleThrowable(e);
+      logger.catching(e);
     }
   }
 
@@ -34,9 +34,10 @@ public class AExceptionRedirectScreen implements Screen
     try
     {
       redirectTo.resize(pWidth, pHeight);
-    } catch(Throwable e)
+    }
+    catch(Throwable e)
     {
-      _handleThrowable(e);
+      logger.catching(e);
     }
   }
 
@@ -46,9 +47,10 @@ public class AExceptionRedirectScreen implements Screen
     try
     {
       redirectTo.pause();
-    } catch(Throwable e)
+    }
+    catch(Throwable e)
     {
-      _handleThrowable(e);
+      logger.catching(e);
     }
   }
 
@@ -58,9 +60,10 @@ public class AExceptionRedirectScreen implements Screen
     try
     {
       redirectTo.resume();
-    } catch(Throwable e)
+    }
+    catch(Throwable e)
     {
-      _handleThrowable(e);
+      logger.catching(e);
     }
   }
 
@@ -70,9 +73,10 @@ public class AExceptionRedirectScreen implements Screen
     try
     {
       redirectTo.dispose();
-    } catch(Throwable e)
+    }
+    catch(Throwable e)
     {
-      _handleThrowable(e);
+      logger.catching(e);
     }
   }
 
@@ -82,9 +86,10 @@ public class AExceptionRedirectScreen implements Screen
     try
     {
       redirectTo.render(pDelta);
-    } catch(Throwable e)
+    }
+    catch(Throwable e)
     {
-      _handleThrowable(e);
+      logger.catching(e);
     }
   }
 
@@ -94,9 +99,10 @@ public class AExceptionRedirectScreen implements Screen
     try
     {
       redirectTo.show();
-    } catch(Throwable e)
+    }
+    catch(Throwable e)
     {
-      _handleThrowable(e);
+      logger.catching(e);
     }
   }
 
@@ -106,25 +112,11 @@ public class AExceptionRedirectScreen implements Screen
     try
     {
       redirectTo.hide();
-    } catch(Throwable e)
+    }
+    catch(Throwable e)
     {
-      _handleThrowable(e);
+      logger.catching(e);
     }
   }
 
-  /**
-   * Handlet das Throwable-Objekt
-   *
-   * @param pThrowable Throwable-Objekt
-   */
-  private void _handleThrowable(Throwable pThrowable)
-  {
-    try
-    {
-      LoggerRegisterer.throwable(pThrowable);
-    } catch(Throwable e)
-    {
-      pThrowable.printStackTrace();
-    }
-  }
 }

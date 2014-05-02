@@ -1,7 +1,6 @@
 package de.swat.core.Map;
 
 import de.swat.core.DefaultSettingsCallback;
-import de.swat.core.Utility.Log;
 import de.swat.utils.ImageUtil;
 
 import java.awt.image.BufferedImage;
@@ -36,7 +35,7 @@ public class Map
     indices = pIndices;
     clusters = pClusters;
     structure = pStructure;
-    Log.log("Indices-Size", indices, "Cluster-Size", clusters, "Structure-Size", structure);
+//    Log.log("Indices-Size", indices, "Cluster-Size", clusters, "Structure-Size", structure);
     mapLoaded = true;
   }
 

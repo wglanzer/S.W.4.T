@@ -1,6 +1,7 @@
 package de.swat.clientserverintercom.server;
 
-import de.swat.logging.LoggerRegisterer;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.BufferedWriter;
@@ -20,6 +21,7 @@ public abstract class AbstractServer implements IServer
 
   private final Set<Socket> clients = new HashSet<>();
   private int serverPort = -1;
+  private Logger logger = LogManager.getLogger();
 
   public AbstractServer(int pServerPort)
   {
@@ -49,7 +51,7 @@ public abstract class AbstractServer implements IServer
     }
     catch(Exception e)
     {
-      LoggerRegisterer.throwable(e);
+      logger.catching(e);
     }
   }
 

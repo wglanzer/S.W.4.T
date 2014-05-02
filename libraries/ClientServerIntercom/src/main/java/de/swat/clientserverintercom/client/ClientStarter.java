@@ -1,7 +1,8 @@
 package de.swat.clientserverintercom.client;
 
 import de.swat.constants.IVersion;
-import de.swat.logging.LoggerRegisterer;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.*;
 import java.net.InetAddress;
@@ -12,6 +13,8 @@ import java.net.Socket;
  */
 public class ClientStarter
 {
+
+  private static Logger logger = LogManager.getLogger();
 
   /**
    * Startet einen Client in einem neuen Thread
@@ -76,16 +79,16 @@ public class ClientStarter
             }
             catch(Exception e)
             {
-              LoggerRegisterer.throwable(e);
+              logger.catching(e);
             }
           }
         }
         socket.close();
-        System.out.println("Socket closed.");
+        logger.info("Socket closed.");
       }
       catch(Exception e)
       {
-        LoggerRegisterer.throwable(e);
+        logger.catching(e);
       }
     }
   }
@@ -114,7 +117,7 @@ public class ClientStarter
       }
       catch(Exception e)
       {
-        LoggerRegisterer.err("InputReaderThread stopped (" + e.getCause() + ")");
+        logger.error("InputReaderThread stopped (" + e.getCause() + ")", e);
       }
     }
   }

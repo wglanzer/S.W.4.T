@@ -2,8 +2,8 @@ package de.swat.clientserverintercom;
 
 import de.swat.clientserverintercom.server.AbstractServer;
 import de.swat.clientserverintercom.server.ServerStarter;
-import de.swat.logging.ConsoleLogger;
-import de.swat.logging.LoggerRegisterer;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.net.Socket;
 
@@ -13,18 +13,20 @@ import java.net.Socket;
 public class StartableServer extends AbstractServer
 {
 
+  private static Logger logger = LogManager.getLogger();
+
   public StartableServer()
   {
     super(8080);
+
+    logger.info("Server starting...");
+    ServerStarter.startServer(this);
+    logger.info("Server started (Port: " + getServerPort() + ")!");
   }
 
   public static void main(String[] args)
   {
-    LoggerRegisterer.register(new ConsoleLogger());
-
-    System.out.println("Server starting ...");
-    ServerStarter.startServer(new StartableServer());
-    System.out.println("Server started!");
+    new StartableServer();
   }
 
   @Override

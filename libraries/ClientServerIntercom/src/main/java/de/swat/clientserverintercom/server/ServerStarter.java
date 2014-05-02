@@ -1,7 +1,8 @@
 package de.swat.clientserverintercom.server;
 
 import de.swat.constants.IVersion;
-import de.swat.logging.LoggerRegisterer;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -15,6 +16,8 @@ import java.net.Socket;
  */
 public class ServerStarter
 {
+
+  private static Logger logger = LogManager.getLogger();
 
   /**
    * Startet einen Server in einem neuen Thread
@@ -81,7 +84,7 @@ public class ServerStarter
       catch(Exception e)
       {
         e.printStackTrace();
-        LoggerRegisterer.throwable(e);
+        logger.catching(e);
       }
     }
   }
