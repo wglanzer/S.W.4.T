@@ -10,6 +10,7 @@ public interface IVersion
 {
 
   public static final double DATA_MODEL_VERSION = 1.0;
+  public static final long SERIAL_UID_VERSION = 1L;
 
   public static final String MAPCREATOR_VERSION = "1.0.0";
   public static final String ANDROID_VERSION = "1.0.0";

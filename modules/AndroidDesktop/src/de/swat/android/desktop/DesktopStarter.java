@@ -2,7 +2,6 @@ package de.swat.android.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import de.swat.android.AMainGame;
 import de.swat.constants.IVersion;
 
 /**

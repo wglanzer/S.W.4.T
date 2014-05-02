@@ -50,7 +50,7 @@ public class DataModelProcessor extends AbstractProcessor
           out.write("public class " + newClassName + " extends AbstractModelAccess\r\n");
           out.write("{\r\n");
           out.write("\r\n");
-          out.write("\tprivate static final long serialVersionUID = " + IVersion.DATA_MODEL_VERSION + "L;\r\n");
+          out.write("\tprivate static final long serialVersionUID = " + IVersion.SERIAL_UID_VERSION + "L;\r\n");
           out.write("\tprivate final " + oldClassName + " INSTANCE = new " + oldClassName + "();\r\n");
           out.write("\r\n");
 

@@ -19,9 +19,10 @@
             <artifactId>gdx-backend-lwjgl</artifactId>
             <version>${gdx.version}</version>
         </dependency>
+
         <dependency>
-            <artifactId>AndroidCore</artifactId>
             <groupId>S.W.4.T</groupId>
+            <artifactId>Core</artifactId>
             <version>${core.version}</version>
         </dependency>
     </dependencies>
@@ -30,6 +31,9 @@
         <resources>
             <resource>
                 <directory>libs</directory>
+            </resource>
+            <resource>
+                <directory>assets</directory>
             </resource>
         </resources>
         <sourceDirectory>src</sourceDirectory>
