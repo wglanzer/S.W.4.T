@@ -19,6 +19,7 @@
         <module>AnnotationProcessors</module>
         <module>ClientServerIntercom</module>
         <module>Common</module>
+        <module>CoreOld</module>
         <module>DataModels</module>
         <module>Flamingo</module>
         <module>SubstanceLF</module>

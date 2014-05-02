@@ -1,9 +1,5 @@
 package de.swat.core.Entity;
 
-import de.swat.utils.ImageUtil;
-
-import java.io.File;
-
 /**
  * Entity beschreibt alles, was auf der Karte nicht
  * statisch, sondern dynamisch ist.
@@ -31,12 +27,6 @@ public class Entity
   //  this(new SpriteSheet(ImageUtil.loadFileAsBigImage(new File(pPathToSpritesheet)), 150, 150));
   //}
 
-  public void setRunspeed(int pRunspeed)
-  {
-    runspeed = pRunspeed;
-    renderRunspeed = runspeed / 1000.0F;
-  }
-
   public float getRenderRunspeed()
   {
     return renderRunspeed;
@@ -45,6 +35,12 @@ public class Entity
   public int getRunspeed()
   {
     return runspeed;
+  }
+
+  public void setRunspeed(int pRunspeed)
+  {
+    runspeed = pRunspeed;
+    renderRunspeed = runspeed / 1000.0F;
   }
 
   public float getPosY()

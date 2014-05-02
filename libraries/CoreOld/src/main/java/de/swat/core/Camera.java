@@ -8,13 +8,11 @@ import de.swat.core.Entity.Entity;
 public class Camera
 {
 
-  private final int window_width = DefaultSettingsCallback.WINDOW_WIDTH;
-  private final int window_height = DefaultSettingsCallback.WINDOW_HEIGHT;
-
-  private Entity focusEntity;
-
   public static double xOff = 0;
   public static double yOff = 0;
+  private final int window_width = DefaultSettingsCallback.WINDOW_WIDTH;
+  private final int window_height = DefaultSettingsCallback.WINDOW_HEIGHT;
+  private Entity focusEntity;
 
   public Camera(Entity pFocus)
   {

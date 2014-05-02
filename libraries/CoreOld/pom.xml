@@ -5,18 +5,18 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>modules</artifactId>
+        <artifactId>libraries</artifactId>
         <groupId>S.W.4.T</groupId>
         <version>${core.version}</version>
     </parent>
 
-    <artifactId>Core</artifactId>
-    <name>SWmod: Core</name>
+    <artifactId>CoreOld</artifactId>
+    <name>SWlib: CoreOld</name>
 
     <dependencies>
         <dependency>
-            <groupId>S.W.4.T</groupId>
             <artifactId>Common</artifactId>
+            <groupId>S.W.4.T</groupId>
             <version>${core.version}</version>
         </dependency>
     </dependencies>

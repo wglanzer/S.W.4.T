@@ -1,12 +1,13 @@
 package de.swat.core.Entity;
 
-import de.swat.core.*;
-import de.swat.core.Utility.*;
+import de.swat.core.Camera;
+import de.swat.core.DefaultSettingsCallback;
+
+import java.awt.*;
+
 //import org.newdawn.slick.*;
 //import org.newdawn.slick.Graphics;
 //import org.newdawn.slick.Image;
-
-import java.awt.*;
 
 /**
  * @author Werner Glanzer, 02.10.13
