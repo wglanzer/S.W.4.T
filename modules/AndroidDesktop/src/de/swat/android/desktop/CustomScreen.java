@@ -1,11 +1,9 @@
-package de.swat.android;
+package de.swat.android.desktop;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import de.swat.android.dialog.ADialogDisplayer;
-import de.swat.android.gui.controls.TouchpadImpl;
 import de.swat.core.stages.StartStage;
 
 /**
@@ -15,17 +13,14 @@ import de.swat.core.stages.StartStage;
  *
  * @author W. Glanzer, 17.04.2014
  */
-public class AScreen extends ScreenAdapter
+public class CustomScreen extends ScreenAdapter
 {
   private Stage stage = new StartStage();
 
   @Override
   public void show()
   {
-    ADialogDisplayer.setStage(stage);
     Gdx.input.setInputProcessor(stage);
-
-    stage.addActor(new TouchpadImpl().getTouchpad());
   }
 
   @Override

@@ -1,8 +1,5 @@
 package de.swat.android.constants;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import de.swat.android.AAssets;
 import de.swat.constants.IStaticConstants;
 
 /**
@@ -11,7 +8,7 @@ import de.swat.constants.IStaticConstants;
  *
  * @author W. Glanzer, 18.04.2014
  */
-public interface AIStaticConstants extends IStaticConstants
+public interface AIAndroidConstants extends IStaticConstants
 {
 
   //Dialoge
@@ -19,8 +16,5 @@ public interface AIStaticConstants extends IStaticConstants
   public static final String DIALOG_ERROR_MESSAGE = "An error occurred.\nPlease see your console and contact the developers!";
   public static final String DIALOG_BTN_OK = "OK";
   public static final String DIALOG_BTN_DETAILS = "Details...";
-
-  //Skins
-  public static final Skin SKIN_DEFAULT = new Skin(Gdx.files.internal(AAssets.SKIN_DEFAULT));
 
 }

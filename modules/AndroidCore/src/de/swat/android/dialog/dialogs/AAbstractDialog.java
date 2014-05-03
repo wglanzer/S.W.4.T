@@ -3,7 +3,7 @@ package de.swat.android.dialog.dialogs;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import de.swat.android.constants.AIStaticConstants;
+import de.swat.android.AAssets;
 
 import java.util.HashMap;
 
@@ -16,13 +16,18 @@ public class AAbstractDialog extends Dialog
 {
   private HashMap<Object, IActionListener> actionListenerMap = new HashMap<>();
   private Label text;
-  private Skin skin = AIStaticConstants.SKIN_DEFAULT;
+  private Skin skin = AAssets.get().getSkinDefault();
 
   public AAbstractDialog()
   {
-    super("<DUMMY>", AIStaticConstants.SKIN_DEFAULT);
+    super("<DUMMY>", AAssets.get().getSkinDefault());
   }
 
+  /**
+   * Setzt den Text des Labels
+   *
+   * @param pText Text, den das Label danach haben soll
+   */
   public void setText(String pText)
   {
     if(text != null)
@@ -31,6 +36,12 @@ public class AAbstractDialog extends Dialog
     text(text);
   }
 
+  /**
+   * Fügt einen Button hinzu
+   *
+   * @param pCaption  Text des neuen Buttons
+   * @param pListener Listener, der bei Betätigung des Buttons anspringt
+   */
   public void addButton(String pCaption, IActionListener pListener)
   {
     Object identifyingObject = new Object();
@@ -46,8 +57,14 @@ public class AAbstractDialog extends Dialog
       actionListener.actionPerformed();
   }
 
+  /**
+   * ActionListener der anspringt, wenn man auf einen Button drückt
+   */
   public interface IActionListener
   {
+    /**
+     * Es wurde auf einen Button geklickt
+     */
     void actionPerformed();
   }
 }
