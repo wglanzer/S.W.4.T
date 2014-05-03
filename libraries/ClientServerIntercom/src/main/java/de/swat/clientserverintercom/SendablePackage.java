@@ -1,7 +1,6 @@
 package de.swat.clientserverintercom;
 
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,8 +13,8 @@ import java.util.Map;
 public class SendablePackage
 {
 
-  private static final String PROPERTY_OPEN = "<";
-  private static final String PROPERTY_CLOSE = ">";
+  private static final String PROPERTY_OPEN = "[[<--";
+  private static final String PROPERTY_CLOSE = "-->]]";
   private static final String PROPERTY_EQUALS = "=";
 
   private String message;
@@ -50,7 +49,7 @@ public class SendablePackage
   public void wrap(String pWrapping)
   {
     properties = transformToMap(pWrapping);
-    message = pWrapping.substring(pWrapping.lastIndexOf(PROPERTY_CLOSE) + 1);
+    message = pWrapping.substring(pWrapping.lastIndexOf(PROPERTY_CLOSE) + PROPERTY_CLOSE.length());
   }
 
   /**
@@ -71,10 +70,18 @@ public class SendablePackage
     message = pMessage;
   }
 
-  @Nullable
+  @NotNull
   public String getStringAttribute(@NotNull String pKey)
   {
-    return properties.get(pKey);
+    String prop = properties.get(pKey);
+    return prop != null && !prop.isEmpty() ? prop : "";
+  }
+
+  @NotNull
+  public String getStringAttribute(@NotNull String pKey, String pDefault)
+  {
+    String prop = getStringAttribute(pKey);
+    return !prop.isEmpty() ? prop : pDefault;
   }
 
   /**
@@ -118,8 +125,8 @@ public class SendablePackage
 
     while(propOpenIndex > -1 && propCloseIndex > -1 && propOpenIndex < propCloseIndex)
     {
-      String propString = stringCopy.substring(propOpenIndex, propCloseIndex + 1);
-      propString = propString.substring(1, propString.length() - 1);
+      String propString = stringCopy.substring(propOpenIndex, propCloseIndex + PROPERTY_CLOSE.length());
+      propString = propString.substring(PROPERTY_OPEN.length(), propString.length() - PROPERTY_CLOSE.length());
       String[] keyValue = propString.split(PROPERTY_EQUALS);
       if(keyValue.length == 2)
       {
@@ -129,7 +136,7 @@ public class SendablePackage
       }
 
       //Für den nächsten Durchlauf vorbereiten
-      stringCopy = stringCopy.substring(propCloseIndex + 1);
+      stringCopy = stringCopy.substring(propCloseIndex + PROPERTY_CLOSE.length());
       propOpenIndex = stringCopy.indexOf(PROPERTY_OPEN);
       propCloseIndex = stringCopy.indexOf(PROPERTY_CLOSE);
     }
