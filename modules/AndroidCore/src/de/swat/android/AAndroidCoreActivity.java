@@ -14,6 +14,7 @@ public class AAndroidCoreActivity extends AndroidApplication
     super.onCreate(pSavedInstanceState);
 
     CorePreferences.setAssets(AAssets.get());
+    AAssets.initalize(getFilesDir());
 
     AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
     config.useGL20 = true;

@@ -18,6 +18,7 @@ public class DesktopStarter
   public static void main(String[] args)
   {
     CorePreferences.setAssets(new DesktopAssets());
+    System.setProperty("log4j.configurationFile", "log4j2.xml");
 
     LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
     cfg.title = IVersion.MAJOR_NAME + " - DesktopStarter - Version " + IVersion.ANDROID_VERSION;

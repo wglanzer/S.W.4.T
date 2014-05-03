@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import de.swat.android.dialog.ADialogDisplayer;
 import de.swat.android.gui.controls.TouchpadImpl;
-import de.swat.core.stages.StartStage;
+import de.swat.core.stages.startStage.StartStage;
 
 /**
  * Ein gekapselter ApplicationListener der durch den AExceptionRedirectScreen
