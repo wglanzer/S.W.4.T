@@ -29,15 +29,16 @@
  */
 package org.pushingpixels.flamingo.internal.ui.ribbon.appmenu;
 
+import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
+import org.pushingpixels.flamingo.api.common.CommandButtonLayoutManager;
+import org.pushingpixels.flamingo.api.common.JCommandButton;
+import org.pushingpixels.flamingo.api.common.icon.ResizableIcon;
+import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
+
+import javax.swing.*;
 import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
-
-import javax.swing.JSeparator;
-
-import org.pushingpixels.flamingo.api.common.*;
-import org.pushingpixels.flamingo.api.common.icon.ResizableIcon;
-import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
 
 public class CommandButtonLayoutManagerMenuTileLevel1 implements
 		CommandButtonLayoutManager {
@@ -66,7 +67,7 @@ public class CommandButtonLayoutManagerMenuTileLevel1 implements
 				+ (FlamingoUtilities.hasPopupAction(commandButton) ? 1
 						+ fm.getHeight() / 2 + 4 * layoutHGap
 						+ jsep.getPreferredSize().width : 0);
-		return new Dimension(bx + widthMed, by
+		return new Dimension(400 /*bx + widthMed*/, by
 				+ Math.max(this.getPreferredIconSize(), 2
 						* (fm.getAscent() + fm.getDescent()) + layoutVGap));
 	}

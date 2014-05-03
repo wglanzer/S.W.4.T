@@ -1,18 +1,23 @@
-package de.swat.MapCreator.gui;
+package de.swat.MapCreator.gui.ribbon;
 
-import com.google.common.collect.*;
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.TreeMultimap;
 import de.swat.IRibbonAction;
-import de.swat.MapCreator.*;
-import de.swat.accesses.*;
+import de.swat.MapCreator.MapCreator;
+import de.swat.accesses.RibbonModelAccess;
 import de.swat.constants.IRibbonConstants;
-import de.swat.enums.*;
+import de.swat.enums.ERibbonCategory;
+import de.swat.enums.ERibbonSubCategory;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
-import org.pushingpixels.flamingo.api.common.icon.*;
+import org.pushingpixels.flamingo.api.common.icon.EmptyResizableIcon;
+import org.pushingpixels.flamingo.api.common.icon.ResizableIcon;
 import org.pushingpixels.flamingo.api.ribbon.*;
-import org.pushingpixels.flamingo.api.ribbon.resize.*;
+import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizePolicies;
+import org.pushingpixels.flamingo.api.ribbon.resize.RibbonBandResizePolicy;
 
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.*;
 import java.util.List;
 

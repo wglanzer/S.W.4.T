@@ -2,10 +2,13 @@ package de.swat.MapCreator.gui;
 
 import de.swat.Map;
 import de.swat.MapCreator.gui.DrawContainer.DrawContainer;
+import de.swat.MapCreator.gui.ribbon.Ribbon;
+import de.swat.MapCreator.gui.ribbon.applicationMenu.SendMapAction;
 import de.swat.PropertySheet;
 import de.swat.constants.IRibbonConstants;
 import de.swat.constants.IVersion;
 import de.swat.constants.IWindowConstants;
+import org.pushingpixels.flamingo.api.ribbon.RibbonApplicationMenu;
 
 import javax.swing.*;
 import java.awt.*;
@@ -32,6 +35,7 @@ public class Window extends JFrame
     setResizable(false);
     setTitle(IVersion.MAPCREATOR_TITLE);
 
+    _configureRibbonApplicationMenu();
     _addComponents();
 
     SwingUtilities.invokeLater(new Runnable()
@@ -78,6 +82,19 @@ public class Window extends JFrame
 
   }
 
+  /**
+   * Konfiguriert das ApplicationMenu und fügt es dem Ribbon hinzu
+   */
+  private void _configureRibbonApplicationMenu()
+  {
+    RibbonApplicationMenu applicationMenu = new RibbonApplicationMenu();
+
+    applicationMenu.addMenuEntry(new SendMapAction());
+
+    ribbon.setApplicationMenu(applicationMenu);
+    ribbon.putClientProperty("ribbon.hideSecondary", true);
+  }
+
   public void mapChanged(Map pNewMap)
   {
     drawContainer.mapChanged(pNewMap);
@@ -91,33 +108,6 @@ public class Window extends JFrame
   private PropertySheet _getDummyPropertySheet()
   {
     return new PropertySheet();
-  }
-
-  /**
-   * Hier werden alle Buttons, wenn möglich,
-   * mit einem ActionListener versehen.
-   */
-  private void _addActionListenersToRibbonButtons()
-  {
-    //      //FinishPoly-Button
-    //      case "finishPoly":
-    //        JCommandButton finishPoly = (JCommandButton) component;
-    //        finishPoly.addActionListener(new ActionListener()
-    //        {
-    //          @Override
-    //          public void actionPerformed(ActionEvent e)
-    //          {
-    //            ArrayList<Point> clickedPoints = drawContainer.getClickedPoints();
-    //            if (clickedPoints.size() > 1)
-    //            {
-    //              map.addPoints(clickedPoints);
-    //              StructureCollisionObjectDataModel newObject = map.finishStructure();
-    //              drawContainer.addStructureObject(newObject);
-    //              repaint();
-    //            }
-    //          }
-    //        });
-    //        break;
   }
 
   public DrawContainer getDrawContainer()
