@@ -18,13 +18,39 @@ public class SendablePackage
   private static final String PROPERTY_CLOSE = ">";
   private static final String PROPERTY_EQUALS = "=";
 
-  private final String message;
-  private final Map<String, String> properties;
+  private String message;
+  private Map<String, String> properties = new HashMap<>();
+
+  public SendablePackage()
+  {
+  }
 
   public SendablePackage(String pMessage)
   {
-    properties = transformToMap(pMessage);
-    message = pMessage.substring(pMessage.lastIndexOf(PROPERTY_CLOSE) + 1);
+    wrap(pMessage);
+  }
+
+  /**
+   * Legt ein Property in die properties-Map
+   *
+   * @param pKey   Key der Property
+   * @param pValue Value der Property
+   */
+  public void putProperty(String pKey, String pValue)
+  {
+    properties.put(pKey, pValue);
+  }
+
+  /**
+   * Verpackt den übergebenen String in dieses Objekt.
+   * Hier werden die Properties und die Message dieses Objekts angepasst.
+   *
+   * @param pWrapping String, der hier verpackt werden soll
+   */
+  public void wrap(String pWrapping)
+  {
+    properties = transformToMap(pWrapping);
+    message = pWrapping.substring(pWrapping.lastIndexOf(PROPERTY_CLOSE) + 1);
   }
 
   /**
@@ -33,6 +59,16 @@ public class SendablePackage
   public String getMessage()
   {
     return message;
+  }
+
+  /**
+   * Setzt die Message
+   *
+   * @param pMessage Setzt die Message
+   */
+  public void setMessage(String pMessage)
+  {
+    message = pMessage;
   }
 
   @Nullable
@@ -51,8 +87,8 @@ public class SendablePackage
 
   /**
    * @return String, der alle Informationen über das Package enthält.
-   *         Properties und Message werden wie folgt zusammengefügt:
-   *         <key1=val1><key2=val2>Hier kommt dann die Nachricht
+   * Properties und Message werden wie folgt zusammengefügt:
+   * <key1=val1><key2=val2>Hier kommt dann die Nachricht
    */
   private String transformToString()
   {
@@ -70,7 +106,7 @@ public class SendablePackage
 
   /**
    * @return Map, die die Keys und Values auseinanderfriemelt
-   *         und getrennt als "String, String"-Map zurückgibt
+   * und getrennt als "String, String"-Map zurückgibt
    */
   private Map<String, String> transformToMap(String pStringToTransform)
   {
