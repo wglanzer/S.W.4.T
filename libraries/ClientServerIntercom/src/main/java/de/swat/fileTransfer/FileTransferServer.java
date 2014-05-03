@@ -1,5 +1,6 @@
 package de.swat.fileTransfer;
 
+import de.swat.clientserverintercom.ICSInterConstants;
 import de.swat.clientserverintercom.SendablePackage;
 import de.swat.clientserverintercom.server.AbstractServer;
 import de.swat.clientserverintercom.server.ServerStarter;
@@ -18,27 +19,31 @@ import java.net.Socket;
 public class FileTransferServer extends AbstractServer
 {
 
-  private File storeDirectory;
+  private String applicationDirectory;
 
-  public FileTransferServer(File pStoreDirectory)
+  public FileTransferServer(String pApplicationDirectory)
   {
-    super(10550);
-    storeDirectory = pStoreDirectory;
+    super(ICSInterConstants.FILETRANSFERPORT);
+    applicationDirectory = pApplicationDirectory;
     ServerStarter.startServer(this);
   }
 
   @Override
   public void onClientMessage(SendablePackage pMessage, Socket pClient)
   {
-    String name = "test.txt";
+    String fileName = pMessage.getStringAttribute(ICSInterConstants.FILETRANSFER_FILENAME, "map.txt");
+    String clazz = pMessage.getStringAttribute(ICSInterConstants.FILETRANSFER_CLASS, "");
 
-    try
+    if(clazz.equals(File.class.getName()))
     {
-      FileUtils.writeStringToFile(new File(storeDirectory.getPath() + File.separator + name), pMessage.getMessage());
-    }
-    catch(IOException e)
-    {
-      LogManager.getLogger().error("Error writing text to file!", e);
+      try
+      {
+        FileUtils.writeStringToFile(new File(applicationDirectory + File.separator + fileName), pMessage.getMessage());
+      }
+      catch(IOException e)
+      {
+        LogManager.getLogger().error("Error writing text to file!", e);
+      }
     }
   }
 }

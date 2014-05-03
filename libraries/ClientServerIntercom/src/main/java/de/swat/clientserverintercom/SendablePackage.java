@@ -15,6 +15,7 @@ public class SendablePackage
 
   private static final String PROPERTY_OPEN = "[[<--";
   private static final String PROPERTY_CLOSE = "-->]]";
+  private static final String LINEBREAK = "\\[\\[LB]]";
   private static final String PROPERTY_EQUALS = "=";
 
   private String message;
@@ -50,6 +51,7 @@ public class SendablePackage
   {
     properties = transformToMap(pWrapping);
     message = pWrapping.substring(pWrapping.lastIndexOf(PROPERTY_CLOSE) + PROPERTY_CLOSE.length());
+    message = message.replaceAll(System.lineSeparator(), LINEBREAK).replaceAll("\\r\\n", LINEBREAK).replaceAll("\\r", LINEBREAK);
   }
 
   /**
@@ -57,7 +59,7 @@ public class SendablePackage
    */
   public String getMessage()
   {
-    return message;
+    return message.replaceAll(LINEBREAK, System.lineSeparator());
   }
 
   /**
@@ -67,7 +69,7 @@ public class SendablePackage
    */
   public void setMessage(String pMessage)
   {
-    message = pMessage;
+    message = pMessage.replaceAll(System.lineSeparator(), LINEBREAK);
   }
 
   @NotNull
