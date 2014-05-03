@@ -1,5 +1,7 @@
 package de.swat.clientserverintercom.client;
 
+import de.swat.clientserverintercom.SendablePackage;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +12,7 @@ import java.util.List;
  */
 public abstract class AbstractClient implements IClient
 {
-  private final List<String> messageBuffer = new ArrayList<>();
+  private final List<SendablePackage> messageBuffer = new ArrayList<>();
   private boolean wantsToDisconnect = false;
   private String serverIP;
   private int serverPort;
@@ -22,10 +24,10 @@ public abstract class AbstractClient implements IClient
   }
 
   @Override
-  public abstract void onServerMessage(String pMessage);
+  public abstract void onServerMessage(SendablePackage pMessage);
 
   @Override
-  public void sendServerMessage(String pMessage)
+  public void sendServerMessage(SendablePackage pMessage)
   {
     synchronized(messageBuffer)
     {
@@ -34,14 +36,14 @@ public abstract class AbstractClient implements IClient
   }
 
   @Override
-  public String getMessageToSend()
+  public SendablePackage getMessageToSend()
   {
     synchronized(messageBuffer)
     {
       if(messageBuffer.size() <= 0)
         return null;
 
-      String toSend = messageBuffer.get(0);
+      SendablePackage toSend = messageBuffer.get(0);
       messageBuffer.remove(toSend);
       return toSend;
     }

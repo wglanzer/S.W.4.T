@@ -1,5 +1,7 @@
 package de.swat.clientserverintercom.client;
 
+import de.swat.clientserverintercom.SendablePackage;
+
 /**
  * Dieses Interface beschreibt einen Client und seine Aktionen
  *
@@ -13,14 +15,14 @@ public interface IClient
    *
    * @param pMessage  Nachricht, die der Server geschickt hat
    */
-  void onServerMessage(String pMessage);
+  void onServerMessage(SendablePackage pMessage);
 
   /**
    * Sendet eine Nachricht zum Server
    *
    * @param pMessage Nachricht, die gesendet werden soll
    */
-  void sendServerMessage(String pMessage);
+  void sendServerMessage(SendablePackage pMessage);
 
   /**
    * Trennt die Verbindung zwischen Client und Server
@@ -33,7 +35,7 @@ public interface IClient
    *
    * @return Die Nachricht, die gesendet werden soll
    */
-  String getMessageToSend();
+  SendablePackage getMessageToSend();
 
   /**
    * @return <tt>true</tt>, wenn der Client sich vom Server trennen will

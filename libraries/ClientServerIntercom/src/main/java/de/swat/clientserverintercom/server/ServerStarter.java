@@ -1,5 +1,6 @@
 package de.swat.clientserverintercom.server;
 
+import de.swat.clientserverintercom.SendablePackage;
 import de.swat.constants.IVersion;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -109,7 +110,7 @@ public class ServerStarter
         BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
         String line;
         while((line = in.readLine()) != null)
-          server.onClientMessage(line, client);
+          server.onClientMessage(new SendablePackage(line), client);
       }
       catch(Exception e)
       {

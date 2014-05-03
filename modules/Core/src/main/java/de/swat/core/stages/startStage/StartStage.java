@@ -5,6 +5,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import de.swat.core.AbstractStage;
 import de.swat.core.CorePreferences;
+import de.swat.fileTransfer.FileTransferClient;
+import de.swat.fileTransfer.FileTransferServer;
 
 /**
  * Haupt-Stage
@@ -18,27 +20,20 @@ public class StartStage extends AbstractStage
 
   public StartStage()
   {
-
     enableWifi.setBounds(getWidth() - 100 - 5, getHeight() - 40 - 5, 100, 40);
-    enableWifi.setChecked(true);
     enableWifi.addListener(new ClickListener()
     {
-      private boolean wasClickedBefore = false;
 
       @Override
       public void clicked(InputEvent event, float x, float y)
       {
-        //Dann Server starten
-        if(!wasClickedBefore)
-        {
-          enableWifi.setText("disable Wifi");
-        }
-        else
-        {
-          enableWifi.setText("enable Wifi");
-        }
+        enableWifi.setText("you can't disable!");
 
-        wasClickedBefore = !wasClickedBefore;
+        logger.info("FileTransferServer starting...");
+        new FileTransferServer(assets.getFilesDir());
+        logger.info("FileTransferServer started!");
+
+        new FileTransferClient("127.0.0.1");
       }
     });
 

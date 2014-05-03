@@ -1,5 +1,6 @@
 package de.swat.clientserverintercom.client;
 
+import de.swat.clientserverintercom.SendablePackage;
 import de.swat.constants.IVersion;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -69,13 +70,13 @@ public class ClientStarter
         new Thread(new InputReaderThread(socket, client)).start();
         while(!client.wantsToDisconnect() && socket.isConnected())
         {
-          String messageToSend = client.getMessageToSend();
+          SendablePackage messageToSend = client.getMessageToSend();
           if(messageToSend != null)
           {
             try
             {
               PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
-              out.println(messageToSend);
+              out.println(messageToSend.getSendableString());
             }
             catch(Exception e)
             {
@@ -113,7 +114,7 @@ public class ClientStarter
         BufferedReader in = new BufferedReader(new InputStreamReader(server.getInputStream()));
         String line;
         while((line = in.readLine()) != null)
-          client.onServerMessage(line);
+          client.onServerMessage(new SendablePackage(line));
       }
       catch(Exception e)
       {

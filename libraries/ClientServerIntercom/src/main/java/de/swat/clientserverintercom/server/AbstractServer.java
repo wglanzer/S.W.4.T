@@ -1,5 +1,6 @@
 package de.swat.clientserverintercom.server;
 
+import de.swat.clientserverintercom.SendablePackage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Nullable;
@@ -39,15 +40,15 @@ public abstract class AbstractServer implements IServer
   }
 
   @Override
-  public abstract void onClientMessage(String pMessage, Socket pClient);
+  public abstract void onClientMessage(SendablePackage pMessage, Socket pClient);
 
   @Override
-  public void sendClientMessage(Socket pClient, String pMessage)
+  public void sendClientMessage(Socket pClient, SendablePackage pMessage)
   {
     try
     {
       PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(pClient.getOutputStream())), true);
-      out.println(pMessage);
+      out.println(pMessage.getSendableString());
     }
     catch(Exception e)
     {
@@ -56,7 +57,7 @@ public abstract class AbstractServer implements IServer
   }
 
   @Override
-  public void sendClientMessage(String pMessage)
+  public void sendClientMessage(SendablePackage pMessage)
   {
     synchronized(clients)
     {

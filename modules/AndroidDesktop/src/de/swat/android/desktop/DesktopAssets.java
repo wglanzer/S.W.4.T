@@ -26,7 +26,7 @@ public class DesktopAssets implements IAssets
   @Override
   public File getFilesDir()
   {
-    File directory = new File(System.getProperty("user.home") + File.pathSeparator + ".sw4t");
+    File directory = new File(System.getProperty("user.home") + File.separator + ".sw4t");
 
     if(!directory.exists())
       if(!directory.mkdir())

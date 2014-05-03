@@ -30,7 +30,7 @@ public class StartableServer extends AbstractServer
   }
 
   @Override
-  public void onClientMessage(String pMessage, Socket pClient)
+  public void onClientMessage(SendablePackage pMessage, Socket pClient)
   {
     sendClientMessage(pMessage);
   }

@@ -1,5 +1,6 @@
 package de.swat.clientserverintercom.server;
 
+import de.swat.clientserverintercom.SendablePackage;
 import org.jetbrains.annotations.Nullable;
 
 import java.net.Socket;
@@ -25,7 +26,7 @@ public interface IServer
    * @param pMessage Nachricht, die erhalten wurde
    * @param pClient  Client, von dem die Nachricht stammt
    */
-  void onClientMessage(String pMessage, Socket pClient);
+  void onClientMessage(SendablePackage pMessage, Socket pClient);
 
   /**
    * Wird ausgeführt, wenn der Client die Verbindung verliert
@@ -45,12 +46,12 @@ public interface IServer
    * @param pClient Client, an den die Nachricht geschickt werden soll
    * @param pMessage  Nachricht, die geschickt werden soll
    */
-  void sendClientMessage(Socket pClient, String pMessage);
+  void sendClientMessage(Socket pClient, SendablePackage pMessage);
 
   /**
    * Schickt eine Nachricht an alle verbundenen Clients
    *
    * @param pMessage  Nachricht, die geschickt werden soll
    */
-  void sendClientMessage(String pMessage);
+  void sendClientMessage(SendablePackage pMessage);
 }

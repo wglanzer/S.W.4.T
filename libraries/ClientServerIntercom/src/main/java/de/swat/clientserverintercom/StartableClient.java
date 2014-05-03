@@ -26,7 +26,7 @@ public class StartableClient extends AbstractClient
   }
 
   @Override
-  public void onServerMessage(String pMessage)
+  public void onServerMessage(SendablePackage pMessage)
   {
     System.out.println("Server: " + pMessage);
   }
@@ -48,7 +48,7 @@ public class StartableClient extends AbstractClient
       while(in.hasNext())
       {
         String s = in.next();
-        client.sendServerMessage(s);
+        client.sendServerMessage(new SendablePackage(s));
       }
     }
   }

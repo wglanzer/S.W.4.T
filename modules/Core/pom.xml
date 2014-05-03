@@ -28,7 +28,7 @@
         <dependency>
             <groupId>S.W.4.T</groupId>
             <artifactId>ClientServerIntercom</artifactId>
-            <version>${core.verison}</version>
+            <version>${core.version}</version>
         </dependency>
     </dependencies>
 
