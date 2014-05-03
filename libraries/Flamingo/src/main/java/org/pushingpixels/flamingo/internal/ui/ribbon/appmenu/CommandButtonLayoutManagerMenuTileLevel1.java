@@ -67,7 +67,8 @@ public class CommandButtonLayoutManagerMenuTileLevel1 implements
 				+ (FlamingoUtilities.hasPopupAction(commandButton) ? 1
 						+ fm.getHeight() / 2 + 4 * layoutHGap
 						+ jsep.getPreferredSize().width : 0);
-		return new Dimension(400 /*bx + widthMed*/, by
+    Object size = ((JRibbonApplicationMenuPopupPanel) (commandButton.getParent().getParent().getParent())).getAppMenuButton().getRibbon().getClientProperty("ribbon.sizePrimary");
+    return new Dimension(size instanceof Integer ? (int) size : 400 /*bx + widthMed*/, by
 				+ Math.max(this.getPreferredIconSize(), 2
 						* (fm.getAscent() + fm.getDescent()) + layoutVGap));
 	}

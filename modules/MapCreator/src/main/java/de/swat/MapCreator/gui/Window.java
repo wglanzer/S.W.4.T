@@ -93,6 +93,7 @@ public class Window extends JFrame
 
     ribbon.setApplicationMenu(applicationMenu);
     ribbon.putClientProperty("ribbon.hideSecondary", true);
+    ribbon.putClientProperty("ribbon.sizePrimary", 300);
   }
 
   public void mapChanged(Map pNewMap)
