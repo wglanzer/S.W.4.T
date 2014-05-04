@@ -1,5 +1,6 @@
 package de.swat.clientserverintercom.server;
 
+import de.swat.clientserverintercom.ICSInterConstants;
 import de.swat.clientserverintercom.SendablePackage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -9,7 +10,9 @@ import java.io.BufferedWriter;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -81,4 +84,11 @@ public abstract class AbstractServer implements IServer
     return serverPort;
   }
 
+  @Override
+  public Map<String, Runnable> getSpecialActions(Socket pClient)
+  {
+    HashMap<String, Runnable> hashMap = new HashMap<>();
+    hashMap.put(ICSInterConstants.CLIENT_SEARCH_COMMAND, new SpecialActions.SearchAction(pClient));
+    return hashMap;
+  }
 }

@@ -4,6 +4,7 @@ import de.swat.clientserverintercom.SendablePackage;
 import org.jetbrains.annotations.Nullable;
 
 import java.net.Socket;
+import java.util.Map;
 
 /**
  * Dieses Interface beschreibt einen Server und seine Aktionen
@@ -39,6 +40,14 @@ public interface IServer
    * @return Liefert den Port, auf den der Server hört
    */
   int getServerPort();
+
+  /**
+   * @return Liefert eine Map zurück, die bestimmte Aktionen beinhaltet,
+   * die bei bestimmten Nachrichten ausgeführt werden
+   *
+   * @param pClient Client, für den die specialActions zur Verfügung gestellt werden
+   */
+  Map<String, Runnable> getSpecialActions(Socket pClient);
 
   /**
    * Sendet eine Nachricht an einen spezifischen Client

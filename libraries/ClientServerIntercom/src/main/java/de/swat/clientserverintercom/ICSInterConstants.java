@@ -15,5 +15,7 @@ public interface ICSInterConstants
   public static final String CLIENT_DC = "n0";
   public static final String FILETRANSFER_CLASS = "n1";
   public static final String FILETRANSFER_FILENAME = "n2";
+  public static final String CLIENT_SEARCH_COMMAND = "n3";
+  public static final String SERVER_HEARTBEAT = "n4";
 
 }

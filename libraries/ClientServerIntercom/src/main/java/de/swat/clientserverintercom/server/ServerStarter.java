@@ -9,6 +9,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Map;
 
 /**
  * Startet einen IServer
@@ -109,8 +110,15 @@ public class ServerStarter
       {
         BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
         String line;
+        Map<String, Runnable> specialActions = server.getSpecialActions(client);
+
         while((line = in.readLine()) != null)
-          server.onClientMessage(new SendablePackage(line), client);
+        {
+          if(specialActions.containsKey(line))
+            specialActions.get(line).run();
+          else
+            server.onClientMessage(new SendablePackage(line), client);
+        }
       }
       catch(Exception e)
       {
