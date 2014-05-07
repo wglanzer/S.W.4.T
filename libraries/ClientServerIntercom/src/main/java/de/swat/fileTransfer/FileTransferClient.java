@@ -21,8 +21,6 @@ public class FileTransferClient extends AbstractClient
   {
     super(pServerIP, ICSInterConstants.FILETRANSFERPORT);
     ClientStarter.startClient(this);
-
-    sendServerMessage(new File("Z:\\workspace-IntelliJ\\S.W.4.T\\log4j2.xml"));
   }
 
   /**

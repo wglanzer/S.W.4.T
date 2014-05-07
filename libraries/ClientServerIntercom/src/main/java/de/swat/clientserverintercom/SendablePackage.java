@@ -15,10 +15,11 @@ public class SendablePackage
 
   private static final String PROPERTY_OPEN = "[[<--";
   private static final String PROPERTY_CLOSE = "-->]]";
-  private static final String LINEBREAK = "\\[\\[LB]]";
   private static final String PROPERTY_EQUALS = "=";
+  private static final String LINEBREAK_N = "\\[\\[\\$LB_N]]";
+  private static final String LINEBREAK_R = "\\[\\[\\$LB_R]]";
 
-  private String message;
+  private String message = "";
   private Map<String, String> properties = new HashMap<>();
 
   public SendablePackage()
@@ -27,7 +28,16 @@ public class SendablePackage
 
   public SendablePackage(String pMessage)
   {
-    wrap(pMessage);
+    if(pMessage.contains(ICSInterConstants.PACKAGE_START) || pMessage.contains(ICSInterConstants.PACKAGE_END))
+      //unwrap from packagestart-endings
+      pMessage = pMessage.substring(pMessage.indexOf(ICSInterConstants.PACKAGE_START) + ICSInterConstants.PACKAGE_START.length(),
+          pMessage.indexOf(ICSInterConstants.PACKAGE_END));
+
+    if(pMessage.contains(PROPERTY_OPEN))
+      //unwrap from propertyopens-closes
+      pMessage = unwrap(pMessage);
+
+    setMessage(pMessage);
   }
 
   /**
@@ -47,11 +57,10 @@ public class SendablePackage
    *
    * @param pWrapping String, der hier verpackt werden soll
    */
-  public void wrap(String pWrapping)
+  public String unwrap(String pWrapping)
   {
     properties = transformToMap(pWrapping);
-    message = pWrapping.substring(pWrapping.lastIndexOf(PROPERTY_CLOSE) + PROPERTY_CLOSE.length());
-    message = message.replaceAll(System.lineSeparator(), LINEBREAK).replaceAll("\\r\\n", LINEBREAK).replaceAll("\\r", LINEBREAK);
+    return pWrapping.substring(pWrapping.lastIndexOf(PROPERTY_CLOSE) + PROPERTY_CLOSE.length());
   }
 
   /**
@@ -59,7 +68,7 @@ public class SendablePackage
    */
   public String getMessage()
   {
-    return message.replaceAll(LINEBREAK, System.lineSeparator());
+    return message.replaceAll(LINEBREAK_N, "\\n").replaceAll(LINEBREAK_R, "\\r");
   }
 
   /**
@@ -69,7 +78,7 @@ public class SendablePackage
    */
   public void setMessage(String pMessage)
   {
-    message = pMessage.replaceAll(System.lineSeparator(), LINEBREAK);
+    message = pMessage.replaceAll("\\r", LINEBREAK_R).replaceAll("\\n", LINEBREAK_N);
   }
 
   @NotNull
@@ -101,7 +110,7 @@ public class SendablePackage
    */
   private String transformToString()
   {
-    String propString = "";
+    String propString = ICSInterConstants.PACKAGE_START;
 
     for(Map.Entry<String, String> currEntry : properties.entrySet())
     {
@@ -110,7 +119,7 @@ public class SendablePackage
       propString += PROPERTY_OPEN + tempString + PROPERTY_CLOSE;
     }
 
-    return propString + message;
+    return (propString + message + ICSInterConstants.PACKAGE_END).replaceAll(LINEBREAK_N, "\\n").replaceAll(LINEBREAK_R, "\\r");
   }
 
   /**

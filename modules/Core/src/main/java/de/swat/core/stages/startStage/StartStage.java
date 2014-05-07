@@ -3,9 +3,9 @@ package de.swat.core.stages.startStage;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import de.swat.IFileStructure;
 import de.swat.core.AbstractStage;
 import de.swat.core.CorePreferences;
-import de.swat.core.IFileStructure;
 import de.swat.fileTransfer.FileTransferClient;
 import de.swat.fileTransfer.FileTransferServer;
 

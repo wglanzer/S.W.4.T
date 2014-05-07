@@ -1,4 +1,4 @@
-package de.swat.core;
+package de.swat;
 
 import java.io.File;
 

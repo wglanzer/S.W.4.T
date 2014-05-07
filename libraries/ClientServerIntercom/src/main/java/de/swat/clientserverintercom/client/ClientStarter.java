@@ -1,5 +1,6 @@
 package de.swat.clientserverintercom.client;
 
+import de.swat.clientserverintercom.ICSInterConstants;
 import de.swat.clientserverintercom.SendablePackage;
 import de.swat.constants.IVersion;
 import org.apache.logging.log4j.LogManager;
@@ -22,9 +23,9 @@ public class ClientStarter
    *
    * @param pClient Client der gestartet werden soll
    */
-  public static void startClient(IClient pClient)
+  public static Thread startClient(IClient pClient)
   {
-    startClient(pClient, true);
+    return startClient(pClient, true);
   }
 
   /**
@@ -33,7 +34,7 @@ public class ClientStarter
    * @param pClient    Client der gestartet werden soll
    * @param pNewThread <tt>true</tt> für einen neuen Thread
    */
-  public static void startClient(IClient pClient, boolean pNewThread)
+  public static Thread startClient(IClient pClient, boolean pNewThread)
   {
     ClientRunnable client = new ClientRunnable(pClient);
 
@@ -42,9 +43,13 @@ public class ClientStarter
       Thread thread = new Thread(client);
       thread.setName(IVersion.MAJOR_NAME + " - Client");
       thread.start();
+      return thread;
     }
     else
+    {
       client.run();
+      return null;
+    }
   }
 
   /**
@@ -113,8 +118,17 @@ public class ClientStarter
       {
         BufferedReader in = new BufferedReader(new InputStreamReader(server.getInputStream()));
         String line;
+        String tempString = "";
         while((line = in.readLine()) != null)
-          client.onServerMessage(new SendablePackage(line));
+        {
+          tempString += line;
+
+          if(tempString.contains(ICSInterConstants.PACKAGE_START) && tempString.contains(ICSInterConstants.PACKAGE_END))
+          {
+            client.onServerMessage(new SendablePackage(tempString));
+            tempString = "";
+          }
+        }
       }
       catch(Exception e)
       {

@@ -1,5 +1,6 @@
 package de.swat.clientserverintercom.server;
 
+import de.swat.clientserverintercom.ICSInterConstants;
 import de.swat.clientserverintercom.SendablePackage;
 import de.swat.constants.IVersion;
 import org.apache.logging.log4j.LogManager;
@@ -26,9 +27,9 @@ public class ServerStarter
    *
    * @param pServer Server, der gestartet werden soll
    */
-  public static void startServer(IServer pServer)
+  public static Thread startServer(IServer pServer)
   {
-    startServer(pServer, true);
+    return startServer(pServer, true);
   }
 
   /**
@@ -37,7 +38,7 @@ public class ServerStarter
    * @param pServer    Server, der gestartet werden soll
    * @param pNewThread <tt>true</tt>, wenn dazu ein neuer Thread gestartet werden soll
    */
-  public static void startServer(IServer pServer, boolean pNewThread)
+  public static Thread startServer(IServer pServer, boolean pNewThread)
   {
     ServerRunnable servRun = new ServerRunnable(pServer);
 
@@ -46,9 +47,13 @@ public class ServerStarter
       Thread serverThread = new Thread(servRun);
       serverThread.setName(IVersion.MAJOR_NAME + " - IntercomServer");
       serverThread.start();
+      return serverThread;
     }
     else
+    {
       servRun.run();
+      return null;
+    }
   }
 
   /**
@@ -112,12 +117,20 @@ public class ServerStarter
         String line;
         Map<String, Runnable> specialActions = server.getSpecialActions(client);
 
+        String tempString = "";
         while((line = in.readLine()) != null)
         {
           if(specialActions.containsKey(line))
             specialActions.get(line).run();
           else
-            server.onClientMessage(new SendablePackage(line), client);
+          {
+            tempString += line;
+            if(tempString.contains(ICSInterConstants.PACKAGE_START) && tempString.contains(ICSInterConstants.PACKAGE_END))
+            {
+              server.onClientMessage(new SendablePackage(tempString), client);
+              tempString = "";
+            }
+          }
         }
       }
       catch(Exception e)

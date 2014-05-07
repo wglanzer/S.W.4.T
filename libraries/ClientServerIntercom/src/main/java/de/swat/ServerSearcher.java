@@ -2,6 +2,7 @@ package de.swat;
 
 import de.swat.clientserverintercom.ICSInterConstants;
 import org.apache.logging.log4j.LogManager;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -21,16 +22,21 @@ public class ServerSearcher
   private static final int MESSAGE_TIMEOUT = 10;
 
   private static ExecutorService es;
-  private static Map<Future<Boolean>, String> futures = new HashMap<>();
+  private static Map<Future<Boolean>, String> futures;
+
+  public static Vector<String> search(int pServerPort)
+  {
+    return search(null, pServerPort);
+  }
 
   /**
    * Gibt alle verfügbaren Server im lokalen Subnet zurück (ThreadCount: 40)
    *
    * @return Vector mit IPs als Strings
    */
-  public static Vector<String> search()
+  public static Vector<String> search(IFoundListener pFoundListener, int pServerPort)
   {
-    return search(40);
+    return search(40, pFoundListener, pServerPort);
   }
 
   /**
@@ -39,10 +45,11 @@ public class ServerSearcher
    * @param pNumberSearchThreads  Gibt an, wie viele Threads zum Suchen verwendet werden sollen
    * @return Vector mit IPs als Strings
    */
-  public static Vector<String> search(int pNumberSearchThreads)
+  public static Vector<String> search(int pNumberSearchThreads, @Nullable IFoundListener pFoundListener, int pServerPort)
   {
     Vector<String> returnVector = new Vector<>();
     es = Executors.newFixedThreadPool(pNumberSearchThreads);
+    futures = new HashMap<>();
 
     try
     {
@@ -51,7 +58,7 @@ public class ServerSearcher
       List<String> allPossibleIPs = getAllPossibleIPs();
 
       for(String currIP : allPossibleIPs)
-        futures.put(_connectable(currIP, ICSInterConstants.SERVER_PORT), currIP);
+        futures.put(_connectable(currIP, pServerPort), currIP);
 
       es.shutdown();
 
@@ -60,7 +67,13 @@ public class ServerSearcher
         try
         {
           if(currConnectable.get(CONNECT_TIMEOUT + MESSAGE_TIMEOUT, TimeUnit.MILLISECONDS))
-            returnVector.add(futures.get(currConnectable));
+          {
+            String result = futures.get(currConnectable);
+            returnVector.add(result);
+
+            if(pFoundListener != null)
+              pFoundListener.onServerFound(result);
+          }
         }
         catch (Exception e)
         {
@@ -131,7 +144,7 @@ public class ServerSearcher
     short subnetPref = networkInterface.getInterfaceAddresses().get(0).getNetworkPrefixLength();
 
     String[] ip = ipAddress.split("\\.");
-    Integer[] subnetMask = _convertPrefixToMask(16);
+    Integer[] subnetMask = _convertPrefixToMask(subnetPref);
 
     return _listIPs(_IPNum(Integer.parseInt(ip[0]), Integer.parseInt(ip[1]), Integer.parseInt(ip[2]), Integer.parseInt(ip[3])),
         _IPNum(subnetMask[0], subnetMask[1], subnetMask[2], subnetMask[3]));
@@ -206,5 +219,16 @@ public class ServerSearcher
     }
 
     return returnIPs;
+  }
+
+  /**
+   * Listener der gefeuert wird, wenn ein Server gefunden wurde
+   */
+  public static interface IFoundListener
+  {
+    /**
+     * Wird gefeuert, wenn ein Server gefunden wurde
+     */
+    void onServerFound(String pNewIP);
   }
 }

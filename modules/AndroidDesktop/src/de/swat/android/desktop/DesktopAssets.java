@@ -2,8 +2,8 @@ package de.swat.android.desktop;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import de.swat.FileUtils;
 import de.swat.core.IAssets;
-import org.apache.logging.log4j.LogManager;
 
 import java.io.File;
 
@@ -26,12 +26,6 @@ public class DesktopAssets implements IAssets
   @Override
   public File getFilesDir()
   {
-    File directory = new File(System.getProperty("user.home") + File.separator + ".sw4t");
-
-    if(!directory.exists())
-      if(!directory.mkdir())
-        LogManager.getLogger().error("Could not create folder in your userhome!");
-
-    return directory;
+    return FileUtils.getFilesDir();
   }
 }
