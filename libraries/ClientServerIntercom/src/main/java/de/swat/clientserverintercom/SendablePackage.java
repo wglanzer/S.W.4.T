@@ -1,7 +1,9 @@
 package de.swat.clientserverintercom;
 
+import org.apache.commons.codec.binary.Base64;
 import org.jetbrains.annotations.NotNull;
 
+import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,14 +18,16 @@ public class SendablePackage
   private static final String PROPERTY_OPEN = "[[<--";
   private static final String PROPERTY_CLOSE = "-->]]";
   private static final String PROPERTY_EQUALS = "=";
-  private static final String LINEBREAK_N = "\\[\\[\\$LB_N]]";
-  private static final String LINEBREAK_R = "\\[\\[\\$LB_R]]";
+
+  private static final Charset CHARSET = Charset.forName("utf-8");
+  private IEncoder encoder = new _Base64Encoder();
 
   private String message = "";
   private Map<String, String> properties = new HashMap<>();
 
   public SendablePackage()
   {
+    this(""); //Zur vereinheitlichung
   }
 
   public SendablePackage(String pMessage)
@@ -36,6 +40,12 @@ public class SendablePackage
     if(pMessage.contains(PROPERTY_OPEN))
       //unwrap from propertyopens-closes
       pMessage = unwrap(pMessage);
+
+    // Dann war es vorher gesetzt und muss decodiert werden
+    if(getStringAttribute(ICSInterConstants.ENCODING).equals(ICSInterConstants.ENC_BASE64))
+      pMessage = encoder.decode(pMessage);
+    else
+      putProperty(ICSInterConstants.ENCODING, ICSInterConstants.ENC_BASE64);
 
     setMessage(pMessage);
   }
@@ -68,7 +78,7 @@ public class SendablePackage
    */
   public String getMessage()
   {
-    return message.replaceAll(LINEBREAK_N, "\\n").replaceAll(LINEBREAK_R, "\\r");
+    return message;
   }
 
   /**
@@ -78,7 +88,7 @@ public class SendablePackage
    */
   public void setMessage(String pMessage)
   {
-    message = pMessage.replaceAll("\\r", LINEBREAK_R).replaceAll("\\n", LINEBREAK_N);
+    message = pMessage;
   }
 
   @NotNull
@@ -119,7 +129,8 @@ public class SendablePackage
       propString += PROPERTY_OPEN + tempString + PROPERTY_CLOSE;
     }
 
-    return (propString + message + ICSInterConstants.PACKAGE_END).replaceAll(LINEBREAK_N, "\\n").replaceAll(LINEBREAK_R, "\\r");
+    String messageBase64 = encoder.encode(message);
+    return (propString + messageBase64 + ICSInterConstants.PACKAGE_END);
   }
 
   /**
@@ -162,5 +173,24 @@ public class SendablePackage
         "message='" + message + '\'' +
         ", properties=" + properties +
         '}';
+  }
+
+  /**
+   * IEncoder-Impl
+   */
+  private static class _Base64Encoder implements IEncoder
+  {
+
+    @Override
+    public String encode(String pToEncode)
+    {
+      return new String(Base64.encodeBase64(pToEncode.getBytes()), CHARSET);
+    }
+
+    @Override
+    public String decode(String pToDecode)
+    {
+      return new String(Base64.decodeBase64(pToDecode.getBytes()), CHARSET);
+    }
   }
 }

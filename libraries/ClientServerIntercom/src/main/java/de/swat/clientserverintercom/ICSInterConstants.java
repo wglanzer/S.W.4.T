@@ -19,5 +19,6 @@ public interface ICSInterConstants
   public static final String SERVER_HEARTBEAT = "n4";
   public static final String PACKAGE_START = "$PKG_S$";
   public static final String PACKAGE_END = "$PKG_E$";
-
+  public static final String ENCODING = "encoding";
+  public static final String ENC_BASE64 = "base64";
 }
