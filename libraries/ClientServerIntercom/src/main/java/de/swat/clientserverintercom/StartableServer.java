@@ -1,7 +1,6 @@
 package de.swat.clientserverintercom;
 
 import de.swat.clientserverintercom.server.AbstractServer;
-import de.swat.clientserverintercom.server.ServerStarter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -17,10 +16,8 @@ public class StartableServer extends AbstractServer
 
   public StartableServer()
   {
-    super(8080);
-
     logger.info("Server starting...");
-    ServerStarter.startServer(this);
+    start(8080);
     logger.info("Server started (Port: " + getServerPort() + ")!");
   }
 

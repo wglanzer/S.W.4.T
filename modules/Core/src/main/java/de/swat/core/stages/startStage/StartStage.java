@@ -6,7 +6,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import de.swat.IFileStructure;
 import de.swat.core.AbstractStage;
 import de.swat.core.CorePreferences;
-import de.swat.fileTransfer.FileTransferClient;
 import de.swat.fileTransfer.FileTransferServer;
 
 /**
@@ -33,8 +32,6 @@ public class StartStage extends AbstractStage
         logger.info("FileTransferServer starting...");
         new FileTransferServer(assets.getFilesDir().getPath() + IFileStructure.MAPS);
         logger.info("FileTransferServer started!");
-
-        new FileTransferClient("127.0.0.1");
       }
     });
 

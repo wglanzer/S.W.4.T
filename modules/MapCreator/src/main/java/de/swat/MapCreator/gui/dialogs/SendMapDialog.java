@@ -157,7 +157,7 @@ public class SendMapDialog extends JDialog
 
         serverList.setEnabled(false);
         final Vector<String> result = ServerSearcher.search(null, ICSInterConstants.FILETRANSFERPORT);
-
+        result.add("192.168.2.108");
         serverList.setModel(new AbstractListModel<String>()
         {
           public int getSize()

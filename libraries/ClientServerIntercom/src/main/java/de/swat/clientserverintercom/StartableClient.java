@@ -1,9 +1,11 @@
 package de.swat.clientserverintercom;
 
 import de.swat.clientserverintercom.client.AbstractClient;
-import de.swat.clientserverintercom.client.ClientStarter;
 import de.swat.clientserverintercom.client.IClient;
+import org.apache.logging.log4j.LogManager;
 
+import java.io.IOException;
+import java.net.InetAddress;
 import java.util.Scanner;
 
 /**
@@ -16,13 +18,19 @@ public class StartableClient extends AbstractClient
 
   protected StartableClient()
   {
-    super("127.0.0.1", 8080);
     new Thread(new _EndlessThread(this)).start();
   }
 
   public static void main(String[] args)
   {
-    ClientStarter.startClient(new StartableClient());
+    try
+    {
+      new StartableClient().connect(InetAddress.getByName("127.0.0.1"), 8080);
+    }
+    catch(IOException e)
+    {
+      LogManager.getLogger().catching(e);
+    }
   }
 
   @Override

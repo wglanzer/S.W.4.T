@@ -1,14 +1,15 @@
 package de.swat.clientserverintercom;
 
 import de.swat.clientserverintercom.client.AbstractClient;
-import de.swat.clientserverintercom.client.ClientStarter;
 import de.swat.clientserverintercom.server.AbstractServer;
-import de.swat.clientserverintercom.server.ServerStarter;
+import org.apache.logging.log4j.LogManager;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.IOException;
+import java.net.InetAddress;
 import java.net.Socket;
 
 /**
@@ -21,22 +22,23 @@ public class Test_ClientServerConnection
   private static final long TIMEOUT = 500;
   private final Object lock = new Object();
   private AbstractClient client;
+  private AbstractServer server;
   private String lastGotMessage = "";
 
   @Before
   public void before()
   {
-    //Startet Client und Server in einem eigenen Thread
-    ServerStarter.startServer(new AbstractServer(25525)
+    server = new AbstractServer()
     {
       @Override
       public void onClientMessage(SendablePackage pMessage, Socket pClient)
       {
         sendClientMessage(pMessage);
       }
-    });
+    };
+    server.start(25525);
 
-    client = new AbstractClient("127.0.0.1", 25525)
+    client = new AbstractClient()
     {
       @Override
       public void onServerMessage(SendablePackage pMessage)
@@ -48,7 +50,15 @@ public class Test_ClientServerConnection
         }
       }
     };
-    ClientStarter.startClient(client);
+
+    try
+    {
+      client.connect(InetAddress.getByName("127.0.0.1"), 25525);
+    }
+    catch(IOException e)
+    {
+      LogManager.getLogger().catching(e);
+    }
   }
 
   @Test
@@ -79,7 +89,14 @@ public class Test_ClientServerConnection
   @After
   public void after()
   {
-    client.disconnect();
-    //server.shutdown   //todo implementieren!
+    try
+    {
+      client.disconnect();
+      server.stop();
+    }
+    catch(IOException e)
+    {
+      LogManager.getLogger().catching(e);
+    }
   }
 }

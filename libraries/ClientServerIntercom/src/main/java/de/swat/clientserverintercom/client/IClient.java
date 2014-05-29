@@ -1,6 +1,11 @@
 package de.swat.clientserverintercom.client;
 
+import de.swat.NoConnectionException;
 import de.swat.clientserverintercom.SendablePackage;
+
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.Socket;
 
 /**
  * Dieses Interface beschreibt einen Client und seine Aktionen
@@ -22,33 +27,35 @@ public interface IClient
    *
    * @param pMessage Nachricht, die gesendet werden soll
    */
-  void sendServerMessage(SendablePackage pMessage);
+  void sendServerMessage(SendablePackage pMessage) throws NoConnectionException;
 
   /**
-   * Trennt die Verbindung zwischen Client und Server
-   */
-  void disconnect();
-
-  /**
-   * Liefert die Nachricht zurück, die zum Server geschickt werden soll.
-   * Wenn nichts gesendet werden soll, dann <tt>null</tt>
+   * Stellt die Verbindung zur angegebenen InetAdress und dessen Port her.
+   * Speichert den Socket, damit er in getSocket() zurückgegeben werden kann
    *
-   * @return Die Nachricht, die gesendet werden soll
+   * @throws IOException
    */
-  SendablePackage getMessageToSend();
+  void connect(InetAddress pConnectTo, int pPort) throws IOException;
 
   /**
-   * @return <tt>true</tt>, wenn der Client sich vom Server trennen will
+   * Löst die Verbindung des Sockets auf
+   *
+   * @throws IOException
    */
-  boolean wantsToDisconnect();
+  void disconnect() throws IOException;
+
+  /**
+   * @return Socket, <tt>null</tt>, wenn der Client noch nirgends verbunden ist
+   */
+  Socket getSocket();
 
   /**
    * @return Server-IP
    */
-  String getServerIP();
+  String getServerIP() throws NoConnectionException;
 
   /**
    * @return Server-Port
    */
-  int getServerPort();
+  int getServerPort() throws NoConnectionException;
 }

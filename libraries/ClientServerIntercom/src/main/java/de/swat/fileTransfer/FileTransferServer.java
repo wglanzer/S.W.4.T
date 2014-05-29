@@ -3,7 +3,6 @@ package de.swat.fileTransfer;
 import de.swat.clientserverintercom.ICSInterConstants;
 import de.swat.clientserverintercom.SendablePackage;
 import de.swat.clientserverintercom.server.AbstractServer;
-import de.swat.clientserverintercom.server.ServerStarter;
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 
@@ -23,9 +22,8 @@ public class FileTransferServer extends AbstractServer
 
   public FileTransferServer(String pApplicationDirectory)
   {
-    super(ICSInterConstants.FILETRANSFERPORT);
     applicationDirectory = pApplicationDirectory;
-    ServerStarter.startServer(this);
+    start(ICSInterConstants.FILETRANSFERPORT);
   }
 
   @Override
@@ -38,6 +36,7 @@ public class FileTransferServer extends AbstractServer
     {
       try
       {
+        LogManager.getLogger().info("Got a File! (name=" + fileName + ")");
         FileUtils.writeStringToFile(new File(applicationDirectory + File.separator + fileName), pMessage.getMessage());
       }
       catch(IOException e)

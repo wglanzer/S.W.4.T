@@ -3,6 +3,7 @@ package de.swat.clientserverintercom.server;
 import de.swat.clientserverintercom.SendablePackage;
 import org.jetbrains.annotations.Nullable;
 
+import java.io.IOException;
 import java.net.Socket;
 import java.util.Map;
 
@@ -63,4 +64,14 @@ public interface IServer
    * @param pMessage  Nachricht, die geschickt werden soll
    */
   void sendClientMessage(SendablePackage pMessage);
+
+  /**
+   * Stoppt den Server
+   */
+  void stop() throws IOException;
+
+  /**
+   * Startet den Server auf einem bestimmten Port
+   */
+  void start(int pPort);
 }

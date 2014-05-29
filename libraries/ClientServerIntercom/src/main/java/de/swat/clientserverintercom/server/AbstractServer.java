@@ -2,11 +2,14 @@ package de.swat.clientserverintercom.server;
 
 import de.swat.clientserverintercom.ICSInterConstants;
 import de.swat.clientserverintercom.SendablePackage;
+import de.swat.clientserverintercom.runnables.ServerConnectionRunnable;
+import de.swat.constants.IVersion;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.BufferedWriter;
+import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
@@ -26,10 +29,25 @@ public abstract class AbstractServer implements IServer
   private final Set<Socket> clients = new HashSet<>();
   private int serverPort = -1;
   private Logger logger = LogManager.getLogger();
+  private ServerConnectionRunnable servRun;
 
-  public AbstractServer(int pServerPort)
+  @Override
+  public void stop() throws IOException
   {
-    serverPort = pServerPort;
+    for(Socket currClient : clients)
+      currClient.close();
+    servRun.shutdown();
+    serverPort = -1;
+  }
+
+  @Override
+  public void start(int pPort)
+  {
+    serverPort = pPort;
+    servRun = new ServerConnectionRunnable(this);
+    Thread serverThread = new Thread(servRun);
+    serverThread.setName(IVersion.MAJOR_NAME + " - IntercomServer");
+    serverThread.start();
   }
 
   @Override

@@ -3,12 +3,12 @@ package de.swat.fileTransfer;
 import de.swat.clientserverintercom.ICSInterConstants;
 import de.swat.clientserverintercom.SendablePackage;
 import de.swat.clientserverintercom.client.AbstractClient;
-import de.swat.clientserverintercom.client.ClientStarter;
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.InetAddress;
 
 /**
  * Client, der Dateien zwischen Client -> Server verschicken kann.
@@ -19,8 +19,14 @@ public class FileTransferClient extends AbstractClient
 {
   public FileTransferClient(String pServerIP)
   {
-    super(pServerIP, ICSInterConstants.FILETRANSFERPORT);
-    ClientStarter.startClient(this);
+    try
+    {
+      connect(InetAddress.getByName(pServerIP), ICSInterConstants.FILETRANSFERPORT);
+    }
+    catch(IOException e)
+    {
+      LogManager.getLogger().catching(e);
+    }
   }
 
   /**
