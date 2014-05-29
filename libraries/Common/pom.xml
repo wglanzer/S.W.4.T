@@ -66,6 +66,13 @@
             <artifactId>swingx</artifactId>
             <version>1.6.1</version>
         </dependency>
+
+        <!-- TableLayout -->
+        <dependency>
+            <groupId>tablelayout</groupId>
+            <artifactId>TableLayout</artifactId>
+            <version>20020517</version>
+        </dependency>
     </dependencies>
 
 </project>

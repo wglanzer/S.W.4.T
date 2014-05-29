@@ -53,4 +53,30 @@ public class StringUtil
   {
     return "    ";
   }
+
+  /**
+   * Gibt zurück, wie oft pCounter in pComplete vorkommt.
+   *
+   * @param pComplete  Langer String, in dem pCounter vorkommen soll
+   * @param pCounter   String, der in pComplete vorkommen soll
+   * @return Wie oft kommt pCounter in pComplete vor?
+   */
+  public static int countNumber(String pComplete, String pCounter)
+  {
+    int number = 0;
+
+    for(int offset = 0; offset < pComplete.length(); )
+    {
+      int currIndex = pComplete.indexOf(pCounter, offset);
+      if(currIndex != -1)
+      {
+        number++;
+        offset = currIndex + pCounter.length();
+      }
+      else
+        break;
+    }
+
+    return number;
+  }
 }
