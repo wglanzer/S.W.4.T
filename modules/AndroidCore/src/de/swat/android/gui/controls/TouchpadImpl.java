@@ -13,8 +13,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
  */
 public class TouchpadImpl
 {
-  private int size = 200;
-
   private Touchpad.TouchpadStyle touchpadStyle;
   private Skin touchpadSkin;
 
@@ -37,8 +35,16 @@ public class TouchpadImpl
     touchpadStyle.background = touchBackground;
     touchpadStyle.knob = touchKnob;
 
-    touchpad = new Touchpad(10, touchpadStyle);
-    touchpad.setBounds(15, 15, size, size);
+    touchpad = new Touchpad(10, touchpadStyle)
+    {
+      @Override
+      public void setBounds(float x, float y, float width, float height)
+      {
+        super.setBounds(x, y, width, height);
+        touchKnob.setMinWidth((float) (width * 0.5));
+        touchKnob.setMinHeight((float) (height * 0.5));
+      }
+    };
   }
 
   public Touchpad getTouchpad()

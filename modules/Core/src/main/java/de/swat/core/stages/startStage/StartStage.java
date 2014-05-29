@@ -4,9 +4,13 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import de.swat.IFileStructure;
+import de.swat.clientserverintercom.server.IServer;
+import de.swat.constants.IStaticConstants;
 import de.swat.core.AbstractStage;
 import de.swat.core.CorePreferences;
 import de.swat.fileTransfer.FileTransferServer;
+
+import java.io.IOException;
 
 /**
  * Haupt-Stage
@@ -16,25 +20,60 @@ import de.swat.fileTransfer.FileTransferServer;
 public class StartStage extends AbstractStage
 {
 
-  private TextButton enableWifi = new TextButton("enable Wifi", CorePreferences.getAssets().getSkinDefault());
-
   public StartStage()
   {
-    enableWifi.setBounds(getWidth() - 100 - 5, getHeight() - 40 - 5, 100, 40);
+    addActor(_createEnableWifiButton());
+  }
+
+  /**
+   * Liefert den "enableWifi"-Button, der den FTP-Server startet!
+   *
+   * @return enableWifi-Button
+   */
+  private TextButton _createEnableWifiButton()
+  {
+    final TextButton enableWifi = new TextButton(IStaticConstants.ENABLE_FTP_SERVER, CorePreferences.getAssets().getSkinDefault());
+    float height = (float) (getHeight() * 0.1);
+    float width = height * 16 / 9;
+    float x = getWidth() - width - 10;
+    float y = getHeight() - height - 10;
+
+    enableWifi.getLabel().setFontScale(3);
+    enableWifi.setBounds(x, y, width, height);
     enableWifi.addListener(new ClickListener()
     {
+      private boolean isClicked = false;
+      private IServer server;
 
       @Override
       public void clicked(InputEvent event, float x, float y)
       {
-        enableWifi.setText("you can't disable!");
+        isClicked = !isClicked;
 
-        logger.info("FileTransferServer starting...");
-        new FileTransferServer(assets.getFilesDir().getPath() + IFileStructure.MAPS);
-        logger.info("FileTransferServer started!");
+        if(isClicked)
+        {
+          enableWifi.setText(IStaticConstants.DISABLE_FTP_SERVER);
+
+          logger.info("FileTransferServer starting...");
+          server = new FileTransferServer(assets.getFilesDir().getPath() + IFileStructure.MAPS);
+          logger.info("FileTransferServer started!");
+        }
+        else
+        {
+          enableWifi.setText(IStaticConstants.ENABLE_FTP_SERVER);
+
+          try
+          {
+            server.stop();
+          }
+          catch(IOException e)
+          {
+            logger.catching(e);
+          }
+        }
       }
     });
 
-    addActor(enableWifi);
+    return enableWifi;
   }
 }

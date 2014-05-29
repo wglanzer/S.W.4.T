@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Touchpad;
 import de.swat.android.dialog.ADialogDisplayer;
 import de.swat.android.gui.controls.TouchpadImpl;
 import de.swat.core.stages.startStage.StartStage;
@@ -18,6 +19,7 @@ import de.swat.core.stages.startStage.StartStage;
 public class AScreen extends ScreenAdapter
 {
   private Stage stage = new StartStage();
+  private Touchpad leftStick = new TouchpadImpl().getTouchpad();
 
   @Override
   public void show()
@@ -25,13 +27,20 @@ public class AScreen extends ScreenAdapter
     ADialogDisplayer.setStage(stage);
     Gdx.input.setInputProcessor(stage);
 
-    stage.addActor(new TouchpadImpl().getTouchpad());
+    stage.addActor(leftStick);
   }
 
   @Override
   public void resize(int width, int height)
   {
+    int border = 10;
+
     stage.setViewport(width, height);
+
+    // -- Größe des Linken Sticks
+    int lSSize = (int) (height * 0.35);
+    leftStick.setBounds(border, border, lSSize, lSSize);
+    // ----
   }
 
   @Override
