@@ -1,18 +1,16 @@
 package de.swat.android;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import de.swat.core.IAssets;
+import de.swat.common.gui.assets.AbstractAssets;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 
 /**
- * Assets die im Game verwendet werden
+ * Assets die auf Android verwendet werden
  *
  * @author W. Glanzer, 19.04.2014
  */
-public class AAssets implements IAssets
+public class AAssets extends AbstractAssets
 {
   private static AAssets INSTANCE = new AAssets();
   private static File filesDir = new File("\\");
@@ -26,12 +24,6 @@ public class AAssets implements IAssets
   public static AAssets get()
   {
     return INSTANCE;
-  }
-
-  @Override
-  public Skin getSkinDefault()
-  {
-    return new Skin(Gdx.files.internal("skins/defaultSkin/uiskin.json"));
   }
 
   @Override

@@ -1,5 +1,6 @@
 package de.swat.core;
 
+import de.swat.common.gui.assets.IAssets;
 import de.swat.exceptions.SwatRuntimeException;
 
 /**

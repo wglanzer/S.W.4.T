@@ -1,6 +1,7 @@
 package de.swat.core;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import de.swat.common.gui.assets.IAssets;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

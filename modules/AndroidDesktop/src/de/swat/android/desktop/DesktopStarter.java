@@ -12,8 +12,8 @@ import de.swat.core.CorePreferences;
  */
 public class DesktopStarter
 {
-  private static final int WIDTH = 854;
-  private static final int HEIGHT = 480;
+  private static final int WIDTH = 1600;
+  private static final int HEIGHT = 900;
 
   public static void main(String[] args)
   {
@@ -22,7 +22,7 @@ public class DesktopStarter
 
     LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
     cfg.title = IVersion.MAJOR_NAME + " - DesktopStarter - Version " + IVersion.ANDROID_VERSION;
-    cfg.useGL20 = false;
+    cfg.useGL20 = true;
     cfg.height = HEIGHT;
     cfg.width = WIDTH;
 

@@ -8,7 +8,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
-    <uses-sdk android:minSdkVersion="8" android:targetSdkVersion="15"/>
+    <uses-sdk android:minSdkVersion="15" android:targetSdkVersion="19"/>
 
     <application android:allowBackup="true" android:icon="@drawable/icon" android:label="S.W.4.T">
         <activity android:name=".AAndroidCoreActivity" android:screenOrientation="landscape">

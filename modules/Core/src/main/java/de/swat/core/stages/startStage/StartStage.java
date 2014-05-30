@@ -1,13 +1,14 @@
 package de.swat.core.stages.startStage;
 
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import de.swat.IFileStructure;
 import de.swat.clientserverintercom.server.IServer;
+import de.swat.common.gui.assets.ShaderKey;
+import de.swat.common.gui.components.GDXTextButton;
 import de.swat.constants.IStaticConstants;
 import de.swat.core.AbstractStage;
-import de.swat.core.CorePreferences;
 import de.swat.fileTransfer.FileTransferServer;
 
 import java.io.IOException;
@@ -30,15 +31,16 @@ public class StartStage extends AbstractStage
    *
    * @return enableWifi-Button
    */
-  private TextButton _createEnableWifiButton()
+  private Button _createEnableWifiButton()
   {
-    final TextButton enableWifi = new TextButton(IStaticConstants.ENABLE_FTP_SERVER, CorePreferences.getAssets().getSkinDefault());
-    float height = (float) (getHeight() * 0.1);
-    float width = height * 16 / 9;
+    final GDXTextButton enableWifi = new GDXTextButton(IStaticConstants.ENABLE_FTP_SERVER, assets.getSkinDefault(), assets.getFont());
+    float height = (float) (getHeight() * 0.05);
+    float width = height * 32 / 9;
     float x = getWidth() - width - 10;
     float y = getHeight() - height - 10;
 
-    enableWifi.getLabel().setFontScale(3);
+    enableWifi.setBorder(0, 10, 0, 10);
+    enableWifi.setTextShader(assets.getShader(ShaderKey.FONT));
     enableWifi.setBounds(x, y, width, height);
     enableWifi.addListener(new ClickListener()
     {
