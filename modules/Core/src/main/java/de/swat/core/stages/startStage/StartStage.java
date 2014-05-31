@@ -5,7 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import de.swat.IFileStructure;
 import de.swat.clientserverintercom.server.IServer;
-import de.swat.common.gui.assets.ShaderKey;
+import de.swat.common.gui.assets.keys.ShaderKey;
 import de.swat.common.gui.components.GDXTextButton;
 import de.swat.constants.IStaticConstants;
 import de.swat.core.AbstractStage;

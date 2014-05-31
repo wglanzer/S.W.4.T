@@ -12,7 +12,7 @@
 
     <artifactId>AndroidDesktop</artifactId>
     <name>SWmod: AndroidDesktop</name>
-
+0
     <dependencies>
         <dependency>
             <groupId>com.badlogicgames.gdx</groupId>
@@ -31,9 +31,6 @@
         <resources>
             <resource>
                 <directory>libs</directory>
-            </resource>
-            <resource>
-                <directory>assets</directory>
             </resource>
         </resources>
         <sourceDirectory>src</sourceDirectory>

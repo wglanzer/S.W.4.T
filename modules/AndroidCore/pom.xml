@@ -69,13 +69,6 @@
     </dependencies>
 
     <build>
-
-        <resources>
-            <resource>
-                <directory>assets</directory>
-            </resource>
-        </resources>
-
         <sourceDirectory>src</sourceDirectory>
         <plugins>
             <!-- responsible for unpacking the shared libraries to the libs/ folder -->
@@ -104,7 +97,7 @@
                 <version>${android.maven.version}</version>
                 <configuration>
                     <androidManifestFile>${project.basedir}/AndroidManifest.xml</androidManifestFile>
-                    <assetsDirectory>${project.basedir}/../AndroidCore/assets</assetsDirectory>
+                    <assetsDirectory>${project.basedir}/../Core/assets</assetsDirectory>
                     <resourceDirectory>${project.basedir}/res</resourceDirectory>
                     <sdk>
                         <platform>15</platform>

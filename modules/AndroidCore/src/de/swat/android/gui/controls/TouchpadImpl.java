@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Touchpad;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import de.swat.common.gui.assets.keys.ResourceKey;
 
 /**
  * Dieses TouchpadImpl stellt ein gewöhnliches TouchpadImpl dar,
@@ -25,8 +26,8 @@ public class TouchpadImpl
   {
     touchpadSkin = new Skin();
     Texture.setEnforcePotImages(false);
-    touchpadSkin.add("touchBackground", new Texture("data/touchBackground.png"));
-    touchpadSkin.add("touchKnob", new Texture("data/touchKnob.png"));
+    touchpadSkin.add("touchBackground", new Texture(ResourceKey.TOUCHPAD_BACKGROUND.path));
+    touchpadSkin.add("touchKnob", new Texture(ResourceKey.TOUCHPAD_KNOB.path));
 
     touchpadStyle = new Touchpad.TouchpadStyle();
     touchBackground = touchpadSkin.getDrawable("touchBackground");

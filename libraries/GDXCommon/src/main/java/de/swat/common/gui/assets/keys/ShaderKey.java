@@ -1,4 +1,4 @@
-package de.swat.common.gui.assets;
+package de.swat.common.gui.assets.keys;
 
 /**
  * Shaders, die in den Assets verwendet werden

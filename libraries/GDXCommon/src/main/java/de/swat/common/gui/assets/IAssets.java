@@ -1,8 +1,11 @@
 package de.swat.common.gui.assets;
 
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import de.swat.common.gui.assets.keys.ResourceKey;
+import de.swat.common.gui.assets.keys.ShaderKey;
 
 import java.io.File;
 
@@ -34,4 +37,8 @@ public interface IAssets
    */
   ShaderProgram getShader(ShaderKey pKey);
 
+  /**
+   * @return Liefert eine bestimmte Resource als FileHandle zurück
+   */
+  FileHandle getResource(ResourceKey pKey);
 }
