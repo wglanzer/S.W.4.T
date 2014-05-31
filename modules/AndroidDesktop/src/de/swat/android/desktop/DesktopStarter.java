@@ -2,8 +2,8 @@ package de.swat.android.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+import de.swat.common.stages.CorePreferences;
 import de.swat.constants.IVersion;
-import de.swat.core.CorePreferences;
 
 /**
  * Startet das Android-Game auf dem Desktop

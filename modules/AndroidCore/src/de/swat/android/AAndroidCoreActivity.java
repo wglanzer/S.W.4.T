@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.view.WindowManager;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import de.swat.core.CorePreferences;
+import de.swat.common.stages.CorePreferences;
 
 public class AAndroidCoreActivity extends AndroidApplication
 {

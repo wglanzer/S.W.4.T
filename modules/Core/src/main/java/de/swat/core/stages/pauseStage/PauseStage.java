@@ -1,5 +1,9 @@
-package de.swat.core.stages.startStage;
+package de.swat.core.stages.pauseStage;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -7,23 +11,49 @@ import de.swat.IFileStructure;
 import de.swat.clientserverintercom.server.IServer;
 import de.swat.common.gui.assets.keys.ShaderKey;
 import de.swat.common.gui.components.GDXTextButton;
+import de.swat.common.stages.AbstractStage;
+import de.swat.common.stages.StageHandler;
 import de.swat.constants.IStaticConstants;
-import de.swat.core.AbstractStage;
 import de.swat.fileTransfer.FileTransferServer;
 
 import java.io.IOException;
 
 /**
- * Haupt-Stage
+ * Pause-Stage
  *
- * @author W.Glanzer, 03.05.2014.
+ * @author W.Glanzer, 31.05.2014.
  */
-public class StartStage extends AbstractStage
+public class PauseStage extends AbstractStage
 {
+  private ShapeRenderer renderer = new ShapeRenderer();
 
-  public StartStage()
+  public PauseStage()
   {
     addActor(_createEnableWifiButton());
+    addActor(_createBackButton());
+  }
+
+  private Button _createBackButton()
+  {
+    final GDXTextButton backButton = new GDXTextButton("Back", assets.getSkinDefault(), assets.getFont());
+    float height = (float) (getHeight() * 0.05);
+    float width = height * 32 / 9;
+    float x = getWidth() / 2;
+    float y = getHeight() / 2;
+
+    backButton.setBorder(0, 10, 0, 10);
+    backButton.setTextShader(assets.getShader(ShaderKey.FONT));
+    backButton.setBounds(x, y, width, height);
+    backButton.addListener(new ClickListener()
+    {
+      @Override
+      public void clicked(InputEvent event, float x, float y)
+      {
+        removeFromHandler();
+        getGuiStage().addToHandler(StageHandler.StageType.CONTROLSTAGE);
+      }
+    });
+    return backButton;
   }
 
   /**
@@ -78,4 +108,19 @@ public class StartStage extends AbstractStage
 
     return enableWifi;
   }
+
+  @Override
+  public void draw()
+  {
+    Gdx.gl.glEnable(GL10.GL_BLEND);
+    Gdx.gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
+    renderer.begin(ShapeRenderer.ShapeType.Filled);
+    renderer.setColor(new Color(0, 0, 0, 0.7f));
+    renderer.rect(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+    renderer.end();
+    Gdx.gl.glDisable(GL10.GL_BLEND);
+
+    super.draw();
+  }
+
 }

@@ -1,4 +1,4 @@
-package de.swat.core;
+package de.swat.common.stages;
 
 import de.swat.common.gui.assets.IAssets;
 import de.swat.exceptions.SwatRuntimeException;

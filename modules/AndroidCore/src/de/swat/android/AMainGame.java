@@ -10,6 +10,6 @@ public class AMainGame extends Game
   @Override
   public void create()
   {
-    setScreen(new AExceptionRedirectScreen());
+    setScreen(new AScreen());
   }
 }
