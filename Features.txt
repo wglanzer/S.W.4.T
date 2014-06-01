@@ -25,3 +25,18 @@ No RL:
 - Multiple Mission Types
 - Advanced Settings
 - Ligthing
+
+
+
+
+Stil:
+- kein runden Ecken!
+- Position der Kante im charackterauswahlmenü anpassen, nicht verschieben
+
+Steuerung:
+- 2 Knübbel:
+    - Left: Gehen
+    - Right: Schauen
+- Volumes:
+    - Up: Schießen
+    - Down: -----
