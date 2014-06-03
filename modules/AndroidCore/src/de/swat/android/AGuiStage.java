@@ -40,13 +40,12 @@ public class AGuiStage extends AbstractStage
 
   private Button _createClickButton()
   {
-    final GDXTextButton clickButton = new GDXTextButton(IStaticConstants.ENABLE_FTP_SERVER, assets.getSkinDefault(), assets.getFont());
+    final GDXTextButton clickButton = new GDXTextButton(IStaticConstants.PAUSE, assets.getSkinDefault(), assets.getFont(), true, assets.getFontScale());
     float height = (float) (getHeight() * 0.05);
     float width = height * 32 / 9;
-    float x = 0;
-    float y = 0;
+    float x = getWidth() - width - 10;
+    float y = getHeight() - height - 10;
 
-    clickButton.setBorder(0, 10, 0, 10);
     clickButton.setTextShader(assets.getShader(ShaderKey.FONT));
     clickButton.setBounds(x, y, width, height);
     clickButton.addListener(new ClickListener()

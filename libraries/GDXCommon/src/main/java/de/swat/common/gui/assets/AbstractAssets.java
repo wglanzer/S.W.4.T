@@ -88,6 +88,12 @@ public abstract class AbstractAssets implements IAssets
   }
 
   @Override
+  public float getFontScale()
+  {
+    return 1f;
+  }
+
+  @Override
   public ShaderProgram getShader(ShaderKey pKey)
   {
     try

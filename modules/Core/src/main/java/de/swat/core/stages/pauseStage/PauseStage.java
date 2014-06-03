@@ -3,13 +3,16 @@ package de.swat.core.stages.pauseStage;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import de.swat.IFileStructure;
 import de.swat.clientserverintercom.server.IServer;
 import de.swat.common.gui.assets.keys.ShaderKey;
+import de.swat.common.gui.components.GDXLabel;
 import de.swat.common.gui.components.GDXTextButton;
 import de.swat.common.stages.AbstractStage;
 import de.swat.common.stages.StageHandler;
@@ -31,17 +34,34 @@ public class PauseStage extends AbstractStage
   {
     addActor(_createEnableWifiButton());
     addActor(_createBackButton());
+    addActor(_createFPSLabel());
+  }
+
+  private Label _createFPSLabel()
+  {
+    GDXLabel fpsLabel = new GDXLabel("FPS: ", assets.getSkinDefault())
+    {
+      @Override
+      public void draw(SpriteBatch batch, float parentAlpha)
+      {
+        setText("FPS: " + Gdx.graphics.getFramesPerSecond());
+        super.draw(batch, parentAlpha);
+      }
+    };
+    fpsLabel.setPosition(getWidth() - 37 - fpsLabel.getWidth(), 0);
+    fpsLabel.setFontShader(assets.getShader(ShaderKey.FONT));
+
+    return fpsLabel;
   }
 
   private Button _createBackButton()
   {
-    final GDXTextButton backButton = new GDXTextButton("Back", assets.getSkinDefault(), assets.getFont());
+    final GDXTextButton backButton = new GDXTextButton(IStaticConstants.BACK, assets.getSkinDefault(), assets.getFont(), true, assets.getFontScale());
     float height = (float) (getHeight() * 0.05);
     float width = height * 32 / 9;
-    float x = getWidth() / 2;
-    float y = getHeight() / 2;
+    float x = 10;
+    float y = 10;
 
-    backButton.setBorder(0, 10, 0, 10);
     backButton.setTextShader(assets.getShader(ShaderKey.FONT));
     backButton.setBounds(x, y, width, height);
     backButton.addListener(new ClickListener()
@@ -63,13 +83,12 @@ public class PauseStage extends AbstractStage
    */
   private Button _createEnableWifiButton()
   {
-    final GDXTextButton enableWifi = new GDXTextButton(IStaticConstants.ENABLE_FTP_SERVER, assets.getSkinDefault(), assets.getFont());
+    final GDXTextButton enableWifi = new GDXTextButton(IStaticConstants.ENABLE_FTP_SERVER, assets.getSkinDefault(), assets.getFont(), true, assets.getFontScale());
     float height = (float) (getHeight() * 0.05);
     float width = height * 32 / 9;
-    float x = getWidth() - width - 10;
-    float y = getHeight() - height - 10;
+    float x = getWidth() / 2 - width / 2;
+    float y = getHeight() - 100;
 
-    enableWifi.setBorder(0, 10, 0, 10);
     enableWifi.setTextShader(assets.getShader(ShaderKey.FONT));
     enableWifi.setBounds(x, y, width, height);
     enableWifi.addListener(new ClickListener()

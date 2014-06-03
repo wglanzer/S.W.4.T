@@ -22,26 +22,54 @@ public class GDXTextButton extends Button
   private TextButton.TextButtonStyle style;
   private ShaderProgram shader;
   private BitmapFont font;
-  private Insets insets = new Insets(1, 1, 1, 1);
+  private Insets insets = new Insets(10, 10, 10, 10);
+  private boolean automaticLayout = false;
 
   public GDXTextButton(String text, Skin pSkin, BitmapFont pFont)
   {
+    this(text, pSkin, pFont, false, 1.0f);
+  }
+
+  public GDXTextButton(String text, Skin pSkin, BitmapFont pFont, boolean pAutomaticLayout, float pFontScale)
+  {
     font = pFont;
+    automaticLayout = pAutomaticLayout;
     setSkin(pSkin);
     style = pSkin.get(TextButton.TextButtonStyle.class);
     label = new Label(text, new Label.LabelStyle(style.font, style.fontColor));
     setStyle(style);
     label.setAlignment(Align.center);
-    setWidth(getPrefWidth());
-    setHeight(getPrefHeight());
+    label.setFontScale(pFontScale);
+    setWidth(getPrefWidth() + insets.left + insets.right);
+    setHeight(getPrefHeight() + insets.top + insets.bottom);
     add(label).expand().fill();
+  }
+
+  private void _doAutomaticLayout(float pFontScale)
+  {
+    BitmapFont.TextBounds bounds = font.getBounds(label.getText());
+    float width = pFontScale * bounds.width + insets.left + insets.right;
+    float height = pFontScale * bounds.height + insets.bottom + insets.top;
+
+    setSize(width, height);
   }
 
   @Override
   protected void sizeChanged()
   {
     super.sizeChanged();
-    label.setFontScale((getWidth() - insets.left - insets.right) / font.getBounds(label.getText()).width);
+
+    if(automaticLayout)
+    {
+      _doAutomaticLayout(Math.max(label.getFontScaleX(), label.getFontScaleY()));
+    }
+    else
+    {
+      BitmapFont.TextBounds bounds = font.getBounds(label.getText());
+      float widthScale = (getWidth() - insets.left - insets.right) / bounds.width;
+      float heightScale = (getHeight() - insets.top - insets.bottom) / bounds.height;
+      label.setFontScale(Math.min(widthScale, heightScale));
+    }
   }
 
   public void draw(SpriteBatch pBatch, float pParentAlpha)

@@ -27,15 +27,14 @@ public class GuiStage extends AbstractStage
 
   private Button _createClickButton()
   {
-    final GDXTextButton clickButton = new GDXTextButton(IStaticConstants.ENABLE_FTP_SERVER, assets.getSkinDefault(), assets.getFont());
-    float height = (float) (getHeight() * 0.05);
-    float width = height * 32 / 9;
-    float x = 0;
-    float y = 0;
+    final GDXTextButton clickButton = new GDXTextButton("  " + IStaticConstants.PAUSE + "  ", assets.getSkinDefault(), assets.getFont(), true, assets.getFontScale());
+//    float height = (float) (getHeight() * 0.05);
+//    float width = height * 32 / 9;
+    float x = getWidth() - clickButton.getPrefWidth() - 20;
+    float y = getHeight() - clickButton.getPrefHeight() - 8;
 
-    clickButton.setBorder(0, 10, 0, 10);
     clickButton.setTextShader(assets.getShader(ShaderKey.FONT));
-    clickButton.setBounds(x, y, width, height);
+    clickButton.setPosition(x, y);
     clickButton.addListener(new ClickListener()
     {
       @Override

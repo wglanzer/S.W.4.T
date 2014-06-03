@@ -32,6 +32,8 @@ public interface IAssets
    */
   BitmapFont getFont();
 
+  float getFontScale();
+
   /**
    * @return Liefert einen bestimmten Shader zurück
    */
