@@ -12,7 +12,7 @@
 
     <artifactId>AndroidDesktop</artifactId>
     <name>SWmod: AndroidDesktop</name>
-0
+
     <dependencies>
         <dependency>
             <groupId>com.badlogicgames.gdx</groupId>
