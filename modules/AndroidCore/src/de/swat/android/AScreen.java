@@ -8,6 +8,7 @@ import de.swat.common.stages.AbstractStage;
 import de.swat.common.stages.IStageChangeListener;
 import de.swat.common.stages.StageHandler;
 import de.swat.core.stages.MainScreen;
+import de.swat.core.stages.levelStage.LevelStage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -43,6 +44,8 @@ public class AScreen implements Screen
       AGuiStage guiStage = new AGuiStage();
       guiStage.addToHandler(StageHandler.StageType.CONTROLSTAGE);
       AbstractStage.setGuiStage(guiStage);
+      LevelStage levelStage = new LevelStage();
+      levelStage.addToHandler(StageHandler.StageType.MIDGROUND);
 
       redirectTo = new MainScreen();
     }

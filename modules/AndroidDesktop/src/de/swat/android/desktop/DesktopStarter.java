@@ -14,6 +14,7 @@ public class DesktopStarter
 {
   private static final int WIDTH = 1600;
   private static final int HEIGHT = 900;
+  private static final int SAMPLES_4_MSAA = 8;
 
   public static void main(String[] args)
   {
@@ -25,6 +26,7 @@ public class DesktopStarter
     cfg.useGL20 = true;
     cfg.height = HEIGHT;
     cfg.width = WIDTH;
+    cfg.samples = SAMPLES_4_MSAA;
 
     new LwjglApplication(new MainGame(), cfg);
   }

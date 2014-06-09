@@ -9,6 +9,8 @@ import de.swat.common.stages.CorePreferences;
 public class AAndroidCoreActivity extends AndroidApplication
 {
 
+  private static final int SAMPLES_4_MSAA = 8;
+
   @Override
   public void onCreate(Bundle pSavedInstanceState)
   {
@@ -26,6 +28,8 @@ public class AAndroidCoreActivity extends AndroidApplication
 
     AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
     config.useGL20 = true;
+    config.numSamples = SAMPLES_4_MSAA;
+
     initialize(new AMainGame(), config);
   }
 }

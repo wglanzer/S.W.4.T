@@ -48,6 +48,7 @@ public class MainScreen extends ScreenAdapter
   @Override
   public void render(float delta)
   {
+    _update(delta);
     Gdx.gl.glClearColor(255f, 255f, 0f, 1f);
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -66,6 +67,25 @@ public class MainScreen extends ScreenAdapter
     AbstractStage controlstage = StageHandler.CONTROLSTAGE;
     if(controlstage != null)
       controlstage.render();
+  }
+
+  private void _update(float pDelta)
+  {
+    AbstractStage background = StageHandler.BACKGROUND;
+    if(background != null)
+      background.update(pDelta);
+
+    AbstractStage midground = StageHandler.MIDGROUND;
+    if(midground != null)
+      midground.update(pDelta);
+
+    AbstractStage foreground = StageHandler.FOREGROUND;
+    if(foreground != null)
+      foreground.update(pDelta);
+
+    AbstractStage controlstage = StageHandler.CONTROLSTAGE;
+    if(controlstage != null)
+      controlstage.update(pDelta);
   }
 
   @Override

@@ -21,6 +21,7 @@
         <module>Common</module>
         <module>CoreOld</module>
         <module>DataModels</module>
+        <module>Entity</module>
         <module>Flamingo</module>
         <module>GDXCommon</module>
         <module>SubstanceLF</module>

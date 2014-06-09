@@ -7,6 +7,7 @@ import de.swat.common.stages.AbstractStage;
 import de.swat.common.stages.IStageChangeListener;
 import de.swat.common.stages.StageHandler;
 import de.swat.core.stages.MainScreen;
+import de.swat.core.stages.levelStage.LevelStage;
 
 /**
  * @author W. Glanzer, 19.04.2014
@@ -29,6 +30,8 @@ public class MainGame extends Game
     GuiStage guiStage = new GuiStage();
     guiStage.addToHandler(StageHandler.StageType.CONTROLSTAGE);
     AbstractStage.setGuiStage(guiStage);
+    LevelStage levelStage = new LevelStage();
+    levelStage.addToHandler(StageHandler.StageType.MIDGROUND);
     setScreen(new MainScreen());
   }
 }

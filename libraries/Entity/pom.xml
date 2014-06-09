@@ -5,43 +5,26 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>modules</artifactId>
+        <artifactId>libraries</artifactId>
         <groupId>S.W.4.T</groupId>
         <version>${core.version}</version>
     </parent>
 
-    <artifactId>Core</artifactId>
-    <name>SWmod: Core</name>
+    <artifactId>Entity</artifactId>
+    <name>SWlib: Entity</name>
 
     <dependencies>
-        <dependency>
-            <groupId>S.W.4.T</groupId>
-            <artifactId>GDXCommon</artifactId>
-            <version>${core.version}</version>
-        </dependency>
         <dependency>
             <groupId>S.W.4.T</groupId>
             <artifactId>Common</artifactId>
             <version>${core.version}</version>
         </dependency>
+
         <dependency>
             <groupId>S.W.4.T</groupId>
-            <artifactId>ClientServerIntercom</artifactId>
-            <version>${core.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>S.W.4.T</groupId>
-            <artifactId>Entity</artifactId>
+            <artifactId>GDXCommon</artifactId>
             <version>${core.version}</version>
         </dependency>
     </dependencies>
-
-    <build>
-        <resources>
-            <resource>
-                <directory>assets</directory>
-            </resource>
-        </resources>
-    </build>
 
 </project>
