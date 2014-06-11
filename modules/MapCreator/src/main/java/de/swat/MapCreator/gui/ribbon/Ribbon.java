@@ -2,10 +2,10 @@ package de.swat.MapCreator.gui.ribbon;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.TreeMultimap;
-import de.swat.IRibbonAction;
 import de.swat.MapCreator.MapCreator;
-import de.swat.accesses.RibbonModelAccess;
 import de.swat.constants.IRibbonConstants;
+import de.swat.datamodels.IRibbonAction;
+import de.swat.datamodels.accesses.RibbonModelAccess;
 import de.swat.enums.ERibbonCategory;
 import de.swat.enums.ERibbonSubCategory;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
