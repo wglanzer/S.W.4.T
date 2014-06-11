@@ -1,12 +1,13 @@
 package de.swat.MapCreator;
 
-import de.swat.*;
 import de.swat.MapCreator.gui.Window;
-import de.swat.accesses.MapModelAccess;
 import de.swat.constants.IWindowConstants;
-import de.swat.dataModels.Map.StructureCollisionObjectDataModel;
+import de.swat.datamodels.Map;
+import de.swat.datamodels.Raster;
+import de.swat.datamodels.accesses.MapModelAccess;
+import de.swat.datamodels.map.StructureCollisionObjectDataModel;
+import de.swat.datamodels.util.DataModelHandler;
 import de.swat.observableList2.ObservableList2;
-import de.swat.util.DataModelHandler;
 
 import java.awt.*;
 
@@ -17,10 +18,10 @@ import java.awt.*;
  */
 public class MapCreator
 {
+  private static MapCreatorImage image = new MapCreatorImage();
   //Dieses modelAccess ist statisch, da es nur einmal vorkommen kann / darf.
   //Ebenso ist es dann möglich, von überall darauf zuzugreifen, da statisch
   private MapModelAccess modelAccess;
-  private static MapCreatorImage image = new MapCreatorImage();
   private Map currentLoadedMap;
   private Window window;
 
@@ -40,15 +41,15 @@ public class MapCreator
     return image;
   }
 
+  public Map getMap()
+  {
+    return currentLoadedMap;
+  }
+
   public void setMap(Map pMap)
   {
     currentLoadedMap = pMap;
     window.mapChanged(pMap);
-  }
-
-  public Map getMap()
-  {
-    return currentLoadedMap;
   }
 
   public void clearClickedPoints()
