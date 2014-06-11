@@ -42,6 +42,11 @@
             <artifactId>Flamingo</artifactId>
             <version>7.2.1</version>
         </dependency>
+        <dependency>
+            <groupId>S.W.4.T</groupId>
+            <artifactId>AnnotationProcessors</artifactId>
+            <version>${core.version}</version>
+        </dependency>
 
         <!-- Log4j zum Loggen -->
         <dependency>
@@ -75,4 +80,115 @@
         </dependency>
     </dependencies>
 
+    <pluginRepositories>
+        <pluginRepository>
+            <id>sonatype-repo</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
+
+    <properties>
+        <create.to.package>de/swat/datamodels/accesses</create.to.package>
+        <processor.class>de.swat.annotationProcessors.dataModelProcessor.DataModelProcessor</processor.class>
+        <target.directory>${basedir}/target/generated-sources</target.directory>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>2.4.1</version>
+                <executions>
+                    <!-- Package cleanen -->
+                    <execution>
+                        <id>cleanTwo</id>
+                        <phase>clean</phase>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                        <configuration>
+                            <filesets>
+                                <fileset>
+                                    <directory>src/main/java/${create.to.package}</directory>
+                                    <includes>
+                                        <include>**/*.java</include>
+                                    </includes>
+                                    <followSymlinks>false</followSymlinks>
+                                </fileset>
+                            </filesets>
+                        </configuration>
+                    </execution>
+                    <!-- Hier wird das targetVerzeichnis gelöscht, sodass neue Sourcen generiert werden können -->
+                    <execution>
+                        <id>cleanOne</id>
+                        <phase>process-sources</phase>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                        <configuration>
+                            <filesets>
+                                <fileset>
+                                    <directory>${target.directory}</directory>
+                                    <includes>
+                                        <include>**/*</include>
+                                    </includes>
+                                    <followSymlinks>false</followSymlinks>
+                                </fileset>
+                            </filesets>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Den AnnotationProzessor die Datei erstellen lassen -->
+            <plugin>
+                <groupId>org.bsc.maven</groupId>
+                <artifactId>maven-processor-plugin</artifactId>
+                <version>2.2.4</version>
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>process</goal>
+                        </goals>
+                        <configuration>
+                            <processors>
+                                <processor>${processor.class}</processor>
+                            </processors>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Die gerade Erstelle Datei kopieren, in das Package, das vorhin erstellt wurde -->
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.5</version>
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>src/main/java/${create.to.package}</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${target.directory}/apt</directory>
+                                    <filtering>false</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>

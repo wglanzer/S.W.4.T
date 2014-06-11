@@ -1,17 +1,26 @@
 package de.swat.MapCreator.gui.DrawContainer;
 
-import de.swat.*;
 import de.swat.MapCreator.GlobalKeyListenerManager;
-import de.swat.MapCreator.brushes.*;
-import de.swat.dataModels.Map.*;
+import de.swat.MapCreator.brushes.IBrush;
+import de.swat.MapCreator.brushes.PointBrush;
+import de.swat.datamodels.FieldChangeObject;
+import de.swat.datamodels.IFieldChangeListener;
+import de.swat.datamodels.Map;
+import de.swat.datamodels.map.AbstractCollisionObjectDataModel;
+import de.swat.datamodels.map.StructureCollisionObjectDataModel;
 import de.swat.observableList2.ObservableList2;
-import de.swat.utils.*;
+import de.swat.utils.MathUtil;
+import de.swat.utils.PointUtil;
+import de.swat.utils.PredefinedParameterUtil;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicPanelUI;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseWheelEvent;
 import java.awt.image.BufferedImage;
 
 /**
@@ -22,9 +31,9 @@ import java.awt.image.BufferedImage;
  */
 public class DrawContainer extends JPanel
 {
-  private Map map;
   public int xOff = 0;
   public int yOff = 0;
+  private Map map;
   private Point actualMousePoint = new Point(0, 0);
   private IBrush actualBrush = new PointBrush();
   private EDrawState state = EDrawState.MOUSE;
@@ -211,13 +220,74 @@ public class DrawContainer extends JPanel
   }
 
   /**
+   * Leert die clickedPoints und setzt das MapDataModel
+   * auf ein neues Model, sodass alle Änderungen verworfen
+   * werden.
+   */
+  public void clearAll()
+  {
+    ////TODO Sicherheitsabfrage
+    //dataModel.setNewModel(new MapDataModel());
+    //reloadFromDataModel();
+    throw new RuntimeException("Not implemented yet!");
+  }
+
+  /**
+   * Setzt das YOffset. Man kann variieren,
+   * jenachdem ob man als 2.Parameter <code>true</code>
+   * oder <code>false</code> angibt, fügt man den
+   * angegebenen Wert dem yOffset hinzu oder man
+   * überschreibt es ganz
+   *
+   * @param pYOff Wert des (hinzugefügten) yOffsets
+   * @param pAdd  <code>true</code>, wenn dem yOffset die Zahl
+   *              hinzugefügt werden soll.
+   */
+  public void setYOff(int pYOff, boolean pAdd)
+  {
+    if (pAdd)
+      yOff += yOff + pYOff >= 0 ? pYOff : 0;
+    else
+      yOff = yOff + pYOff >= 0 ? pYOff : 0;
+    repaint();
+  }
+
+  /**
+   * Selbes wie <code>setYOff</code>, nur für das
+   * xOffset
+   *
+   * @see de.swat.MapCreator.gui.DrawContainer.DrawContainer#setYOff(int, boolean)
+   */
+  public void setXOff(int pXOff, boolean pAdd)
+  {
+    if (pAdd)
+      xOff += xOff + pXOff >= 0 ? pXOff : 0;
+    else
+      xOff = xOff + pXOff >= 0 ? pXOff : 0;
+    repaint();
+  }
+
+  public ObservableList2<Point> getClickedPoints()
+  {
+    return clickedPoints;
+  }
+
+  public void reloadFromDataModel()
+  {
+    clickedPoints.clear();
+    collisionPoints.clear();
+    xOff = 0;
+    yOff = 0;
+  }
+
+  /**
    * MouseAdapter, der hier verwendet wird. Dieser
    * dient nur zur Übersichtlichkeit.
    */
   private class Mouse extends MouseAdapter
   {
-    private Point oldDragPoint;
     private static final float SCROLLFACTOR = 0.05f;
+    private Point oldDragPoint;
 
     @Override
     public void mouseMoved(MouseEvent e)
@@ -337,66 +407,5 @@ public class DrawContainer extends JPanel
       zoomFactor = MathUtil.round2Decimals(zoomFactor);
       repaint();
     }
-  }
-
-  /**
-   * Leert die clickedPoints und setzt das MapDataModel
-   * auf ein neues Model, sodass alle Änderungen verworfen
-   * werden.
-   */
-  public void clearAll()
-  {
-    ////TODO Sicherheitsabfrage
-    //dataModel.setNewModel(new MapDataModel());
-    //reloadFromDataModel();
-    throw new RuntimeException("Not implemented yet!");
-  }
-
-  /**
-   * Setzt das YOffset. Man kann variieren,
-   * jenachdem ob man als 2.Parameter <code>true</code>
-   * oder <code>false</code> angibt, fügt man den
-   * angegebenen Wert dem yOffset hinzu oder man
-   * überschreibt es ganz
-   *
-   * @param pYOff Wert des (hinzugefügten) yOffsets
-   * @param pAdd  <code>true</code>, wenn dem yOffset die Zahl
-   *              hinzugefügt werden soll.
-   */
-  public void setYOff(int pYOff, boolean pAdd)
-  {
-    if (pAdd)
-      yOff += yOff + pYOff >= 0 ? pYOff : 0;
-    else
-      yOff = yOff + pYOff >= 0 ? pYOff : 0;
-    repaint();
-  }
-
-  /**
-   * Selbes wie <code>setYOff</code>, nur für das
-   * xOffset
-   *
-   * @see de.swat.MapCreator.gui.DrawContainer.DrawContainer#setYOff(int, boolean)
-   */
-  public void setXOff(int pXOff, boolean pAdd)
-  {
-    if (pAdd)
-      xOff += xOff + pXOff >= 0 ? pXOff : 0;
-    else
-      xOff = xOff + pXOff >= 0 ? pXOff : 0;
-    repaint();
-  }
-
-  public ObservableList2<Point> getClickedPoints()
-  {
-    return clickedPoints;
-  }
-
-  public void reloadFromDataModel()
-  {
-    clickedPoints.clear();
-    collisionPoints.clear();
-    xOff = 0;
-    yOff = 0;
   }
 }
