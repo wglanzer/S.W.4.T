@@ -16,6 +16,7 @@ public class LevelStage extends AbstractStage
   public LevelStage()
   {
     addActor(player);
+    player.setPosition(getWidth() / 2, getHeight() / 2);
   }
 
 }

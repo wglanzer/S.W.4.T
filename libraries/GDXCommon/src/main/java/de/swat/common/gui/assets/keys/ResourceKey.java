@@ -11,7 +11,11 @@ public enum ResourceKey
   FONT_DEFAULT_FNT("skins/defaultSkin/font.fnt"),
   SKIN_DEFAULT("skins/defaultSkin/uiskin.json"),
   TOUCHPAD_BACKGROUND("data/touchBackground.png"),
-  TOUCHPAD_KNOB("data/touchKnob.png");
+  TOUCHPAD_KNOB("data/touchKnob.png"),
+  PLAYER_ARMS("player/Arms.png"),
+  PLAYER_HEAD("player/Head.png"),
+  PLAYER_TORSO("player/Torso.png"),
+  PLAYER_LEGS("player/Legs.png");
 
   public final String path;
 

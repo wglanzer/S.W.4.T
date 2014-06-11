@@ -1,9 +1,6 @@
 package de.swat.entity.entities;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import de.swat.common.gui.renderer.ShapeRenderUtil;
+import de.swat.common.gui.assets.keys.ResourceKey;
 import de.swat.entity.IControllable;
 import de.swat.entity.IMovableEntity;
 
@@ -14,22 +11,10 @@ import de.swat.entity.IMovableEntity;
  */
 public class Player extends BaseEntity implements IMovableEntity, IControllable
 {
-
-  private float delta = 0;
-
   public Player()
   {
-    setSize(50, 50);
-  }
-
-  @Override
-  public void draw(SpriteBatch batch, float parentAlpha)
-  {
-    super.draw(batch, parentAlpha);
-    delta += Gdx.graphics.getDeltaTime() * 100f;
-
-    int width = Gdx.graphics.getWidth();
-    int height = Gdx.graphics.getHeight();
-    ShapeRenderUtil.drawRect(width / 2 - 20, height / 2 - 20, 40, 40, delta, Color.BLUE);
+    super(assets.getResource(ResourceKey.PLAYER_HEAD), assets.getResource(ResourceKey.PLAYER_ARMS),
+        assets.getResource(ResourceKey.PLAYER_TORSO), assets.getResource(ResourceKey.PLAYER_LEGS));
+    setScale(0.2f);
   }
 }
