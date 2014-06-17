@@ -14,7 +14,7 @@ public class Player extends BaseEntity implements IMovableEntity, IControllable
   public Player()
   {
     super(assets.getResource(ResourceKey.PLAYER_HEAD), assets.getResource(ResourceKey.PLAYER_ARMS),
-        assets.getResource(ResourceKey.PLAYER_TORSO), assets.getResource(ResourceKey.PLAYER_LEGS));
-    setScale(0.2f);
+        assets.getResource(ResourceKey.PLAYER_TORSO), assets.getResource(ResourceKey.PLAYER_LEGS), assets.getResource(ResourceKey.WEAPON_P99));
+    setScale(0.5f);
   }
 }

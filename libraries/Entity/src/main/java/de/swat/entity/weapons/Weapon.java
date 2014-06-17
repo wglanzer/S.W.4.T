@@ -1,5 +1,6 @@
 package de.swat.entity.weapons;
 
+import com.badlogic.gdx.files.FileHandle;
 import de.swat.entity.AbstractWeapon;
 
 /**
@@ -7,4 +8,9 @@ import de.swat.entity.AbstractWeapon;
  */
 public class Weapon extends AbstractWeapon
 {
+
+  public Weapon(FileHandle pFileHandle)
+  {
+    super(pFileHandle);
+  }
 }

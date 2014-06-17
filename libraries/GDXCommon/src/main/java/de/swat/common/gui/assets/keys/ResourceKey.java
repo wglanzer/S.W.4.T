@@ -15,7 +15,8 @@ public enum ResourceKey
   PLAYER_ARMS("player/Arms.png"),
   PLAYER_HEAD("player/Head.png"),
   PLAYER_TORSO("player/Torso.png"),
-  PLAYER_LEGS("player/Legs.png");
+  PLAYER_LEGS("player/Legs.png"),
+  WEAPON_P99("player/Weapon_P99.png");
 
   public final String path;
 

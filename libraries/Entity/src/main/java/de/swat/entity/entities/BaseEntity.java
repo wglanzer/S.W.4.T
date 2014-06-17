@@ -22,8 +22,9 @@ public class BaseEntity extends AbstractEntity
   protected BodyPartLegs legs;
   protected BodyPartTorso torso;
 
-  public BaseEntity(@NotNull FileHandle pHead, @NotNull FileHandle pArms, @NotNull FileHandle pTorso, @NotNull FileHandle pLegs)
+  public BaseEntity(@NotNull FileHandle pHead, @NotNull FileHandle pArms, @NotNull FileHandle pTorso, @NotNull FileHandle pLegs, @NotNull FileHandle pWeapon)
   {
+    super(null);
     arms = new BodyPartArms(pArms);
     head = new BodyPartHead(pHead);
     legs = new BodyPartLegs(pLegs);
