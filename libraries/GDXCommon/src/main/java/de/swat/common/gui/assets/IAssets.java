@@ -4,6 +4,8 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import de.swat.common.gui.animation.Animation;
+import de.swat.common.gui.assets.keys.AnimationKey;
 import de.swat.common.gui.assets.keys.ResourceKey;
 import de.swat.common.gui.assets.keys.ShaderKey;
 
@@ -43,4 +45,9 @@ public interface IAssets
    * @return Liefert eine bestimmte Resource als FileHandle zurück
    */
   FileHandle getResource(ResourceKey pKey);
+
+  /**
+   * @return Liefert eine bestimmte Animation
+   */
+  Animation getAnimation(AnimationKey pKey);
 }

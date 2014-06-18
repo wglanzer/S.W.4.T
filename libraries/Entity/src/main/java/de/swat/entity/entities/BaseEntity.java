@@ -32,13 +32,13 @@ public class BaseEntity extends AbstractEntity
   }
 
   @Override
-  public void act(float delta)
+  public void act(float pDelta)
   {
-    super.act(delta);
-    legs.act(delta);
-    arms.act(delta);
-    torso.act(delta);
-    head.act(delta);
+    super.act(pDelta);
+    legs.act(pDelta);
+    arms.act(pDelta);
+    torso.act(pDelta);
+    head.act(pDelta);
   }
 
   @Override
@@ -72,12 +72,12 @@ public class BaseEntity extends AbstractEntity
   }
 
   @Override
-  public void setScale(float scale)
+  public void setScale(float pScale)
   {
-    super.setScale(scale);
-    legs.setScale(scale);
-    arms.setScale(scale);
-    torso.setScale(scale);
-    head.setScale(scale);
+    super.setScale(pScale);
+    legs.setScale(pScale);
+    arms.setScale(pScale);
+    torso.setScale(pScale);
+    head.setScale(pScale);
   }
 }

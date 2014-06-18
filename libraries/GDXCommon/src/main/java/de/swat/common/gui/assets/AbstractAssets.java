@@ -10,6 +10,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
+import de.swat.common.gui.animation.Animation;
+import de.swat.common.gui.assets.keys.AnimationKey;
 import de.swat.common.gui.assets.keys.ResourceKey;
 import de.swat.common.gui.assets.keys.ShaderKey;
 import de.swat.exceptions.SwatRuntimeException;
@@ -26,6 +28,7 @@ public abstract class AbstractAssets implements IAssets
 {
   private static LoadingCache<ShaderKey, ShaderProgram> shaders;
   private static LoadingCache<ResourceKey, FileHandle> resources;
+  private static LoadingCache<AnimationKey, Animation> animation;
   private BitmapFont font;
   private Skin skin;
 
@@ -54,6 +57,17 @@ public abstract class AbstractAssets implements IAssets
           public FileHandle load(@NotNull ResourceKey pKey) throws Exception
           {
             return Gdx.files.internal(pKey.path);
+          }
+        });
+
+    animation = CacheBuilder.newBuilder()
+        .maximumSize(1000)
+        .build(new CacheLoader<AnimationKey, Animation>()
+        {
+          @Override
+          public Animation load(@NotNull AnimationKey key) throws Exception
+          {
+            return new Animation(new FileHandle(key.path), key.name, key.speed);
           }
         });
   }
@@ -116,6 +130,19 @@ public abstract class AbstractAssets implements IAssets
     catch(ExecutionException e)
     {
       throw new SwatRuntimeException("Cannot load resource: " + pKey, e);
+    }
+  }
+
+  @Override
+  public Animation getAnimation(AnimationKey pKey)
+  {
+    try
+    {
+      return animation.get(pKey);
+    }
+    catch(ExecutionException e)
+    {
+      throw new SwatRuntimeException("Cannot load animation: " + pKey, e);
     }
   }
 }
