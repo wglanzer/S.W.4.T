@@ -47,6 +47,11 @@
             <artifactId>AnnotationProcessors</artifactId>
             <version>${core.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.jdom</groupId>
+            <artifactId>jdom2</artifactId>
+            <version>2.0.5</version>
+        </dependency>
 
         <!-- Log4j zum Loggen -->
         <dependency>
