@@ -6,6 +6,8 @@ import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import de.swat.common.stages.CorePreferences;
 
+import java.io.File;
+
 public class AAndroidCoreActivity extends AndroidApplication
 {
 
@@ -17,7 +19,8 @@ public class AAndroidCoreActivity extends AndroidApplication
     super.onCreate(pSavedInstanceState);
 
     CorePreferences.setAssets(AAssets.get());
-    AAssets.initalize(getExternalFilesDir(null));
+    File extFileDir = getExternalFilesDir(null);
+    AAssets.initalize(extFileDir != null ? extFileDir : getFilesDir());
 
     // Bringt den Screen dazu, nicht dunkler zu werden und zum sleepmode zu gehen
     getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
