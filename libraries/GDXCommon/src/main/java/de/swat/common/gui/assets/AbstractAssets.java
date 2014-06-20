@@ -138,7 +138,9 @@ public abstract class AbstractAssets implements IAssets
   {
     try
     {
-      return animation.get(pKey);
+      Animation anim = animation.get(pKey);
+      anim.resetCounter();
+      return anim;
     }
     catch(ExecutionException e)
     {

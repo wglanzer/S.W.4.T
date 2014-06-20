@@ -17,10 +17,10 @@ import org.jetbrains.annotations.NotNull;
  */
 public class BaseEntity extends AbstractEntity
 {
-  protected BodyPartArms arms;
-  protected BodyPartHead head;
-  protected BodyPartLegs legs;
-  protected BodyPartTorso torso;
+  protected final BodyPartArms arms;
+  protected final BodyPartHead head;
+  protected final BodyPartLegs legs;
+  protected final BodyPartTorso torso;
 
   public BaseEntity(@NotNull FileHandle pHead, @NotNull FileHandle pArms, @NotNull FileHandle pTorso, @NotNull FileHandle pLegs, @NotNull FileHandle pWeapon)
   {
@@ -29,16 +29,6 @@ public class BaseEntity extends AbstractEntity
     head = new BodyPartHead(pHead);
     legs = new BodyPartLegs(pLegs);
     torso = new BodyPartTorso(pTorso);
-  }
-
-  @Override
-  public void act(float pDelta)
-  {
-    super.act(pDelta);
-    legs.act(pDelta);
-    arms.act(pDelta);
-    torso.act(pDelta);
-    head.act(pDelta);
   }
 
   @Override
@@ -52,13 +42,13 @@ public class BaseEntity extends AbstractEntity
   }
 
   @Override
-  public void setSize(float width, float height)
+  public void act(float pDelta)
   {
-    super.setSize(width, height);
-    legs.setSize(width, height);
-    arms.setSize(width, height);
-    torso.setSize(width, height);
-    head.setSize(width, height);
+    super.act(pDelta);
+    legs.act(pDelta);
+    arms.act(pDelta);
+    torso.act(pDelta);
+    head.act(pDelta);
   }
 
   @Override
@@ -72,6 +62,16 @@ public class BaseEntity extends AbstractEntity
   }
 
   @Override
+  public void setSize(float width, float height)
+  {
+    super.setSize(width, height);
+    legs.setSize(width, height);
+    arms.setSize(width, height);
+    torso.setSize(width, height);
+    head.setSize(width, height);
+  }
+
+  @Override
   public void setScale(float pScale)
   {
     super.setScale(pScale);
@@ -79,5 +79,25 @@ public class BaseEntity extends AbstractEntity
     arms.setScale(pScale);
     torso.setScale(pScale);
     head.setScale(pScale);
+  }
+
+  public BodyPartArms getArms()
+  {
+    return arms;
+  }
+
+  public BodyPartHead getHead()
+  {
+    return head;
+  }
+
+  public BodyPartLegs getLegs()
+  {
+    return legs;
+  }
+
+  public BodyPartTorso getTorso()
+  {
+    return torso;
   }
 }

@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.Array;
+import de.swat.common.IActAndDrawable;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -12,7 +13,7 @@ import org.jetbrains.annotations.Nullable;
  *
  * @author W.Glanzer, 18.06.2014.
  */
-public class Animation
+public class Animation implements IActAndDrawable
 {
 
   private Array<Sprite> skeleton = new Array<>();
@@ -21,6 +22,7 @@ public class Animation
   private float speed;
   private PlayMode playMode = PlayMode.HALT;
   private boolean showNextAnimation;
+  private IAnimationListener listener;
 
   /**
    * Erstellt eine neue Animation
@@ -31,19 +33,34 @@ public class Animation
    */
   public Animation(@Nullable FileHandle pFile, String pName, float pSpeed)
   {
+    this(pFile, pName, pSpeed, null);
+  }
+
+  /**
+   * Erstellt eine neue Animation
+   *
+   * @param pFile     Datei, das zur .txt-Datei führt
+   * @param pName     Name der internen Bilder ("res_0001", "res_0002" -> "res")
+   * @param pSpeed    Geschwindigkeit, die den Abstand der Bilder zueinander darstellt
+   * @param pListener Listener für die Animation, <tt>null</tt>, wenn keiner gebraucht wird
+   */
+  public Animation(@Nullable FileHandle pFile, String pName, float pSpeed, IAnimationListener pListener)
+  {
     speed = pSpeed;
     if(pFile != null)
     {
       TextureAtlas spriteSheet = new TextureAtlas(pFile.path());
       skeleton = spriteSheet.createSprites(pName);
     }
+    if(pListener != null)
+      listener = new AnimationAdapter();
   }
 
   /**
    * Setzt den PlayMode
    *
+   * @param pMode Mode, der gesetzt werden soll
    * @see de.swat.common.gui.animation.Animation.PlayMode
-   * @param pMode  Mode, der gesetzt werden soll
    */
   public void setPlayMode(PlayMode pMode)
   {
@@ -76,6 +93,7 @@ public class Animation
   {
     currentFrame = skeleton.size - 1;
     playMode = PlayMode.HALT;
+    listener.animationStopped();
   }
 
 
@@ -101,35 +119,25 @@ public class Animation
           if(showNextAnimation)
             showNextAnimation = false;
         }
+        else
+          listener.animationStopped();
       }
     }
   }
 
-  public void draw(SpriteBatch batch, float parentAlpha)
+  public void draw(SpriteBatch batch, float parentAlpha, float pX, float pY, float pWidth, float pHeight)
   {
     if(skeleton != null)
-      skeleton.get(currentFrame).draw(batch);
-  }
-
-  public void setPosition(float pX, float pY)
-  {
-    for(int i = 0; i < skeleton.size; i++)
     {
-      Sprite sprite = skeleton.get(i);
-      sprite.setPosition(pX - sprite.getWidth() / 2, pY - sprite.getHeight() / 2);
+      Sprite sprite = skeleton.get(currentFrame);
+      sprite.setBounds(pX, pY, pWidth, pHeight);
+      sprite.draw(batch);
     }
   }
 
-  public void setSize(float pWidth, float pHeight)
+  public void setListener(IAnimationListener pListener)
   {
-    for(int i = 0; i < skeleton.size; i++)
-      skeleton.get(i).setSize(pWidth, pHeight);
-  }
-
-  public void setScale(float pScale)
-  {
-    for(int i = 0; i < skeleton.size; i++)
-      skeleton.get(i).setScale(pScale);
+    listener = pListener;
   }
 
   /**

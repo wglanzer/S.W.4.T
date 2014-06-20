@@ -1,4 +1,4 @@
-Recoil.png
+recoil.png
 format: RGBA8888
 filter: Linear,Linear
 repeat: none

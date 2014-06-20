@@ -27,14 +27,16 @@ public class LevelStage extends AbstractStage
       @Override
       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
       {
-        player.showAnimation(AnimationKey.PLAYER_RECOIL, Animation.PlayMode.HALT);
+        player.getArms().showAnimation(AnimationKey.PLAYER_RECOIL, Animation.PlayMode.LOOP);
         return true;
       }
 
       @Override
       public void touchUp(InputEvent event, float x, float y, int pointer, int button)
       {
-        player.getAnimation().stop();
+        Animation anim = player.getArms().getAnimation();
+        if(anim != null)
+          anim.stop();
       }
     });
   }
