@@ -1,9 +1,8 @@
 package de.swat.MapCreator;
 
 import de.swat.exceptions.SwatRuntimeException;
+import de.swat.utils.StreamUtil;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
-
-import javax.swing.*;
 
 /**
  * Einsprungpunkt von außen in den Mapcreator
@@ -32,7 +31,7 @@ public class MapCreatorMain
   {
     try
     {
-      SwingUtilities.invokeLater(new Runnable()
+      StreamUtil.executeWithoutErrPrintStream(new Runnable()
       {
         @Override
         public void run()
@@ -41,7 +40,7 @@ public class MapCreatorMain
         }
       });
     }
-    catch (Exception e)
+    catch(Exception e)
     {
       throw new SwatRuntimeException("Look and Feel could not be set!", e);
     }
