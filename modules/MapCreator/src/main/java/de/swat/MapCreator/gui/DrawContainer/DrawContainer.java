@@ -3,16 +3,11 @@ package de.swat.MapCreator.gui.DrawContainer;
 import de.swat.MapCreator.GlobalKeyListenerManager;
 import de.swat.MapCreator.brushes.IBrush;
 import de.swat.MapCreator.brushes.PointBrush;
-import de.swat.datamodels.FieldChangeObject;
-import de.swat.datamodels.IFieldChangeListener;
-import de.swat.datamodels.Map;
-import de.swat.datamodels.map.AbstractCollisionObjectDataModel;
-import de.swat.datamodels.map.StructureCollisionObjectDataModel;
+import de.swat.map.Map;
 import de.swat.observableList2.ObservableList2;
 import de.swat.utils.MathUtil;
 import de.swat.utils.PointUtil;
 import de.swat.utils.PredefinedParameterUtil;
-import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicPanelUI;
@@ -21,7 +16,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
-import java.awt.image.BufferedImage;
 
 /**
  * Dieser Container kann DrawableImages darstellen
@@ -76,14 +70,14 @@ public class DrawContainer extends JPanel
 
   private void _setListeners()
   {
-    map.addFieldChangeListener(new IFieldChangeListener()
-    {
-      @Override
-      public void fieldChanged(FieldChangeObject pFieldObject)
-      {
-        repaint();
-      }
-    });
+//    map.addFieldChangeListener(new IFieldChangeListener()
+//    {
+//      @Override
+//      public void fieldChanged(FieldChangeObject pFieldObject)
+//      {
+//        repaint();
+//      }
+//    });
 
     GlobalKeyListenerManager.getDefault().addKeyEventDispatcher(new KeyEventDispatcher()
     {
@@ -111,9 +105,9 @@ public class DrawContainer extends JPanel
   {
     super.paintComponent(g);
 
-    BufferedImage bgImage = map.getBackgroundImage();
-    if (bgImage != null)
-      g.drawImage(bgImage, -xOff, -yOff, (int) (bgImage.getWidth() * zoomFactor), (int) (bgImage.getHeight() * zoomFactor), null);
+//    BufferedImage bgImage = map.getBackgroundImage();
+//    if (bgImage != null)
+//      g.drawImage(bgImage, -xOff, -yOff, (int) (bgImage.getWidth() * zoomFactor), (int) (bgImage.getHeight() * zoomFactor), null);
 
     //Hier werden evtl. DebugAusgaben am linken, oberen Eck gerendert
     if (PredefinedParameterUtil.isDebugMode())
@@ -157,26 +151,26 @@ public class DrawContainer extends JPanel
       g.drawRoundRect((int) ((currPoint.x - 4 - xOff) * zoomFactor), (int) ((currPoint.y - 4 - yOff) * zoomFactor), 8, 8, 8, 8);
 
     /*Zeichnet die structureRectangles, die durch addStructureRectangle gesetzt werden*/
-    for (AbstractCollisionObjectDataModel objectDataModel : map.getStructureRectangles())
-    {
-      if (objectDataModel instanceof StructureCollisionObjectDataModel)
-      {
-        StructureCollisionObjectDataModel currObj = (StructureCollisionObjectDataModel) objectDataModel;
-        if (PredefinedParameterUtil.isDebugMode())
-        {
-          g.setColor(Color.PINK);
-          Rectangle currRect = currObj.getBoundingBox();
-          if (currRect != null)
-            g.drawRect((int) ((currRect.x - xOff) * zoomFactor), (int) ((currRect.y - yOff) * zoomFactor), (int) ((currRect.width) * zoomFactor), (int) ((currRect.height) * zoomFactor));
-        }
-
-        g.setColor(Color.WHITE);
-        Polygon poly = currObj.getStructure().getPolygon();
-        Polygon secondPoly = new Polygon(poly.xpoints, poly.ypoints, poly.npoints);
-        secondPoly.translate(-xOff, -yOff);
-        g.drawPolygon(MathUtil.zoomPolygon(secondPoly, zoomFactor));
-      }
-    }
+//    for (AbstractCollisionObjectDataModel objectDataModel : map.getStructureRectangles())
+//    {
+//      if (objectDataModel instanceof StructureCollisionObjectDataModel)
+//      {
+//        StructureCollisionObjectDataModel currObj = (StructureCollisionObjectDataModel) objectDataModel;
+//        if (PredefinedParameterUtil.isDebugMode())
+//        {
+//          g.setColor(Color.PINK);
+//          Rectangle currRect = currObj.getBoundingBox();
+//          if (currRect != null)
+//            g.drawRect((int) ((currRect.x - xOff) * zoomFactor), (int) ((currRect.y - yOff) * zoomFactor), (int) ((currRect.width) * zoomFactor), (int) ((currRect.height) * zoomFactor));
+//        }
+//
+//        g.setColor(Color.WHITE);
+//        Polygon poly = currObj.getStructure().getPolygon();
+//        Polygon secondPoly = new Polygon(poly.xpoints, poly.ypoints, poly.npoints);
+//        secondPoly.translate(-xOff, -yOff);
+//        g.drawPolygon(MathUtil.zoomPolygon(secondPoly, zoomFactor));
+//      }
+//    }
 
     if (state == EDrawState.SETPOINTS)
     {
@@ -213,11 +207,11 @@ public class DrawContainer extends JPanel
    *                         die BoundingBox und das Polygon enthält,
    *                         die gezeichent werden sollen
    */
-  public void addStructureObject(@Nullable StructureCollisionObjectDataModel pStructureObject)
-  {
-    if (pStructureObject != null)
-      map.getStructureRectangles().add(pStructureObject);
-  }
+//  public void addStructureObject(@Nullable StructureCollisionObjectDataModel pStructureObject)
+//  {
+//    if (pStructureObject != null)
+//      map.getStructureRectangles().add(pStructureObject);
+//  }
 
   /**
    * Leert die clickedPoints und setzt das MapDataModel
@@ -290,27 +284,6 @@ public class DrawContainer extends JPanel
     private Point oldDragPoint;
 
     @Override
-    public void mouseMoved(MouseEvent e)
-    {
-      actualMousePoint = e.getPoint();
-      repaint();
-    }
-
-    @Override
-    public void mouseDragged(MouseEvent e)
-    {
-      if (state == EDrawState.MOUSE)
-      {
-        //Point delta = new Point((int) ((oldDragPoint.x - e.getPoint().x) * zoomFactor), (int) ((oldDragPoint.y - e.getPoint().y) * zoomFactor));
-        Point delta = new Point(oldDragPoint.x - e.getPoint().x, oldDragPoint.y - e.getPoint().y);
-        xOff += xOff + delta.x > 0 ? delta.x : 0;
-        yOff += yOff + delta.y > 0 ? delta.y : 0;
-        oldDragPoint = e.getPoint();
-        repaint();
-      }
-    }
-
-    @Override
     public void mousePressed(MouseEvent e)
     {
       oldDragPoint = e.getPoint();
@@ -339,11 +312,11 @@ public class DrawContainer extends JPanel
               {
                 if (PointUtil.checkProximity(clickedPoints.get(0), clickPoint, proxRadius))
                 {
-                  map.addPoints(clickedPoints);
-                  clearClickedPoints();
-                  StructureCollisionObjectDataModel newObject = map.finishStructure();
-                  addStructureObject(newObject);
-                  repaint();
+//                  map.addPoints(clickedPoints);
+//                  clearClickedPoints();
+//                  StructureCollisionObjectDataModel newObject = map.finishStructure();
+//                  addStructureObject(newObject);
+//                  repaint();
                 }
                 else
                 {
@@ -375,8 +348,8 @@ public class DrawContainer extends JPanel
               //  collisionPoints.add(edgePoint);
               //}
 
-              if (clickedPoints.size() == 10)
-                collisionPoints = map.findPath(new Point(100, 100), new Point(800, 800), 10);
+//              if (clickedPoints.size() == 10)
+//                collisionPoints = map.findPath(new Point(100, 100), new Point(800, 800), 10);
             }
             repaint();
             break;
@@ -405,6 +378,27 @@ public class DrawContainer extends JPanel
       double zoomOut = e.getPreciseWheelRotation() * -1;
       zoomFactor += zoomOut * SCROLLFACTOR != 0 ? zoomOut * SCROLLFACTOR : 0;  //Kann zwar nicht vorkommen, dass zoomOut * SCROLLFACTOR 0 ist, aber zur vorosorge die Abfrage
       zoomFactor = MathUtil.round2Decimals(zoomFactor);
+      repaint();
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e)
+    {
+      if (state == EDrawState.MOUSE)
+      {
+        //Point delta = new Point((int) ((oldDragPoint.x - e.getPoint().x) * zoomFactor), (int) ((oldDragPoint.y - e.getPoint().y) * zoomFactor));
+        Point delta = new Point(oldDragPoint.x - e.getPoint().x, oldDragPoint.y - e.getPoint().y);
+        xOff += xOff + delta.x > 0 ? delta.x : 0;
+        yOff += yOff + delta.y > 0 ? delta.y : 0;
+        oldDragPoint = e.getPoint();
+        repaint();
+      }
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e)
+    {
+      actualMousePoint = e.getPoint();
       repaint();
     }
   }

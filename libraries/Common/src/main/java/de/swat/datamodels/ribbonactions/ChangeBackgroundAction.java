@@ -4,7 +4,6 @@ import de.swat.datamodels.AbstractRibbonAction;
 import de.swat.datamodels.IMapCreatorImage;
 import de.swat.enums.ERibbonCategory;
 import de.swat.enums.ERibbonSubCategory;
-import de.swat.utils.ImageUtil;
 import org.jetbrains.annotations.Nullable;
 import org.pushingpixels.flamingo.api.common.icon.ResizableIcon;
 
@@ -61,8 +60,8 @@ public class ChangeBackgroundAction extends AbstractRibbonAction  //todo Soll in
       public void actionPerformed(ActionEvent e)
       {
         fileChooser.removeActionListener(this);
-        if (fileChooser.getSelectedFile() != null)
-          pMapCreatorImage.getMap().setBackgroundImage(ImageUtil.loadFileAsImage(fileChooser.getSelectedFile()));
+//        if (fileChooser.getSelectedFile() != null)
+//          pMapCreatorImage.getMap().setBackgroundImage(ImageUtil.loadFileAsImage(fileChooser.getSelectedFile()));
       }
     });
     fileChooser.showOpenDialog(null);

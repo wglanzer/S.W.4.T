@@ -1,10 +1,7 @@
 package de.swat.MapCreator;
 
 import de.swat.MapCreator.gui.Window;
-import de.swat.constants.IWindowConstants;
-import de.swat.datamodels.Map;
-import de.swat.datamodels.Raster;
-import de.swat.datamodels.map.StructureCollisionObjectDataModel;
+import de.swat.map.Map;
 import de.swat.observableList2.ObservableList2;
 
 import java.awt.*;
@@ -25,9 +22,9 @@ public class MapCreator
   public MapCreator()
   {
     image.setMapCreator(this);
-    Map map = new Map();
-    map.setRaster(new Raster(10, new Dimension(IWindowConstants.MAX_RASTERWIDTH, IWindowConstants.MAX_RASTERHEIGHT), map));
-    currentLoadedMap = map;
+//    Map map = new Map();
+//    map.setRaster(new Raster(10, new Dimension(IWindowConstants.MAX_RASTERWIDTH, IWindowConstants.MAX_RASTERHEIGHT), map));
+//    currentLoadedMap = map;
 
     window = new Window(currentLoadedMap);
   }
@@ -56,10 +53,5 @@ public class MapCreator
   public ObservableList2<Point> getClickedPoints()
   {
     return window.getDrawContainer().getClickedPoints();
-  }
-
-  public void addStructureObject(StructureCollisionObjectDataModel pNewObject)
-  {
-    window.getDrawContainer().addStructureObject(pNewObject);
   }
 }

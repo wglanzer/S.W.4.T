@@ -3,7 +3,6 @@ package de.swat.datamodels.ribbonactions;
 import de.swat.constants.IRibbonConstants;
 import de.swat.datamodels.AbstractRibbonAction;
 import de.swat.datamodels.IMapCreatorImage;
-import de.swat.datamodels.Map;
 import de.swat.datamodels.util.ImageUtil;
 import de.swat.enums.ERibbonCategory;
 import de.swat.enums.ERibbonSubCategory;
@@ -63,8 +62,8 @@ public class OpenAction extends AbstractRibbonAction
         fileChooser.removeActionListener(this);
         if (fileChooser.getSelectedFile() != null)
         {
-          Map map = new Map();
-          pMapCreatorImage.setMap(map);
+//          Map map = new Map();
+          //          pMapCreatorImage.setMap(map);
         }
       }
     });

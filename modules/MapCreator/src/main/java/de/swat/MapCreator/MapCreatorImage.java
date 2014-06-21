@@ -1,8 +1,7 @@
 package de.swat.MapCreator;
 
 import de.swat.datamodels.IMapCreatorImage;
-import de.swat.datamodels.Map;
-import de.swat.datamodels.map.StructureCollisionObjectDataModel;
+import de.swat.map.Map;
 import de.swat.observableList2.ObservableList2;
 
 import java.awt.*;
@@ -41,11 +40,5 @@ public class MapCreatorImage implements IMapCreatorImage
   public ObservableList2<Point> getClickedPoints()
   {
     return mapCreator.getClickedPoints();
-  }
-
-  @Override
-  public void addStructureObject(StructureCollisionObjectDataModel pNewObject)
-  {
-    mapCreator.addStructureObject(pNewObject);
   }
 }

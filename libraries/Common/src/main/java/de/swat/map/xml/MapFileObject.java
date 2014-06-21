@@ -34,13 +34,6 @@ public class MapFileObject
   {
   }
 
-  public static void main(String[] args) throws IOException
-  {
-    MapFileObject fileObject = new MapFileObject();
-    fileObject.fromZip(new File("C:\\Users\\werne_000\\Desktop\\testMap.smap"));
-    System.out.println(fileObject.layers);
-  }
-
   public void addLayer(XMLLayer pLayer)
   {
     layers.add(pLayer);

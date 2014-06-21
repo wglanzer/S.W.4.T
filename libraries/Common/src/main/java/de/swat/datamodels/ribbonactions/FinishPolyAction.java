@@ -52,8 +52,8 @@ public class FinishPolyAction extends AbstractRibbonAction
   @Override
   public void actionPerformed(ActionEvent pSourceEvent, JComponent pInvoker, IMapCreatorImage pMapCreatorImage)
   {
-    pMapCreatorImage.getMap().addPoints(pMapCreatorImage.getClickedPoints());
-    pMapCreatorImage.clearClickedPoints();
-    pMapCreatorImage.addStructureObject(pMapCreatorImage.getMap().finishStructure());
+//    pMapCreatorImage.getMap().addPoints(pMapCreatorImage.getClickedPoints());
+//    pMapCreatorImage.clearClickedPoints();
+//    pMapCreatorImage.addStructureObject(pMapCreatorImage.getMap().finishStructure());
   }
 }

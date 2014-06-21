@@ -1,6 +1,6 @@
 package de.swat.datamodels;
 
-import de.swat.datamodels.map.StructureCollisionObjectDataModel;
+import de.swat.map.Map;
 import de.swat.observableList2.ObservableList2;
 
 import java.awt.*;
@@ -19,5 +19,4 @@ public interface IMapCreatorImage
 
   public ObservableList2<Point> getClickedPoints();
 
-  public void addStructureObject(StructureCollisionObjectDataModel pNewObject);
 }
