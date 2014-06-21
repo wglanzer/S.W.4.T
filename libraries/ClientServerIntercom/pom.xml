@@ -12,6 +12,7 @@
 
     <artifactId>ClientServerIntercom</artifactId>
     <name>SWlib: ClientServerIntercom</name>
+    <packaging>jar</packaging>
 
     <dependencies>
         <dependency>

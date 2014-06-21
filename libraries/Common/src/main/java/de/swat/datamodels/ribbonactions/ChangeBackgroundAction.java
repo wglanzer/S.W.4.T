@@ -1,6 +1,5 @@
 package de.swat.datamodels.ribbonactions;
 
-import de.swat.annotationProcessors.annotations.RibbonAction;
 import de.swat.datamodels.AbstractRibbonAction;
 import de.swat.datamodels.IMapCreatorImage;
 import de.swat.enums.ERibbonCategory;
@@ -21,23 +20,6 @@ import java.awt.event.ActionListener;
 @RibbonAction
 public class ChangeBackgroundAction extends AbstractRibbonAction  //todo Soll ins PropertySheet
 {
-  @Override
-  public void actionPerformed(ActionEvent pSourceEvent, JComponent pInvoker, final IMapCreatorImage pMapCreatorImage)
-  {
-    final JFileChooser fileChooser = new JFileChooser();
-    fileChooser.addActionListener(new ActionListener()
-    {
-      @Override
-      public void actionPerformed(ActionEvent e)
-      {
-        fileChooser.removeActionListener(this);
-        if (fileChooser.getSelectedFile() != null)
-          pMapCreatorImage.getMap().setBackgroundImage(ImageUtil.loadFileAsImage(fileChooser.getSelectedFile()));
-      }
-    });
-    fileChooser.showOpenDialog(null);
-  }
-
   @Nullable
   @Override
   public ResizableIcon getIcon()
@@ -67,5 +49,22 @@ public class ChangeBackgroundAction extends AbstractRibbonAction  //todo Soll in
   public ERibbonSubCategory getSubCategory()
   {
     return ERibbonSubCategory.MAP;
+  }
+
+  @Override
+  public void actionPerformed(ActionEvent pSourceEvent, JComponent pInvoker, final IMapCreatorImage pMapCreatorImage)
+  {
+    final JFileChooser fileChooser = new JFileChooser();
+    fileChooser.addActionListener(new ActionListener()
+    {
+      @Override
+      public void actionPerformed(ActionEvent e)
+      {
+        fileChooser.removeActionListener(this);
+        if (fileChooser.getSelectedFile() != null)
+          pMapCreatorImage.getMap().setBackgroundImage(ImageUtil.loadFileAsImage(fileChooser.getSelectedFile()));
+      }
+    });
+    fileChooser.showOpenDialog(null);
   }
 }

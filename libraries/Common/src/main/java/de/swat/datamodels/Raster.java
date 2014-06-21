@@ -1,10 +1,7 @@
 package de.swat.datamodels;
 
-import de.swat.datamodels.accesses.MapModelAccess;
-import de.swat.datamodels.accesses.RasterModelAccess;
 import de.swat.datamodels.map.AbstractCollisionObjectDataModel;
 import de.swat.datamodels.map.EntityCollisionObjectDataModel;
-import de.swat.datamodels.util.DataModelHandler;
 import de.swat.math.Point2D;
 import de.swat.math.Vector2D;
 import de.swat.observableList2.ObservableList2;
@@ -19,7 +16,18 @@ import java.util.ArrayList;
 public class Raster implements Serializable
 {
 
-  RasterModelAccess modelAccess = (RasterModelAccess) DataModelHandler.newModelAccess(RasterModelAccess.class);
+  /**
+   * 2-Dimensionales Feld, das eine Arraylist mit
+   * Indices zu AbstractCollisionObjectDataModels liefert
+   */
+  private ObservableList2<Integer>[][] raster;
+
+  /**
+   * Größe der Raster (quadratisch) - überprüfung der Effizienz notwendig
+   */
+  private int rasterSize;
+
+  private Map map;
 
   /**
    * @param pRasterSize       Gewünschte Rastergröße
@@ -27,8 +35,8 @@ public class Raster implements Serializable
    */
   public Raster(int pRasterSize, Dimension pMapSizeDimension, Map pMap)
   {
-    modelAccess.setMap(pMap);
-    modelAccess.setRasterSize(pRasterSize);
+    map = pMap;
+    rasterSize = pRasterSize;
     int boundX = (int) pMapSizeDimension.getWidth();
     int boundY = (int) pMapSizeDimension.getHeight();
 
@@ -41,7 +49,7 @@ public class Raster implements Serializable
       }
     }
     //noinspection unchecked
-    modelAccess.setRaster(currRasterList);
+    raster = currRasterList;
   }
 
   /**
@@ -52,7 +60,6 @@ public class Raster implements Serializable
    */
   public void addToRaster(Rectangle pBoundingBox, int pIndex)
   {
-    int rasterSize = modelAccess.getRasterSize();
     int startX = pBoundingBox.x / rasterSize;
     int startY = pBoundingBox.y / rasterSize;
     int endX = ((pBoundingBox.width + pBoundingBox.x) / rasterSize);
@@ -62,7 +69,7 @@ public class Raster implements Serializable
     {
       for (int k = startY; k <= endY; k++)
       {
-        modelAccess.getRaster()[i][k].add(pIndex);
+        raster[i][k].add(pIndex);
         ////System.out.println(i + "" + k);
       }
     }
@@ -76,7 +83,6 @@ public class Raster implements Serializable
    */
   public void removeFromRaster(Rectangle pBoundingBox, int pIndex)
   {
-    int rasterSize = modelAccess.getRasterSize();
     int startX = pBoundingBox.x / rasterSize;
     int startY = pBoundingBox.y / rasterSize;
     int endX = ((pBoundingBox.width + pBoundingBox.x) / rasterSize);
@@ -86,7 +92,7 @@ public class Raster implements Serializable
     {
       for (int k = startY; k <= endY; k++)
       {
-        modelAccess.getRaster()[i][k].remove(pIndex);
+        raster[i][k].remove(pIndex);
       }
     }
   }
@@ -112,7 +118,6 @@ public class Raster implements Serializable
    */
   public Point checkFirstCollision(Vector2D pVector)
   {
-    int rasterSize = modelAccess.getRasterSize();
     //System.out.println("Methode aufgerufen");
     ArrayList<Integer> checkedObjects = new ArrayList<>(0);
     float aX = (float) pVector.getPoint1().getX();
@@ -280,7 +285,6 @@ public class Raster implements Serializable
    */
   public ObservableList2<Point> checkAllCollisions(Vector2D pVector)
   {
-    int rasterSize = modelAccess.getRasterSize();
     //System.out.println("Methode aufgerufen");
     ObservableList2<Point> returnPoints = new ObservableList2<>();
     ArrayList<Integer> checkedObjects = new ArrayList<>(0);
@@ -293,7 +297,7 @@ public class Raster implements Serializable
 
     boolean invert = false;
 
-    if (aX != bX)                                                                                                       //Abfangen von m = Unendlich
+    if(aX != bX)                                                                                                       //Abfangen von m = Unendlich
     {
       m = (aY - bY) / (aX - bX);
     }
@@ -307,7 +311,7 @@ public class Raster implements Serializable
       bX = bY;
       bY = merk;
     }
-    if (m > 1 || m < -1)
+    if(m > 1 || m < -1)
     //Vertauschen von x und y
     {
       float merk = aX;
@@ -324,11 +328,11 @@ public class Raster implements Serializable
     }
 
 
-    if (Math.abs(aX - bX) < rasterSize && aX % rasterSize < rasterSize - Math.abs(aX - bX))
+    if(Math.abs(aX - bX) < rasterSize && aX % rasterSize < rasterSize - Math.abs(aX - bX))
     {
       //System.out.println("Kleiner als Raster");
       //Wenn ein Vektor kleiner als ein Raster ist und keine Rastergrenze schneidet
-      if (!invert)
+      if(!invert)
       //Wenn umgedreht war, dann wieder zurückdrehen.
       {
         returnPoints = checkAllCollisionsFromRaster((int) aX / rasterSize, (int) (aY / rasterSize), pVector, checkedObjects, returnPoints);
@@ -341,11 +345,11 @@ public class Raster implements Serializable
     }
 
 
-    else if (aX > bX)
+    else if(aX > bX)
     {
       //System.out.println("Rückwärts rechnen");
       //Wenn Rückwärts gerechnnet wird
-      for (float currX = aX; currX > bX; currX = currX - rasterSize)
+      for(float currX = aX; currX > bX; currX = currX - rasterSize)
       //Durchgehen aller Rasterübergänge
       {
         float currY = (currX * m) + (aY - aX * m);
@@ -354,7 +358,7 @@ public class Raster implements Serializable
         int floorX = (int) Math.floor((double) currX / rasterSize);
         int checkY = (int) (currY / rasterSize);
         //Raster auf beiden Seiten des Wertes werden überprüft.
-        if (!invert)
+        if(!invert)
         {
           returnPoints = checkAllCollisionsFromRaster(ceilX, checkY, pVector, checkedObjects, returnPoints);
         }
@@ -364,7 +368,7 @@ public class Raster implements Serializable
         }
 
 
-        if (!invert)
+        if(!invert)
         {
           returnPoints = checkAllCollisionsFromRaster(floorX, checkY, pVector, checkedObjects, returnPoints);
         }
@@ -380,7 +384,7 @@ public class Raster implements Serializable
     {
       //System.out.println("Vorwärts rechnen");
       //Wenn von vorne nach hinter gerechnet wird.
-      for (float currX = aX; currX < bX; currX = currX + rasterSize)
+      for(float currX = aX; currX < bX; currX = currX + rasterSize)
       {
         float currY = (currX * m) + (aY - aX * m);
 
@@ -388,7 +392,7 @@ public class Raster implements Serializable
         int floorX = (int) Math.floor((double) currX / rasterSize);
         int checkY = (int) (currY / rasterSize);
         //Raster auf beiden Seiten des Wertes werden überprüft.
-        if (!invert)
+        if(!invert)
         {
           returnPoints = checkAllCollisionsFromRaster(ceilX, checkY, pVector, checkedObjects, returnPoints);
         }
@@ -398,7 +402,7 @@ public class Raster implements Serializable
         }
 
 
-        if (!invert)
+        if(!invert)
         {
           returnPoints = checkAllCollisionsFromRaster(floorX, checkY, pVector, checkedObjects, returnPoints);
         }
@@ -411,13 +415,6 @@ public class Raster implements Serializable
     return returnPoints;
   }
 
-
-  public ObservableList2<Integer> getIndicesFromRaster(int x, int y)
-  {
-    return modelAccess.getRaster()[x][y];
-  }
-
-
   /**
    * Überprüft die erste Kollision, die ein Vektor in einem Raster hat.
    *
@@ -429,12 +426,10 @@ public class Raster implements Serializable
    */
   public Point checkFirstCollisionFromRaster(int x, int y, Vector2D pVector, ArrayList<Integer> pCheckedObjects)
   {
-    ObservableList2[][] raster = modelAccess.getRaster();
     ////System.out.println(x + "   " + y);
-    MapModelAccess mapModel = modelAccess.getMap().getModelAccess();
-    if (mapModel.getCollisionObjects().size() > 0 && raster[x][y].size() > 0)
+    if (map.getCollisionObjects().size() > 0 && raster[x][y].size() > 0)
     {
-      Point returnPoint = mapModel.getCollisionObjects().get((int) raster[x][y].get(0)).checkFirstCollision(pVector);
+      Point returnPoint = map.getCollisionObjects().get((int) raster[x][y].get(0)).checkFirstCollision(pVector);
       if (raster[x][y].size() > 1)
       {
 
@@ -444,7 +439,7 @@ public class Raster implements Serializable
 
           if (!pCheckedObjects.contains(currIndex))
           {
-            Point currPoint = mapModel.getCollisionObjects().get(currIndex).checkFirstCollision(pVector);
+            Point currPoint = map.getCollisionObjects().get(currIndex).checkFirstCollision(pVector);
             pCheckedObjects.add(currIndex);
 
             if (currPoint != null)
@@ -497,17 +492,15 @@ public class Raster implements Serializable
    */
   private ObservableList2<Point> checkAllCollisionsFromRaster(int x, int y, Vector2D pVector, ArrayList<Integer> pCheckedObjects, ObservableList2<Point> pReturnPoints)
   {
-    ObservableList2[][] raster = modelAccess.getRaster();
-    MapModelAccess mapModel = modelAccess.getMap().getModelAccess();
-    if (mapModel.getCollisionObjects().size() > 0 && raster[x][y].size() > 0)
+    if (map.getCollisionObjects().size() > 0 && raster[x][y].size() > 0)
     {
       for (int i = 0; i < raster[x][y].size(); i++)
       {
-        int currIndex = (int) raster[x][y].get(i);
+        int currIndex = raster[x][y].get(i);
 
         if (!pCheckedObjects.contains(currIndex))
         {
-          ArrayList<Point> currPoints = mapModel.getCollisionObjects().get(currIndex).checkAllCollisions(pVector);
+          ArrayList<Point> currPoints = map.getCollisionObjects().get(currIndex).checkAllCollisions(pVector);
           pCheckedObjects.add(currIndex);
 
           for (int j = 0; j < currPoints.size(); j++)
@@ -530,14 +523,11 @@ public class Raster implements Serializable
    */
   public AbstractCollisionObjectDataModel getInteractableFromMousePosition(int pMouseX, int pMouseY)
   {
-    int rasterSize = modelAccess.getRasterSize();
-    ObservableList2[][] raster = modelAccess.getRaster();
-    MapModelAccess mapModel = modelAccess.getMap().getModelAccess();
     int checkX = pMouseX / rasterSize;
     int checkY = pMouseY / rasterSize;
     for (int i = 0; i < raster[checkX][checkY].size(); i++)
     {
-      AbstractCollisionObjectDataModel currModel = mapModel.getCollisionObjects().get((int) raster[checkX][checkY].get(i));
+      AbstractCollisionObjectDataModel currModel = map.getCollisionObjects().get((int) raster[checkX][checkY].get(i));
       if (currModel instanceof EntityCollisionObjectDataModel && currModel.getBoundingBox().contains(pMouseX, pMouseY))
         //TODO Door als Collisionobjekt einbauen
         return currModel;
@@ -560,7 +550,6 @@ public class Raster implements Serializable
     if (collPoint == null)
       return pCurrentPoints;
 
-    int rasterSize = modelAccess.getRasterSize();
     int checkX = collPoint.x / rasterSize;
     int checkY = collPoint.y / rasterSize;
     System.out.println(collPoint.x + "   " + collPoint.y);
@@ -782,12 +771,10 @@ public class Raster implements Serializable
 
   public ObservableList2<Point> findPathFromRaster(int x, int y, Vector2D pVector, int pRadius, ArrayList<Integer> pCheckedObjects, ObservableList2<Point> pCurrentPoints)
   {
-    ObservableList2[][] raster = modelAccess.getRaster();
-    MapModelAccess mapModel = modelAccess.getMap().getModelAccess();
     //System.out.println(x + "   " + y);
-    if (mapModel.getCollisionObjects().size() > 0 && raster[x][y].size() > 0)
+    if (map.getCollisionObjects().size() > 0 && raster[x][y].size() > 0)
     {
-      Point returnPoint = mapModel.getCollisionObjects().get((int) raster[x][y].get(0)).checkFirstCollision(pVector);
+      Point returnPoint = map.getCollisionObjects().get((int) raster[x][y].get(0)).checkFirstCollision(pVector);
       int checkIndex = (int) raster[x][y].get(0);
       if (raster[x][y].size() > 1)
       {
@@ -798,7 +785,7 @@ public class Raster implements Serializable
 
           if (!pCheckedObjects.contains(currIndex))
           {
-            Point currPoint = mapModel.getCollisionObjects().get(currIndex).checkFirstCollision(pVector);
+            Point currPoint = map.getCollisionObjects().get(currIndex).checkFirstCollision(pVector);
             pCheckedObjects.add(currIndex);
 
             if (currPoint != null)
@@ -841,7 +828,7 @@ public class Raster implements Serializable
         }
       }
 
-      ObservableList2<Point> currPoints = mapModel.getCollisionObjects().get(checkIndex).findPath(pVector, pRadius);
+      ObservableList2<Point> currPoints = map.getCollisionObjects().get(checkIndex).findPath(pVector, pRadius);
       pCurrentPoints.addAll(currPoints);
       if (checkFirstCollision(new Vector2D(new Point2D(pCurrentPoints.get(pCurrentPoints.size() - 1).x, pCurrentPoints.get(pCurrentPoints.size() - 1).y), pVector.point2)) == null)
       {

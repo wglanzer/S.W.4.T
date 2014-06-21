@@ -1,8 +1,8 @@
 package de.swat.common.gui.components;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -72,7 +72,10 @@ public class GDXTextButton extends Button
     }
   }
 
-  public void draw(SpriteBatch pBatch, float pParentAlpha)
+  public void setTextShader(ShaderProgram pShader)
+  {
+    shader = pShader;
+  }  public void draw(Batch pBatch, float pParentAlpha)
   {
     Color fontColor;
     if(isDisabled() && style.disabledFontColor != null)
@@ -95,32 +98,38 @@ public class GDXTextButton extends Button
 
     float x = getX();
     float y = getY() + 4 * getScaleY();
-    label.translate(x, y);
+    label.setPosition(label.getX() + x, label.getY() + y);
     label.draw(pBatch, pParentAlpha);
-    label.translate(-x, -y);
+    label.setPosition(label.getX() - x, label.getY() - y);
     if(shader != null)
       pBatch.setShader(null);
   }
-
-  public void setTextShader(ShaderProgram pShader)
-  {
-    shader = pShader;
-  }
-
-
-  // SETTER
 
   public void setBorder(int pTop, int pLeft, int pBottom, int pRight)
   {
     insets = new Insets(pTop, pLeft, pBottom, pRight);
   }
 
-  public TextButton.TextButtonStyle getStyle()
+
+  // SETTER
+
+  public Insets getInsets()
+  {
+    return insets;
+  }
+
+  public void setInsets(Insets pInsets)
+  {
+    insets = pInsets;
+  }  public TextButton.TextButtonStyle getStyle()
   {
     return style;
   }
 
-  public void setStyle(ButtonStyle pStyle)
+  public Label getLabel()
+  {
+    return label;
+  }  public void setStyle(ButtonStyle pStyle)
   {
     if(!(pStyle instanceof TextButton.TextButtonStyle))
       throw new IllegalArgumentException("Style must be a TextButton.TextButtonStyle.");
@@ -133,31 +142,22 @@ public class GDXTextButton extends Button
     label.setStyle(labelStyle);
   }
 
-  public Insets getInsets()
-  {
-    return insets;
-  }
-
-  // GETTER
-
-  public void setInsets(Insets pInsets)
-  {
-    insets = pInsets;
-  }
-
-  public Label getLabel()
-  {
-    return label;
-  }
-
   public CharSequence getText()
   {
     return label.getText();
   }
 
+  // GETTER
+
   public void setText(String pText)
   {
     label.setText(pText);
   }
+
+
+
+
+
+
 }
 

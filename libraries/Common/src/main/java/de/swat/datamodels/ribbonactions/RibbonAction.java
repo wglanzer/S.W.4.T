@@ -1,4 +1,4 @@
-package de.swat.annotationProcessors.annotations;
+package de.swat.datamodels.ribbonactions;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -6,13 +6,13 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation, die ein Datenmodell
- * markiert
+ * Hiermit werden Actions gekennzeichnet, die im
+ * Ribbon eingebunden werden sollen.
  *
- * @author W. Glanzer, 06.12.13
+ * @author W. Glanzer, 05.12.13
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-public @interface DataModel
+public @interface RibbonAction
 {
 }

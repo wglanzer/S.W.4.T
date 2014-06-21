@@ -12,6 +12,7 @@
 
     <artifactId>MapCreator</artifactId>
     <name>SWmod: MapCreator</name>
+    <packaging>jar</packaging>
 
     <dependencies>
         <!--Projekt-Dependencies-->
@@ -26,11 +27,6 @@
             <version>${core.version}</version>
         </dependency>
         <dependency>
-            <artifactId>SubstanceLF</artifactId>
-            <groupId>S.W.4.T</groupId>
-            <version>${core.version}</version>
-        </dependency>
-        <dependency>
             <groupId>S.W.4.T</groupId>
             <artifactId>ClientServerIntercom</artifactId>
             <version>${core.version}</version>
@@ -41,6 +37,11 @@
             <groupId>net.coobird</groupId>
             <artifactId>thumbnailator</artifactId>
             <version>[0.4, 0.5)</version>
+        </dependency>
+        <dependency>
+            <groupId>org.java.net.substance</groupId>
+            <artifactId>substance</artifactId>
+            <version>6.0</version>
         </dependency>
     </dependencies>
 

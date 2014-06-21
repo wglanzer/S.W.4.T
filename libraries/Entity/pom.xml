@@ -12,6 +12,7 @@
 
     <artifactId>Entity</artifactId>
     <name>SWlib: Entity</name>
+    <packaging>jar</packaging>
 
     <dependencies>
         <dependency>

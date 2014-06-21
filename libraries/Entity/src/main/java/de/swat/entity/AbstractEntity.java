@@ -1,7 +1,7 @@
 package de.swat.entity;
 
 import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import de.swat.common.IActAndDrawable;
 import de.swat.common.gui.animation.Animation;
@@ -75,7 +75,7 @@ public class AbstractEntity extends Actor implements IEntity, IActAndDrawable
   }
 
   @Override
-  public void draw(SpriteBatch batch, float parentAlpha, float pX, float pY, float pWidth, float pHeight)
+  public void draw(Batch batch, float parentAlpha, float pX, float pY, float pWidth, float pHeight)
   {
     if(drawable != null)
     {
@@ -86,7 +86,7 @@ public class AbstractEntity extends Actor implements IEntity, IActAndDrawable
   }
 
   @Override
-  public void draw(SpriteBatch batch, float parentAlpha)
+  public void draw(Batch batch, float parentAlpha)
   {
     draw(batch, parentAlpha, getX(), getY(), getWidth(), getHeight());
   }

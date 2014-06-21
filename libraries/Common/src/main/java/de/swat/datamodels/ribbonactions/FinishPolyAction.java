@@ -1,6 +1,5 @@
 package de.swat.datamodels.ribbonactions;
 
-import de.swat.annotationProcessors.annotations.RibbonAction;
 import de.swat.constants.IRibbonConstants;
 import de.swat.datamodels.AbstractRibbonAction;
 import de.swat.datamodels.IMapCreatorImage;
@@ -19,14 +18,6 @@ import java.awt.event.ActionEvent;
 @RibbonAction
 public class FinishPolyAction extends AbstractRibbonAction
 {
-  @Override
-  public void actionPerformed(ActionEvent pSourceEvent, JComponent pInvoker, IMapCreatorImage pMapCreatorImage)
-  {
-    pMapCreatorImage.getMap().addPoints(pMapCreatorImage.getClickedPoints());
-    pMapCreatorImage.clearClickedPoints();
-    pMapCreatorImage.addStructureObject(pMapCreatorImage.getMap().finishStructure());
-  }
-
   @Nullable
   @Override
   public ResizableIcon getIcon()
@@ -56,5 +47,13 @@ public class FinishPolyAction extends AbstractRibbonAction
   public ERibbonSubCategory getSubCategory()
   {
     return ERibbonSubCategory.MAP;
+  }
+
+  @Override
+  public void actionPerformed(ActionEvent pSourceEvent, JComponent pInvoker, IMapCreatorImage pMapCreatorImage)
+  {
+    pMapCreatorImage.getMap().addPoints(pMapCreatorImage.getClickedPoints());
+    pMapCreatorImage.clearClickedPoints();
+    pMapCreatorImage.addStructureObject(pMapCreatorImage.getMap().finishStructure());
   }
 }

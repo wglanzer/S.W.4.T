@@ -1,13 +1,10 @@
 package de.swat.datamodels.ribbonactions;
 
-import de.swat.annotationProcessors.annotations.RibbonAction;
 import de.swat.constants.IRibbonConstants;
 import de.swat.datamodels.AbstractRibbonAction;
 import de.swat.datamodels.IMapCreatorImage;
 import de.swat.datamodels.Map;
-import de.swat.datamodels.accesses.MapModelAccess;
 import de.swat.datamodels.util.ImageUtil;
-import de.swat.datamodels.util.SaveUtil;
 import de.swat.enums.ERibbonCategory;
 import de.swat.enums.ERibbonSubCategory;
 import org.pushingpixels.flamingo.api.common.icon.ResizableIcon;
@@ -24,27 +21,6 @@ import java.awt.event.ActionListener;
 @RibbonAction
 public class OpenAction extends AbstractRibbonAction
 {
-  @Override
-  public void actionPerformed(ActionEvent pSourceEvent, JComponent pInvoker, final IMapCreatorImage pMapCreatorImage)
-  {
-    final JFileChooser fileChooser = new JFileChooser();
-    fileChooser.addActionListener(new ActionListener()
-    {
-      @Override
-      public void actionPerformed(ActionEvent e)
-      {
-        fileChooser.removeActionListener(this);
-        if (fileChooser.getSelectedFile() != null)
-        {
-          MapModelAccess newDataModel = (MapModelAccess) SaveUtil.load(fileChooser.getSelectedFile());
-          Map map = new Map(newDataModel);
-          pMapCreatorImage.setMap(map);
-        }
-      }
-    });
-    fileChooser.showOpenDialog(null);
-  }
-
   @Override
   public ResizableIcon getIcon()
   {
@@ -73,6 +49,26 @@ public class OpenAction extends AbstractRibbonAction
   public ERibbonSubCategory getSubCategory()
   {
     return ERibbonSubCategory.FILE;
+  }
+
+  @Override
+  public void actionPerformed(ActionEvent pSourceEvent, JComponent pInvoker, final IMapCreatorImage pMapCreatorImage)
+  {
+    final JFileChooser fileChooser = new JFileChooser();
+    fileChooser.addActionListener(new ActionListener()
+    {
+      @Override
+      public void actionPerformed(ActionEvent e)
+      {
+        fileChooser.removeActionListener(this);
+        if (fileChooser.getSelectedFile() != null)
+        {
+          Map map = new Map();
+          pMapCreatorImage.setMap(map);
+        }
+      }
+    });
+    fileChooser.showOpenDialog(null);
   }
 
 }

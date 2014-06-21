@@ -30,7 +30,6 @@ public class AAndroidCoreActivity extends AndroidApplication
         WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
     AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
-    config.useGL20 = true;
     config.numSamples = SAMPLES_4_MSAA;
 
     initialize(new AMainGame(), config);

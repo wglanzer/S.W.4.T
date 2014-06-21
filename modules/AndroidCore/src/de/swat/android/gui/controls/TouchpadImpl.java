@@ -25,7 +25,6 @@ public class TouchpadImpl
   public TouchpadImpl()
   {
     touchpadSkin = new Skin();
-    Texture.setEnforcePotImages(false);
     touchpadSkin.add("touchBackground", new Texture(ResourceKey.TOUCHPAD_BACKGROUND.path));
     touchpadSkin.add("touchKnob", new Texture(ResourceKey.TOUCHPAD_KNOB.path));
 

@@ -1,6 +1,6 @@
 package de.swat.common;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.Batch;
 
 /**
  *  Gibt an, dass etwas gezeichnet werden kann
@@ -17,6 +17,6 @@ public interface IDrawable
    * @param pBatch        Batch, auf das gezeichnet werden soll
    * @param pParentAlpha  Alpha-Wert des Parents des Objektes
    */
-  void draw(SpriteBatch pBatch, float pParentAlpha, float pX, float pY, float pWidth, float pHeight);
+  void draw(Batch pBatch, float pParentAlpha, float pX, float pY, float pWidth, float pHeight);
 
 }

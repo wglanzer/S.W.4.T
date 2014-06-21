@@ -1,8 +1,8 @@
 package de.swat.common.gui.animation;
 
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.Array;
 import de.swat.common.IActAndDrawable;
@@ -125,7 +125,7 @@ public class Animation implements IActAndDrawable
     }
   }
 
-  public void draw(SpriteBatch batch, float parentAlpha, float pX, float pY, float pWidth, float pHeight)
+  public void draw(Batch batch, float parentAlpha, float pX, float pY, float pWidth, float pHeight)
   {
     if(skeleton != null)
     {

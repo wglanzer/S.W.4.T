@@ -1,10 +1,8 @@
 package de.swat.datamodels;
 
-import de.swat.datamodels.accesses.MapModelAccess;
 import de.swat.datamodels.map.AbstractCollisionObjectDataModel;
 import de.swat.datamodels.map.Structure;
 import de.swat.datamodels.map.StructureCollisionObjectDataModel;
-import de.swat.datamodels.models.MapDataModel;
 import de.swat.math.Vector2D;
 import de.swat.observableList2.ObservableList2;
 import org.jetbrains.annotations.Nullable;
@@ -20,16 +18,31 @@ import java.util.ArrayList;
 public class Map extends AbstractFieldChangeListener implements Serializable
 {
 
-  protected MapModelAccess modelAccess;
   protected ObservableList2<AbstractCollisionObjectDataModel> structureRectangles = new ObservableList2<>();
+  /**
+   * BufferedImage, das das Hintergrundbild der Map
+   * repräsentiert.
+   */
+  private BufferedImage backgroundImage;
+  /**
+   * 2-Dimensionales Array, welches über x und y Koordinate
+   * eines Rasters auf eine Liste mit den Indices der im
+   * jeweiligen Rasterenthaltenen Strukturen zugreifen lässt
+   */
+  private Raster raster;
+  /**
+   * Ungeordnete Liste aller Collisions-Objekte. Die Indices
+   * kommen von der ArrayList eines Rasters.
+   */
+  private ObservableList2<AbstractCollisionObjectDataModel> collisionObjects = new ObservableList2<>();
+  /**
+   * Attribute, die nur für das hinzufügen von Strukturen im MapCreator gebraucht werden
+   */
+  private StructureCollisionObjectDataModel currentStructureObject;
+  private Structure currentStructure;
 
-  public Map(@Nullable MapModelAccess pModelAccess)
+  public Map()
   {
-    if (pModelAccess != null)
-    {
-      modelAccess = pModelAccess;
-      structureRectangles = pModelAccess.getCollisionObjects();
-    }
   }
 
   /**
@@ -40,12 +53,12 @@ public class Map extends AbstractFieldChangeListener implements Serializable
    */
   public void addPoints(ObservableList2<Point> pPoint)
   {
-    if (modelAccess.getCurrentStructure() == null)
+    if (currentStructure == null)
     {
       newStructure();
     }
-    modelAccess.getCurrentStructure().getPointList().addAll(pPoint);  //Hinzufügen des Punktes zum Structure
-    fireChange(this, "currentStructure", MapDataModel.class, modelAccess.getCurrentStructure());
+    currentStructure.getPointList().addAll(pPoint);  //Hinzufügen des Punktes zum Structure
+    fireChange(this, "currentStructure", Map.class, currentStructure);
   }
 
   /**
@@ -55,10 +68,10 @@ public class Map extends AbstractFieldChangeListener implements Serializable
   {
     Structure newStructure = new Structure();
     StructureCollisionObjectDataModel newStructureObject = new StructureCollisionObjectDataModel();
-    modelAccess.setCurrentStructure(newStructure);
-    modelAccess.setCurrentStructureObject(newStructureObject);
+    currentStructure = newStructure;
+    currentStructureObject = newStructureObject;
     newStructureObject.setStructure(newStructure);
-    modelAccess.getCollisionObjects().add(newStructureObject);
+    collisionObjects.add(newStructureObject);
   }
 
   /**
@@ -67,8 +80,8 @@ public class Map extends AbstractFieldChangeListener implements Serializable
   private void closeStructure()
   {
     //Schließen eines Structures
-    modelAccess.setCurrentStructureObject(null);
-    modelAccess.setCurrentStructure(null);
+    currentStructureObject = null;
+    currentStructure = null;
   }
 
   /**
@@ -88,7 +101,7 @@ public class Map extends AbstractFieldChangeListener implements Serializable
    */
   public ObservableList2<AbstractCollisionObjectDataModel> getStructureRectangles()
   {
-    return modelAccess.getCollisionObjects();
+    return collisionObjects;
   }
 
   /**
@@ -107,9 +120,6 @@ public class Map extends AbstractFieldChangeListener implements Serializable
   @Nullable
   public StructureCollisionObjectDataModel finishStructure()
   {
-    Structure currentStructure = modelAccess.getCurrentStructure();
-    StructureCollisionObjectDataModel currentStructureObject = modelAccess.getCurrentStructureObject();
-
     if (currentStructureObject.getBoundingBox() != null)
     {
       if (currentStructure.getPointList().size() > 1)
@@ -117,7 +127,7 @@ public class Map extends AbstractFieldChangeListener implements Serializable
         setBoundingBox(currentStructureObject);
         checkDirection(currentStructure);
       }
-      modelAccess.getRaster().addToRaster(currentStructureObject.getBoundingBox(), modelAccess.getCollisionObjects().indexOf(currentStructureObject));
+      raster.addToRaster(currentStructureObject.getBoundingBox(), collisionObjects.indexOf(currentStructureObject));
       closeStructure();
       return currentStructureObject;
     }
@@ -133,7 +143,7 @@ public class Map extends AbstractFieldChangeListener implements Serializable
    */
   public Point checkFirstCollision(Vector2D pVector)
   {
-    return modelAccess.getRaster().checkFirstCollision(pVector);
+    return raster.checkFirstCollision(pVector);
   }
 
   /**
@@ -144,7 +154,7 @@ public class Map extends AbstractFieldChangeListener implements Serializable
    */
   public ObservableList2<Point> checkAllCollsions(Vector2D pVector)
   {
-    return modelAccess.getRaster().checkAllCollisions(pVector);
+    return raster.checkAllCollisions(pVector);
   }
 
   /**
@@ -159,7 +169,7 @@ public class Map extends AbstractFieldChangeListener implements Serializable
   {
     ObservableList2<Point> pointList = new ObservableList2<>();
     pointList.add(pStartPoint);
-    return modelAccess.getRaster().findPath(pStartPoint, pEndPoint, pRadius, new ArrayList<Integer>(), pointList);
+    return raster.findPath(pStartPoint, pEndPoint, pRadius, new ArrayList<Integer>(), pointList);
   }
 
   private ArrayList<Point> simplify(ArrayList<Point> pList)
@@ -177,7 +187,7 @@ public class Map extends AbstractFieldChangeListener implements Serializable
    */
   public AbstractCollisionObjectDataModel getInteractableFromMousePosition(int pMouseX, int pMouseY)
   {
-    return modelAccess.getRaster().getInteractableFromMousePosition(pMouseX, pMouseY);
+    return raster.getInteractableFromMousePosition(pMouseX, pMouseY);
   }
 
   /**
@@ -185,27 +195,32 @@ public class Map extends AbstractFieldChangeListener implements Serializable
    */
   public void recalculateBoundingBoxes()
   {
-    for (AbstractCollisionObjectDataModel currCollisionObject : modelAccess.getCollisionObjects())
+    for (AbstractCollisionObjectDataModel currCollisionObject : collisionObjects)
       currCollisionObject.setBoundingBox();
-  }
-
-  public MapModelAccess getModelAccess()
-  {
-    return modelAccess;
   }
 
   private void _fireChange(String pFieldName, Object pNewValue)
   {
-    fireChange(this, pFieldName, MapDataModel.class, pNewValue);
+    fireChange(this, pFieldName, Map.class, pNewValue);
   }
 
   public BufferedImage getBackgroundImage()
   {
-    return modelAccess.getBackgroundImage();
+    return backgroundImage;
   }
 
   public void setBackgroundImage(BufferedImage pImage)
   {
-    modelAccess.setBackgroundImage(pImage);
+    backgroundImage = pImage;
+  }
+
+  public void setRaster(Raster pRaster)
+  {
+    raster = pRaster;
+  }
+
+  public ObservableList2<AbstractCollisionObjectDataModel> getCollisionObjects()
+  {
+    return collisionObjects;
   }
 }

@@ -1,11 +1,9 @@
 package de.swat.datamodels.ribbonactions;
 
-import de.swat.annotationProcessors.annotations.RibbonAction;
 import de.swat.constants.IRibbonConstants;
 import de.swat.datamodels.AbstractRibbonAction;
 import de.swat.datamodels.IMapCreatorImage;
 import de.swat.datamodels.util.ImageUtil;
-import de.swat.datamodels.util.SaveUtil;
 import de.swat.enums.ERibbonCategory;
 import de.swat.enums.ERibbonSubCategory;
 import org.jetbrains.annotations.Nullable;
@@ -21,23 +19,6 @@ import java.awt.event.ActionListener;
 @RibbonAction
 public class SaveAction extends AbstractRibbonAction
 {
-  @Override
-  public void actionPerformed(ActionEvent pSourceEvent, JComponent pInvoker, final IMapCreatorImage pMapCreatorImage)
-  {
-    final JFileChooser fileChooser = new JFileChooser();
-    fileChooser.addActionListener(new ActionListener()
-    {
-      @Override
-      public void actionPerformed(ActionEvent e)
-      {
-        fileChooser.removeActionListener(this);
-        if (fileChooser.getSelectedFile() != null)
-          SaveUtil.save(pMapCreatorImage.getMap().getModelAccess(), fileChooser.getSelectedFile());
-      }
-    });
-    fileChooser.showOpenDialog(null);
-  }
-
   @Nullable
   @Override
   public ResizableIcon getIcon()
@@ -67,6 +48,23 @@ public class SaveAction extends AbstractRibbonAction
   public ERibbonSubCategory getSubCategory()
   {
     return ERibbonSubCategory.FILE;
+  }
+
+  @Override
+  public void actionPerformed(ActionEvent pSourceEvent, JComponent pInvoker, final IMapCreatorImage pMapCreatorImage)
+  {
+    final JFileChooser fileChooser = new JFileChooser();
+    fileChooser.addActionListener(new ActionListener()
+    {
+      @Override
+      public void actionPerformed(ActionEvent e)
+      {
+        fileChooser.removeActionListener(this);
+//        if (fileChooser.getSelectedFile() != null)
+//          SaveUtil.save(pMapCreatorImage.getMap().getModelAccess(), fileChooser.getSelectedFile());
+      }
+    });
+    fileChooser.showOpenDialog(null);
   }
 
 }

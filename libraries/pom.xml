@@ -16,14 +16,11 @@
     <name>S.W.4.T: libraries</name>
 
     <modules>
-        <module>AnnotationProcessors</module>
         <module>ClientServerIntercom</module>
         <module>Common</module>
-        <module>CoreOld</module>
         <module>Entity</module>
         <module>Flamingo</module>
         <module>GDXCommon</module>
-        <module>SubstanceLF</module>
     </modules>
 
 </project>

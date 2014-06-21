@@ -5,9 +5,10 @@ import com.google.common.collect.TreeMultimap;
 import de.swat.MapCreator.MapCreator;
 import de.swat.constants.IRibbonConstants;
 import de.swat.datamodels.IRibbonAction;
-import de.swat.datamodels.accesses.RibbonModelAccess;
+import de.swat.datamodels.ribbonactions.RibbonAction;
 import de.swat.enums.ERibbonCategory;
 import de.swat.enums.ERibbonSubCategory;
+import de.swat.utils.LookupUtil;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.icon.EmptyResizableIcon;
 import org.pushingpixels.flamingo.api.common.icon.ResizableIcon;
@@ -34,7 +35,6 @@ import java.util.List;
 public class Ribbon extends JRibbon
 {
   public List<IRibbonAction> actions = new ArrayList<>();
-  private RibbonModelAccess modelAccess = new RibbonModelAccess();
 
   public Ribbon()
   {
@@ -192,7 +192,7 @@ public class Ribbon extends JRibbon
   {
     ArrayListMultimap<ERibbonCategory, IRibbonAction> allCommandButtons = ArrayListMultimap.create();
 
-    Set<IRibbonAction> ribbonActions = modelAccess.getChildren();
+    Set<IRibbonAction> ribbonActions = getChildren();
     for (IRibbonAction currRibbonAction : ribbonActions)
     {
       ERibbonCategory category = currRibbonAction.getCategory();
@@ -201,4 +201,34 @@ public class Ribbon extends JRibbon
 
     return allCommandButtons;
   }
+
+  /**
+   * @return Liefert alle Buttons des Ribbons
+   */
+  public Set<IRibbonAction> getChildren()
+  {
+    Set<IRibbonAction> children = new HashSet<>();
+    Set<Class<?>> classesByAnnotation = LookupUtil.getClassByAnnotation(RibbonAction.class, "de.swat.datamodels.ribbonactions");
+    for (Class<?> currClass : classesByAnnotation)
+    {
+      try
+      {
+        Object instance = currClass.newInstance();
+        if(instance instanceof IRibbonAction)
+        {
+          children.add((IRibbonAction) instance);
+        }
+        //Sichergehen, dass die instanz wieder verworfen wird
+        //noinspection UnusedAssignment
+        instance = null;
+      }
+      catch (InstantiationException | IllegalAccessException e)
+      {
+        e.printStackTrace();
+      }
+    }
+
+    return children;
+  }
+
 }

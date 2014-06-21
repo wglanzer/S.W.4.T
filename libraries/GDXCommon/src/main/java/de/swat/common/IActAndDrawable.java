@@ -1,6 +1,6 @@
 package de.swat.common;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.Batch;
 
 /**
  * Gibt an, dass sich ein Objekt Zeichnen und Acten kann
@@ -14,6 +14,6 @@ public interface IActAndDrawable extends IDrawable, IActable
   void act(float pDelta);
 
   @Override
-  void draw(SpriteBatch pBatch, float pParentAlpha, float pX, float pY, float pWidth, float pHeight);
+  void draw(Batch pBatch, float pParentAlpha, float pX, float pY, float pWidth, float pHeight);
 
 }

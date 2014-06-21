@@ -2,8 +2,8 @@ package de.swat.core.stages.pauseStage;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL10;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
@@ -42,7 +42,7 @@ public class PauseStage extends AbstractStage
     GDXLabel fpsLabel = new GDXLabel("FPS: ", assets.getSkinDefault())
     {
       @Override
-      public void draw(SpriteBatch batch, float parentAlpha)
+      public void draw(Batch batch, float parentAlpha)
       {
         setText("FPS: " + Gdx.graphics.getFramesPerSecond());
         super.draw(batch, parentAlpha);
@@ -131,13 +131,13 @@ public class PauseStage extends AbstractStage
   @Override
   public void draw()
   {
-    Gdx.gl.glEnable(GL10.GL_BLEND);
-    Gdx.gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
+    Gdx.gl.glEnable(GL20.GL_BLEND);
+    Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
     renderer.begin(ShapeRenderer.ShapeType.Filled);
     renderer.setColor(new Color(0, 0, 0, 0.7f));
     renderer.rect(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
     renderer.end();
-    Gdx.gl.glDisable(GL10.GL_BLEND);
+    Gdx.gl.glDisable(GL20.GL_BLEND);
 
     super.draw();
   }

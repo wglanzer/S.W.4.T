@@ -112,6 +112,9 @@
                             <jvmArgument>-Xmx1024m</jvmArgument>
                         </jvmArguments>
                     </dex>
+                    <proguard>
+                        <skip>false</skip>
+                    </proguard>
                 </configuration>
                 <extensions>true</extensions>
                 <!--<executions>-->

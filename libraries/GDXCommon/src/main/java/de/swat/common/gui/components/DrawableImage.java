@@ -2,7 +2,7 @@ package de.swat.common.gui.components;
 
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import de.swat.common.IActAndDrawable;
 import org.jetbrains.annotations.Nullable;
 
@@ -36,7 +36,7 @@ public class DrawableImage implements IActAndDrawable
   }
 
   @Override
-  public void draw(SpriteBatch pBatch, float pParentAlpha, float pX, float pY, float pWidth, float pHeight)
+  public void draw(Batch pBatch, float pParentAlpha, float pX, float pY, float pWidth, float pHeight)
   {
     pBatch.draw(texture, pX, pY, pWidth, pHeight);
   }

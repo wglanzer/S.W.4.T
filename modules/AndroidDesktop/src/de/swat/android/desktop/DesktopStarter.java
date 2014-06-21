@@ -23,7 +23,7 @@ public class DesktopStarter
 
     LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
     cfg.title = IVersion.MAJOR_NAME + " - DesktopStarter - Version " + IVersion.ANDROID_VERSION;
-    cfg.useGL20 = true;
+//    cfg.useGL30 = true;
     cfg.height = HEIGHT;
     cfg.width = WIDTH;
     cfg.samples = SAMPLES_4_MSAA;

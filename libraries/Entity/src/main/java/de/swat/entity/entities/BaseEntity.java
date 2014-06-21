@@ -1,7 +1,7 @@
 package de.swat.entity.entities;
 
 import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import de.swat.entity.AbstractEntity;
 import de.swat.entity.bodyParts.BodyPartArms;
 import de.swat.entity.bodyParts.BodyPartHead;
@@ -32,7 +32,7 @@ public class BaseEntity extends AbstractEntity
   }
 
   @Override
-  public void draw(SpriteBatch batch, float parentAlpha)
+  public void draw(Batch batch, float parentAlpha)
   {
     super.draw(batch, parentAlpha);
     legs.draw(batch, parentAlpha);

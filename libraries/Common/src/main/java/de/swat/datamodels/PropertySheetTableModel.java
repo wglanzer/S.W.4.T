@@ -1,11 +1,9 @@
 package de.swat.datamodels;
 
-import de.swat.annotationProcessors.annotations.FormProperty;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
-import java.lang.reflect.Field;
 import java.util.Collection;
 
 /**
@@ -13,33 +11,33 @@ import java.util.Collection;
  *
  * @author W. Glanzer, 08.02.14
  */
-public class PropertySheetTableModel implements TableModel
+public class PropertySheetTableModel<T> implements TableModel
 {
 
   private String[][] keyValueArray;
 
-  public PropertySheetTableModel(@Nullable Collection<Field> pFields)
+  public PropertySheetTableModel(@Nullable Collection<T> pFields)
   {
-    if (pFields == null)
-      return;
-
-    keyValueArray = new String[pFields.size()][2];
-    Object[] fieldArray = pFields.toArray();
-
-    //Hier wird jedes Feld durchgegangen und dessen key und value herausgeschrieben in das Array
-    //key = name, der in der Annotation angegeben ist
-    //value = value des Feldes
-    for (int i = 0; i < pFields.size(); i++)
-    {
-      Field currField = (Field) fieldArray[i];
-      FormProperty formProperty = currField.getAnnotation(FormProperty.class);
-
-      String value = formProperty.defaultValue();
-      String key = currField.getName();
-
-      keyValueArray[i][0] = key;
-      keyValueArray[i][1] = value;
-    }
+//    if (pFields == null)
+//      return;
+//
+//    keyValueArray = new String[pFields.size()][2];
+//    Object[] fieldArray = pFields.toArray();
+//
+//    //Hier wird jedes Feld durchgegangen und dessen key und value herausgeschrieben in das Array
+//    //key = name, der in der Annotation angegeben ist
+//    //value = value des Feldes
+//    for (int i = 0; i < pFields.size(); i++)
+//    {
+//      Field currField = (Field) fieldArray[i];
+//      FormProperty formProperty = currField.getAnnotation(FormProperty.class);
+//
+//      String value = formProperty.defaultValue();
+//      String key = currField.getName();
+//
+//      keyValueArray[i][0] = key;
+//      keyValueArray[i][1] = value;
+//    }
 
   }
 
