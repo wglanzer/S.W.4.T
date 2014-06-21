@@ -20,8 +20,8 @@ public class XMLSubLayer implements XMLable
 {
 
   public static final String ATR_TYPE = "type";
-  private EXMLSubLayerType type = EXMLSubLayerType.Background;
-  private Set<IXMLComponent> children = new HashSet<>();
+  public EXMLSubLayerType type = EXMLSubLayerType.Background;
+  public Set<IXMLComponent> children = new HashSet<>();
 
   public XMLSubLayer(EXMLSubLayerType pType)
   {

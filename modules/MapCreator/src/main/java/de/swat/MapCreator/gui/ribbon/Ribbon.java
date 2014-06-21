@@ -3,9 +3,9 @@ package de.swat.MapCreator.gui.ribbon;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.TreeMultimap;
 import de.swat.MapCreator.MapCreator;
+import de.swat.MapCreator.ribbon.actions.IRibbonAction;
+import de.swat.MapCreator.ribbon.actions.RibbonAction;
 import de.swat.constants.IRibbonConstants;
-import de.swat.datamodels.IRibbonAction;
-import de.swat.datamodels.ribbonactions.RibbonAction;
 import de.swat.enums.ERibbonCategory;
 import de.swat.enums.ERibbonSubCategory;
 import de.swat.utils.LookupUtil;
@@ -208,7 +208,7 @@ public class Ribbon extends JRibbon
   public Set<IRibbonAction> getChildren()
   {
     Set<IRibbonAction> children = new HashSet<>();
-    Set<Class<?>> classesByAnnotation = LookupUtil.getClassByAnnotation(RibbonAction.class, "de.swat.datamodels.ribbonactions");
+    Set<Class<?>> classesByAnnotation = LookupUtil.getClassByAnnotation(RibbonAction.class, "de.swat.MapCreator.ribbon.actions");
     for (Class<?> currClass : classesByAnnotation)
     {
       try

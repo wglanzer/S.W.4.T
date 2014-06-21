@@ -1,36 +1,22 @@
 package de.swat.utils;
 
-import de.swat.exceptions.SwatRuntimeException;
+import org.jetbrains.annotations.Nullable;
+import org.pushingpixels.flamingo.api.common.icon.ImageWrapperResizableIcon;
+import org.pushingpixels.flamingo.api.common.icon.ResizableIcon;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.*;
+import java.awt.*;
+import java.net.URL;
 
 /**
- * Utility-Klasse für Bilder
- *
- * @author W. Glanzer, 05.12.13
+ * @author W. Glanzer, 18.02.14
  */
-public final class ImageUtil
+public class ImageUtil
 {
 
-  /**
-   * Lädt ein BufferedImage anhand eines Files
-   *
-   * @param pFile Bild, das geladen werden soll
-   * @return BufferedImage
-   */
-  public static BufferedImage loadFileAsImage(File pFile)
+  @Nullable
+  public static ResizableIcon loadResizableIcon(URL pURL, int pSize)
   {
-    try
-    {
-      return ImageIO.read(pFile);
-    }
-    catch (IOException e)
-    {
-      throw new SwatRuntimeException("Could not find specific file: " + pFile.getPath(), e);
-    }
+    return ImageWrapperResizableIcon.getIcon(pURL, new Dimension(pSize, pSize));
   }
 
 }
-

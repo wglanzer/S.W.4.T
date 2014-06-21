@@ -1,6 +1,7 @@
 package de.swat.map.xml.components;
 
 import org.jdom2.Element;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Factory, die alle XMLComponents erzeugen kann
@@ -20,7 +21,20 @@ public class XMLComponentFactory
    */
   public static IXMLComponent reviveComponent(Element pXML)
   {
-    return null; //todo
+    return new IXMLComponent()
+    {
+      @Nullable
+      @Override
+      public Element toXML()
+      {
+        return new Element("subelement");
+      }
+
+      @Override
+      public void fromXML(Element pXML)
+      {
+      }
+    };
   }
 
 }

@@ -1,7 +1,7 @@
 package de.swat.MapCreator;
 
 import de.swat.MapCreator.gui.Window;
-import de.swat.map.Map;
+import de.swat.common.map.Map;
 import de.swat.observableList2.ObservableList2;
 
 import java.awt.*;

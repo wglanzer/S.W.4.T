@@ -28,7 +28,7 @@ public class MapFileObject
    * Index 0 in der Liste: Layer ganz unten,
    * Index n in der Liste: Layer ganz oben.
    */
-  private List<XMLLayer> layers = new ArrayList<>();
+  public List<XMLLayer> layers = new ArrayList<>();
 
   public MapFileObject()
   {
@@ -77,7 +77,12 @@ public class MapFileObject
       InputStream is = file.getInputStream(currEntry);
       String read = CharStreams.toString(new InputStreamReader(is));
 
-      String folderName = currEntry.getName().split("\\\\")[0];
+      String folderName;
+      String entryName = currEntry.getName();
+      folderName = entryName.split("\\\\")[0];
+      if(folderName.equals(entryName))
+        folderName = entryName.split("/")[0];
+
       try
       {
         switch(folderName)

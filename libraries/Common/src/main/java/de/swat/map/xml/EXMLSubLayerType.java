@@ -1,5 +1,8 @@
 package de.swat.map.xml;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Typen, die ein SubLayer annehmen kann
  *
@@ -27,6 +30,8 @@ public enum EXMLSubLayerType
    * Diese Ebene liegt vor dem Spieler.
    * Eventuell für Lampen, die über dem Spieler angezeigt werden sollen
    */
-  Foreground
+  Foreground;
+
+  public static final List<EXMLSubLayerType> types = Arrays.asList(values());
 
 }

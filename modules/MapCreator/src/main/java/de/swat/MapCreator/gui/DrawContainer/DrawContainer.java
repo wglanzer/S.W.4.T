@@ -3,7 +3,7 @@ package de.swat.MapCreator.gui.DrawContainer;
 import de.swat.MapCreator.GlobalKeyListenerManager;
 import de.swat.MapCreator.brushes.IBrush;
 import de.swat.MapCreator.brushes.PointBrush;
-import de.swat.map.Map;
+import de.swat.common.map.Map;
 import de.swat.observableList2.ObservableList2;
 import de.swat.utils.MathUtil;
 import de.swat.utils.PointUtil;

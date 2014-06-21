@@ -17,8 +17,9 @@ public class XMLLayer implements XMLable
 {
 
   public static final String ATR_Z = "z";
-  private Set<XMLSubLayer> subLayers = new HashSet<>();
-  private int zIndex = 0;
+
+  public Set<XMLSubLayer> subLayers = new HashSet<>();
+  public int zIndex = 0;
 
   public XMLLayer(int pZIndex)
   {
