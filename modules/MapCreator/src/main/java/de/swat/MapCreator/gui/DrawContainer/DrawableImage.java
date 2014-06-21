@@ -1,4 +1,4 @@
-package de.swat.MapCreator.gui.DrawContainer;
+package de.swat.mapCreator.gui.drawContainer;
 
 import java.awt.image.BufferedImage;
 
@@ -24,6 +24,12 @@ public class DrawableImage
   }
 
   @Override
+  public int hashCode()
+  {
+    return ID;
+  }
+
+  @Override
   public boolean equals(Object o)
   {
     if (this == o) return true;
@@ -32,11 +38,5 @@ public class DrawableImage
     DrawableImage that = (DrawableImage) o;
 
     return ID == that.ID;
-  }
-
-  @Override
-  public int hashCode()
-  {
-    return ID;
   }
 }

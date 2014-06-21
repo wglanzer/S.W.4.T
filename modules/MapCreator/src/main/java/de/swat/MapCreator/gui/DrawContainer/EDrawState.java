@@ -1,4 +1,4 @@
-package de.swat.MapCreator.gui.DrawContainer;
+package de.swat.mapCreator.gui.drawContainer;
 
 /**
  * @author W. Glanzer, 29.03.2014

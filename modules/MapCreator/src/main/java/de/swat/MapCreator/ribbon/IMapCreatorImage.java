@@ -1,4 +1,4 @@
-package de.swat.MapCreator.ribbon.actions;
+package de.swat.mapCreator.ribbon;
 
 import de.swat.common.map.Map;
 import de.swat.observableList2.ObservableList2;

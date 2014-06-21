@@ -1,13 +1,13 @@
-package de.swat.MapCreator.gui.ribbon;
+package de.swat.mapCreator.gui.ribbon;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.TreeMultimap;
-import de.swat.MapCreator.MapCreator;
-import de.swat.MapCreator.ribbon.actions.IRibbonAction;
-import de.swat.MapCreator.ribbon.actions.RibbonAction;
 import de.swat.constants.IRibbonConstants;
 import de.swat.enums.ERibbonCategory;
 import de.swat.enums.ERibbonSubCategory;
+import de.swat.mapCreator.MapCreator;
+import de.swat.mapCreator.ribbon.IRibbonAction;
+import de.swat.mapCreator.ribbon.RibbonAction;
 import de.swat.utils.LookupUtil;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.icon.EmptyResizableIcon;

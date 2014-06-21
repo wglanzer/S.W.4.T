@@ -1,4 +1,4 @@
-package de.swat.MapCreator.ribbon.actions;
+package de.swat.mapCreator.ribbon;
 
 import de.swat.enums.ERibbonCategory;
 import de.swat.enums.ERibbonSubCategory;

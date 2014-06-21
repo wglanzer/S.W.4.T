@@ -1,4 +1,4 @@
-package de.swat.MapCreator.ribbon.actions;
+package de.swat.mapCreator.ribbon;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

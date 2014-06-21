@@ -1,6 +1,6 @@
-package de.swat.MapCreator.gui.ribbon.applicationMenu;
+package de.swat.mapCreator.gui.ribbon.applicationMenu;
 
-import de.swat.MapCreator.gui.dialogs.SendMapDialog;
+import de.swat.mapCreator.gui.dialogs.SendMapDialog;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.icon.EmptyResizableIcon;
 import org.pushingpixels.flamingo.api.ribbon.RibbonApplicationMenuEntryPrimary;

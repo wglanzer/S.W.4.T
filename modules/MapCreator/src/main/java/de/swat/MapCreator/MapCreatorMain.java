@@ -1,4 +1,4 @@
-package de.swat.MapCreator;
+package de.swat.mapCreator;
 
 import de.swat.exceptions.SwatRuntimeException;
 import de.swat.utils.StreamUtil;

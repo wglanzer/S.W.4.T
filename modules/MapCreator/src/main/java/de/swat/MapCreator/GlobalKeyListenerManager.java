@@ -1,4 +1,4 @@
-package de.swat.MapCreator;
+package de.swat.mapCreator;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -9,8 +9,8 @@ import java.awt.*;
  */
 public class GlobalKeyListenerManager
 {
-  private static GlobalKeyListenerManager defaultInstance;
   private static final KeyboardFocusManager keyboardFocusManager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
+  private static GlobalKeyListenerManager defaultInstance;
 
   public static void init()
   {

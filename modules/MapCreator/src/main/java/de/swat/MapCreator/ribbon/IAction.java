@@ -1,4 +1,4 @@
-package de.swat.MapCreator.ribbon.actions;
+package de.swat.mapCreator.ribbon;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

@@ -1,13 +1,13 @@
-package de.swat.MapCreator.gui;
+package de.swat.mapCreator.gui;
 
-import de.swat.MapCreator.gui.DrawContainer.DrawContainer;
-import de.swat.MapCreator.gui.ribbon.Ribbon;
-import de.swat.MapCreator.gui.ribbon.applicationMenu.SendMapAction;
 import de.swat.common.map.Map;
 import de.swat.constants.IRibbonConstants;
 import de.swat.constants.IVersion;
 import de.swat.constants.IWindowConstants;
 import de.swat.datamodels.PropertySheet;
+import de.swat.mapCreator.gui.drawContainer.DrawContainer;
+import de.swat.mapCreator.gui.ribbon.Ribbon;
+import de.swat.mapCreator.gui.ribbon.applicationMenu.SendMapAction;
 import org.pushingpixels.flamingo.api.ribbon.RibbonApplicationMenu;
 
 import javax.swing.*;

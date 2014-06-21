@@ -1,7 +1,9 @@
-package de.swat.MapCreator.ribbon.actions;
+package de.swat.mapCreator.ribbon.actions;
 
 import de.swat.enums.ERibbonCategory;
 import de.swat.enums.ERibbonSubCategory;
+import de.swat.mapCreator.ribbon.AbstractRibbonAction;
+import de.swat.mapCreator.ribbon.IMapCreatorImage;
 import org.pushingpixels.flamingo.api.common.icon.ResizableIcon;
 
 import javax.swing.*;

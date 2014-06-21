@@ -1,4 +1,4 @@
-package de.swat.MapCreator.brushes;
+package de.swat.mapCreator.brushes;
 
 import de.swat.observableList2.ObservableList2;
 

@@ -1,4 +1,4 @@
-package de.swat.MapCreator.gui.dialogs;
+package de.swat.mapCreator.gui.dialogs;
 
 import de.swat.FileUtils;
 import de.swat.IFileStructure;
