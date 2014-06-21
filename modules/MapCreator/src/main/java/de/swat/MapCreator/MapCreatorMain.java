@@ -3,6 +3,8 @@ package de.swat.MapCreator;
 import de.swat.exceptions.SwatRuntimeException;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 
+import javax.swing.*;
+
 /**
  * Einsprungpunkt von außen in den Mapcreator
  *
@@ -30,7 +32,14 @@ public class MapCreatorMain
   {
     try
     {
-      SubstanceLookAndFeel.setSkin("org.pushingpixels.substance.api.skin.BusinessBlueSteelSkin");
+      SwingUtilities.invokeLater(new Runnable()
+      {
+        @Override
+        public void run()
+        {
+          SubstanceLookAndFeel.setSkin("org.pushingpixels.substance.api.skin.BusinessBlueSteelSkin");
+        }
+      });
     }
     catch (Exception e)
     {
