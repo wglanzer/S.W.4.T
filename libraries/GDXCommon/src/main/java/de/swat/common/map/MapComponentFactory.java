@@ -5,6 +5,9 @@ import de.swat.map.xml.components.IXMLComponent;
 import org.jdom2.Element;
 import org.jetbrains.annotations.Nullable;
 
+import java.awt.geom.Point2D;
+import java.util.Set;
+
 /**
  * @author W.Glanzer, 21.06.2014.
  */
@@ -19,6 +22,12 @@ public class MapComponentFactory
       public int getZIndex()
       {
         return 0;
+      }
+
+      @Override
+      public Set<Point2D> getPoints()
+      {
+        return null;
       }
 
       @Override

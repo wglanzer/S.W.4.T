@@ -19,21 +19,36 @@ import java.util.TreeSet;
 public class MapLayer implements IActAndDrawable
 {
 
-  public final Set<MapSubLayers> subLayers;
+  public final Set<MapSubLayer> subLayers;
   public int zIndex;
 
   public MapLayer()
   {
-    subLayers = new TreeSet<>(new Comparator<MapSubLayers>()
+    subLayers = new TreeSet<>(new Comparator<MapSubLayer>()
     {
       @Override
-      public int compare(MapSubLayers pSL1, MapSubLayers pSL2)
+      public int compare(MapSubLayer pSL1, MapSubLayer pSL2)
       {
         int t1 = EXMLSubLayerType.types.indexOf(pSL1.type);
         int t2 = EXMLSubLayerType.types.indexOf(pSL2.type);
         return t1 - t2;
       }
     });
+
+    subLayers.add(new MapSubLayer(EXMLSubLayerType.Background));
+    subLayers.add(new MapSubLayer(EXMLSubLayerType.Midground));
+    subLayers.add(new MapSubLayer(EXMLSubLayerType.Foreground));
+  }
+
+  public MapSubLayer getSubLayer(EXMLSubLayerType pType)
+  {
+    for(MapSubLayer currLayer : subLayers)
+    {
+      if(currLayer.type.equals(pType))
+        return currLayer;
+    }
+
+    return null;
   }
 
   /**
@@ -46,7 +61,7 @@ public class MapLayer implements IActAndDrawable
     zIndex = pLayer.zIndex;
     for(XMLSubLayer currLayer : pLayer.subLayers)
     {
-      MapSubLayers subLayer = new MapSubLayers();
+      MapSubLayer subLayer = new MapSubLayer();
       subLayer.fromXML(currLayer);
       subLayers.add(subLayer);
     }
@@ -58,7 +73,7 @@ public class MapLayer implements IActAndDrawable
   public XMLLayer toXML()
   {
     XMLLayer layer = new XMLLayer(zIndex);
-    for(MapSubLayers currSubLayer : subLayers)
+    for(MapSubLayer currSubLayer : subLayers)
       layer.addSubLayer(currSubLayer.toXML());
     return layer;
   }
@@ -66,14 +81,14 @@ public class MapLayer implements IActAndDrawable
   @Override
   public void act(float pDelta)
   {
-    for(MapSubLayers currSubLayer : subLayers)
+    for(MapSubLayer currSubLayer : subLayers)
       currSubLayer.act(pDelta);
   }
 
   @Override
   public void draw(Batch pBatch, float pParentAlpha, float pX, float pY, float pWidth, float pHeight)
   {
-    for(MapSubLayers currSubLayer : subLayers)
+    for(MapSubLayer currSubLayer : subLayers)
       currSubLayer.draw(pBatch, pParentAlpha, pX, pY, pWidth, pHeight);
   }
 }

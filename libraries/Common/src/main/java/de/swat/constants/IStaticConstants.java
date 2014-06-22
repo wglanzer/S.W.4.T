@@ -8,6 +8,10 @@ package de.swat.constants;
 public interface IStaticConstants
 {
 
+  public static final int MAP_WIDTH = 1000;
+  public static final int MAP_HEIGHT = 1000;
+  public static final int RASTER_SIZE = 100;
+
   // Button-Beschriftungen
   public static final String ENABLE_FTP_SERVER = "enable FTP";
   public static final String DISABLE_FTP_SERVER = "disable FTP";
