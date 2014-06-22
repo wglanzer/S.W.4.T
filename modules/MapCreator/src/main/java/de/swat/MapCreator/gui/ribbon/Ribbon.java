@@ -2,6 +2,7 @@ package de.swat.mapCreator.gui.ribbon;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.TreeMultimap;
+import de.swat.SwatRuntimeException;
 import de.swat.constants.IRibbonConstants;
 import de.swat.enums.ERibbonCategory;
 import de.swat.enums.ERibbonSubCategory;
@@ -12,7 +13,10 @@ import de.swat.utils.LookupUtil;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.icon.EmptyResizableIcon;
 import org.pushingpixels.flamingo.api.common.icon.ResizableIcon;
-import org.pushingpixels.flamingo.api.ribbon.*;
+import org.pushingpixels.flamingo.api.ribbon.JRibbon;
+import org.pushingpixels.flamingo.api.ribbon.JRibbonBand;
+import org.pushingpixels.flamingo.api.ribbon.RibbonElementPriority;
+import org.pushingpixels.flamingo.api.ribbon.RibbonTask;
 import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizePolicies;
 import org.pushingpixels.flamingo.api.ribbon.resize.RibbonBandResizePolicy;
 
@@ -167,7 +171,6 @@ public class Ribbon extends JRibbon
     ResizableIcon icon = pAction.getIcon();
     String title = pAction.getTitle();
     final JCommandButton commandButton = new JCommandButton(title, icon == null ? new EmptyResizableIcon(IRibbonConstants.ICON_SIZE) : icon);
-    JRibbonComponent component = new JRibbonComponent(commandButton);
     commandButton.setPreferredSize(new Dimension(IRibbonConstants.BUTTON_SIZE, IRibbonConstants.BUTTON_SIZE));
     commandButton.addActionListener(new ActionListener()
     {
@@ -208,7 +211,7 @@ public class Ribbon extends JRibbon
   public Set<IRibbonAction> getChildren()
   {
     Set<IRibbonAction> children = new HashSet<>();
-    Set<Class<?>> classesByAnnotation = LookupUtil.getClassByAnnotation(RibbonAction.class, "de.swat.MapCreator.ribbon.actions");
+    Set<Class<?>> classesByAnnotation = LookupUtil.getClassByAnnotation(RibbonAction.class, "de.swat.mapCreator.ribbon.actions");
     for (Class<?> currClass : classesByAnnotation)
     {
       try
@@ -224,7 +227,7 @@ public class Ribbon extends JRibbon
       }
       catch (InstantiationException | IllegalAccessException e)
       {
-        e.printStackTrace();
+        throw new SwatRuntimeException("Error fetching ribbonactions", e);
       }
     }
 
