@@ -1,7 +1,7 @@
 package de.swat.map.xml;
 
+import de.swat.SwatRuntimeException;
 import de.swat.XMLable;
-import de.swat.exceptions.SwatRuntimeException;
 import org.jdom2.Attribute;
 import org.jdom2.Element;
 

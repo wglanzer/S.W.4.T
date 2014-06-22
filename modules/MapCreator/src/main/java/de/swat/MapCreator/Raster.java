@@ -4,7 +4,7 @@
 //import de.swat.datamodels.map.EntityCollisionObjectDataModel;
 //import de.swat.math.Point2D;
 //import de.swat.math.Vector2D;
-//import de.swat.observableList2.ObservableList2;
+//import de.swat.ObservableList2;
 //
 //import java.awt.*;
 //import java.io.Serializable;

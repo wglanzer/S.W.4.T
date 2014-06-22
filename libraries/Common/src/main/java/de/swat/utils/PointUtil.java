@@ -1,7 +1,8 @@
 package de.swat.utils;
 
-import de.swat.math.*;
-import de.swat.observableList2.ObservableList2;
+import de.swat.ObservableList2;
+import de.swat.math.Point2D;
+import de.swat.math.Vector2D;
 
 import java.awt.*;
 

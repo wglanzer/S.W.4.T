@@ -1,7 +1,7 @@
 package de.swat.common.stages;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import de.swat.exceptions.SwatRuntimeException;
+import de.swat.SwatRuntimeException;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashSet;

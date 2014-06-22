@@ -1,4 +1,4 @@
-package de.swat.observableList2;
+package de.swat;
 
 import javax.swing.event.ChangeListener;
 

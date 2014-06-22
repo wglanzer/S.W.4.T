@@ -1,6 +1,6 @@
 package de.swat.mapCreator;
 
-import de.swat.exceptions.SwatRuntimeException;
+import de.swat.SwatRuntimeException;
 import de.swat.utils.StreamUtil;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 

@@ -1,8 +1,8 @@
 package de.swat.mapCreator.ribbon;
 
+import de.swat.SwatRuntimeException;
 import de.swat.enums.ERibbonCategory;
 import de.swat.enums.ERibbonSubCategory;
-import de.swat.exceptions.SwatRuntimeException;
 import org.jetbrains.annotations.Nullable;
 import org.pushingpixels.flamingo.api.common.icon.ResizableIcon;
 

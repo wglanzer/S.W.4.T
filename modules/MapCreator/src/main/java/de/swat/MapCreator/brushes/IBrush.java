@@ -1,6 +1,6 @@
 package de.swat.mapCreator.brushes;
 
-import de.swat.observableList2.ObservableList2;
+import de.swat.ObservableList2;
 
 import java.awt.*;
 

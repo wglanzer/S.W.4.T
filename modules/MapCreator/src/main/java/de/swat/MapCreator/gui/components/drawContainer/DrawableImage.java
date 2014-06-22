@@ -1,4 +1,4 @@
-package de.swat.mapCreator.gui.drawContainer;
+package de.swat.mapCreator.gui.components.drawContainer;
 
 import java.awt.image.BufferedImage;
 

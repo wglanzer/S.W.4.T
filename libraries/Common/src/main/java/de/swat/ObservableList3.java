@@ -1,38 +1,43 @@
-package de.swat.observableList2;
+package de.swat;
 
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.event.*;
-import java.io.*;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.*;
 
 /**
- * Liste, die die ObservableList mit
- * dem Serializable-Interface erweitert, sodass
- * diese gespeichert werden kann
- * @see javafx.collections.ObservableList
- *
  * @param <T>
  * @author Hamish Morgan
  */
-public class ObservableList2<T> implements List<T>, Iterable<T>, Collection<T>, Cloneable, Serializable
+public class ObservableList3<T extends ChangeListenable> implements List<T>,
+    Iterable<T>, Collection<T>,
+    Cloneable, Serializable
 {
 
   private transient EventListenerList listenerList;
+  private transient ChangeHandler changeHandler;
   private List<T> inner;
 
-  public ObservableList2(List<T> inner)
+  public ObservableList3(List<T> inner)
   {
     listenerList = new EventListenerList();
+    changeHandler = new ChangeHandler();
     this.inner = inner;
+    for (T item : this.inner)
+      if (item != null)
+        item.addChangeListener(changeHandler);
   }
 
-  public ObservableList2()
+  public ObservableList3()
   {
     this(new ArrayList<T>());
   }
 
-  protected ObservableList2(ObservableList2<T> other)
+  protected ObservableList3(ObservableList3<T> other)
   {
     this(other.inner);
   }
@@ -48,6 +53,10 @@ public class ObservableList2<T> implements List<T>, Iterable<T>, Collection<T>, 
   {
     inner = (List<T>) in.readObject();
     listenerList = new EventListenerList();
+    changeHandler = new ChangeHandler();
+    for (T item : inner)
+      if (item != null)
+        item.addChangeListener(changeHandler);
   }
 
   public List<T> getInner()
@@ -93,6 +102,8 @@ public class ObservableList2<T> implements List<T>, Iterable<T>, Collection<T>, 
     if (inner.add(e))
     {
       final int index = inner.size() - 1;
+      //if (e != null)
+      //  e.addChangeListener(changeHandler);
       fireIntervalAdded(index, index);
       return true;
     }
@@ -105,6 +116,8 @@ public class ObservableList2<T> implements List<T>, Iterable<T>, Collection<T>, 
     if (i != -1)
     {
       T item = inner.remove(i);
+      if (item != null)
+        item.removeChangeListener(changeHandler);
       fireIntervalRemoved(i, i);
       return true;
     }
@@ -121,6 +134,9 @@ public class ObservableList2<T> implements List<T>, Iterable<T>, Collection<T>, 
     final int index0 = inner.size() - 1;
     if (inner.addAll(c))
     {
+      for (T item : c)
+        if (item != null)
+          item.addChangeListener(changeHandler);
       final int index1 = inner.size() - 1;
       fireIntervalAdded(index0, index1);
       return true;
@@ -132,6 +148,9 @@ public class ObservableList2<T> implements List<T>, Iterable<T>, Collection<T>, 
   {
     if (inner.addAll(index, c))
     {
+      for (T item : c)
+        if (item != null)
+          item.addChangeListener(changeHandler);
       fireIntervalAdded(index, index + c.size());
       return true;
     }
@@ -141,16 +160,31 @@ public class ObservableList2<T> implements List<T>, Iterable<T>, Collection<T>, 
   public boolean removeAll(@NotNull Collection<?> c)
   {
     final int oldSize = inner.size();
+    for (T item : inner)
+      if (item != null)
+        item.removeChangeListener(changeHandler);
     boolean result = inner.removeAll(c);
+    for (T item : inner)
+      if (item != null)
+        item.addChangeListener(changeHandler);
     if (result)
+    {
       fireIntervalChanged(0, oldSize);
+      return true;
+    }
     return result;
   }
 
   public boolean retainAll(@NotNull Collection<?> c)
   {
     final int oldSize = inner.size();
+    for (T item : inner)
+      if (item != null)
+        item.removeChangeListener(changeHandler);
     boolean result = inner.retainAll(c);
+    for (T item : inner)
+      if (item != null)
+        item.addChangeListener(changeHandler);
     if (result)
       fireIntervalChanged(0, oldSize);
     return result;
@@ -161,6 +195,9 @@ public class ObservableList2<T> implements List<T>, Iterable<T>, Collection<T>, 
     if (!inner.isEmpty())
     {
       final int oldSize = inner.size();
+      for (T item : inner)
+        if (item != null)
+          item.removeChangeListener(changeHandler);
       inner.clear();
       fireIntervalRemoved(0, oldSize);
     }
@@ -174,6 +211,10 @@ public class ObservableList2<T> implements List<T>, Iterable<T>, Collection<T>, 
   public T set(int index, T element) throws UnsupportedOperationException
   {
     final T result = inner.set(index, element);
+    if (result != null)
+      result.removeChangeListener(changeHandler);
+    if (element != null)
+      element.addChangeListener(changeHandler);
     fireIntervalChanged(index, index);
     return result;
   }
@@ -181,12 +222,16 @@ public class ObservableList2<T> implements List<T>, Iterable<T>, Collection<T>, 
   public void add(int index, T element)
   {
     inner.add(index, element);
+    if (element != null)
+      element.addChangeListener(changeHandler);
     fireIntervalAdded(index, index);
   }
 
   public T remove(int index)
   {
     final T result = inner.remove(index);
+    if (result != null)
+      result.removeChangeListener(changeHandler);
     fireIntervalRemoved(index, index);
     return result;
   }
@@ -220,9 +265,11 @@ public class ObservableList2<T> implements List<T>, Iterable<T>, Collection<T>, 
   }
 
   @Override
-  public String toString()
+  public int hashCode()
   {
-    return inner.toString();
+    int hash = 3;
+    hash = 47 * hash + (this.inner != null ? this.inner.hashCode() : 0);
+    return hash;
   }
 
   @Override
@@ -231,19 +278,22 @@ public class ObservableList2<T> implements List<T>, Iterable<T>, Collection<T>, 
     if (obj == null) return false;
     if (getClass() != obj.getClass()) return false;
     @SuppressWarnings("unchecked")
-    final ObservableList2<T> other = (ObservableList2<T>) obj;
+    final ObservableList3<T> other = (ObservableList3<T>) obj;
     return !(this.inner != other.inner &&
         (this.inner == null || !this.inner.equals(other.inner)));
   }
 
   @Override
-  public int hashCode()
+  public String toString()
   {
-    int hash = 3;
-    hash = 47 * hash + (this.inner != null ? this.inner.hashCode() : 0);
-    return hash;
+    return inner.toString();
   }
 
+  //
+  //
+  // ==========================================================
+  //
+  //
   public void addListDataListener(ListDataListener listener)
   {
     listenerList.add(ListDataListener.class, listener);
@@ -290,6 +340,21 @@ public class ObservableList2<T> implements List<T>, Iterable<T>, Collection<T>, 
         if (event == null)
           event = new ListDataEvent(this, type, index0, index1);
         ((ListDataListener) listeners[i + 1]).intervalAdded(event);
+      }
+    }
+  }
+
+  private class ChangeHandler implements ChangeListener
+  {
+
+    public void stateChanged(ChangeEvent e)
+    {
+      @SuppressWarnings("unchecked")
+      final T src = (T) e.getSource();
+      final int index = indexOf(src);
+      if (index != -1)
+      {
+        fireIntervalChanged(index, index);
       }
     }
   }

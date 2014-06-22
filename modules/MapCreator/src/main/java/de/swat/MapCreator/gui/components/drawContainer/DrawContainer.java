@@ -1,10 +1,10 @@
-package de.swat.mapCreator.gui.drawContainer;
+package de.swat.mapCreator.gui.components.drawContainer;
 
 import de.swat.common.map.Map;
 import de.swat.mapCreator.GlobalKeyListenerManager;
 import de.swat.mapCreator.brushes.IBrush;
 import de.swat.mapCreator.brushes.PointBrush;
-import de.swat.observableList2.ObservableList2;
+import de.swat.ObservableList2;
 import de.swat.utils.MathUtil;
 import de.swat.utils.PointUtil;
 import de.swat.utils.PredefinedParameterUtil;
@@ -250,7 +250,7 @@ public class DrawContainer extends JPanel
    * Selbes wie <code>setYOff</code>, nur für das
    * xOffset
    *
-   * @see de.swat.mapCreator.gui.drawContainer.DrawContainer#setYOff(int, boolean)
+   * @see de.swat.mapCreator.gui.components.drawContainer.DrawContainer#setYOff(int, boolean)
    */
   public void setXOff(int pXOff, boolean pAdd)
   {

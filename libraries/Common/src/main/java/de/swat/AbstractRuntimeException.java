@@ -1,4 +1,4 @@
-package de.swat.exceptions;
+package de.swat;
 
 import org.jetbrains.annotations.Nullable;
 

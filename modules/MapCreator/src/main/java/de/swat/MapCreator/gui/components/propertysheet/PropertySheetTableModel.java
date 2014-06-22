@@ -1,4 +1,4 @@
-package de.swat.datamodels;
+package de.swat.mapCreator.gui.components.propertysheet;
 
 import org.jetbrains.annotations.Nullable;
 

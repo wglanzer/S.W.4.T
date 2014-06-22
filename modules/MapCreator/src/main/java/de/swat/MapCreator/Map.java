@@ -4,7 +4,7 @@
 //import de.swat.datamodels.map.Structure;
 //import de.swat.datamodels.map.StructureCollisionObjectDataModel;
 //import de.swat.math.Vector2D;
-//import de.swat.observableList2.ObservableList2;
+//import de.swat.ObservableList2;
 //import org.jetbrains.annotations.Nullable;
 //
 //import java.awt.*;

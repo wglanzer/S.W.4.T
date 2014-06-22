@@ -1,7 +1,7 @@
 package de.swat.map.xml;
 
 import com.google.common.io.CharStreams;
-import de.swat.exceptions.SwatRuntimeException;
+import de.swat.SwatRuntimeException;
 
 import java.io.*;
 import java.util.ArrayList;

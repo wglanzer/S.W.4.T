@@ -10,11 +10,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
+import de.swat.SwatRuntimeException;
 import de.swat.common.gui.animation.Animation;
 import de.swat.common.gui.assets.keys.AnimationKey;
 import de.swat.common.gui.assets.keys.ResourceKey;
 import de.swat.common.gui.assets.keys.ShaderKey;
-import de.swat.exceptions.SwatRuntimeException;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.ExecutionException;

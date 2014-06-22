@@ -1,7 +1,7 @@
 package de.swat.common.stages;
 
+import de.swat.SwatRuntimeException;
 import de.swat.common.gui.assets.IAssets;
-import de.swat.exceptions.SwatRuntimeException;
 
 /**
  * Setzt die Preferences, die der Core benötigt
