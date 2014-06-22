@@ -1,11 +1,11 @@
-package de.swat.mapCreator.ribbon.actions;
+package de.swat.mapCreator.gui.ribbon.actions;
 
 import de.swat.constants.IRibbonConstants;
 import de.swat.enums.ERibbonCategory;
 import de.swat.enums.ERibbonSubCategory;
-import de.swat.mapCreator.ribbon.AbstractRibbonAction;
-import de.swat.mapCreator.ribbon.IMapCreatorImage;
-import de.swat.mapCreator.ribbon.RibbonAction;
+import de.swat.mapCreator.gui.ribbon.AbstractRibbonAction;
+import de.swat.mapCreator.gui.ribbon.IMapCreatorImage;
+import de.swat.mapCreator.gui.ribbon.RibbonAction;
 import de.swat.utils.ImageUtil;
 import org.jetbrains.annotations.Nullable;
 import org.pushingpixels.flamingo.api.common.icon.ResizableIcon;
@@ -17,25 +17,25 @@ import java.awt.event.ActionEvent;
  * @author W. Glanzer, 22.02.14
  */
 @RibbonAction
-public class FinishPolyAction extends AbstractRibbonAction
+public class ClearPointsAction extends AbstractRibbonAction
 {
   @Nullable
   @Override
   public ResizableIcon getIcon()
   {
-    return ImageUtil.loadResizableIcon(NewFileAction.class.getResource("box2.png"), IRibbonConstants.ICON_SIZE);
+    return ImageUtil.loadResizableIcon(ClearPointsAction.class.getResource("trashcan.png"), IRibbonConstants.ICON_SIZE);
   }
 
   @Override
   public String getTitle()
   {
-    return "Finish Poly";
+    return "Clear Points";
   }
 
   @Override
   public int getPosition()
   {
-    return 400;
+    return 300;
   }
 
   @Override
@@ -53,8 +53,7 @@ public class FinishPolyAction extends AbstractRibbonAction
   @Override
   public void actionPerformed(ActionEvent pSourceEvent, JComponent pInvoker, IMapCreatorImage pMapCreatorImage)
   {
-//    pMapCreatorImage.getMap().addPoints(pMapCreatorImage.getClickedPoints());
-//    pMapCreatorImage.clearClickedPoints();
-//    pMapCreatorImage.addStructureObject(pMapCreatorImage.getMap().finishStructure());
+    pMapCreatorImage.clearClickedPoints();
   }
+
 }

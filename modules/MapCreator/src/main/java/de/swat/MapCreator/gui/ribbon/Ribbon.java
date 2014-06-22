@@ -7,8 +7,6 @@ import de.swat.constants.IRibbonConstants;
 import de.swat.enums.ERibbonCategory;
 import de.swat.enums.ERibbonSubCategory;
 import de.swat.mapCreator.MapCreator;
-import de.swat.mapCreator.ribbon.IRibbonAction;
-import de.swat.mapCreator.ribbon.RibbonAction;
 import de.swat.utils.LookupUtil;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.icon.EmptyResizableIcon;
@@ -211,7 +209,7 @@ public class Ribbon extends JRibbon
   public Set<IRibbonAction> getChildren()
   {
     Set<IRibbonAction> children = new HashSet<>();
-    Set<Class<?>> classesByAnnotation = LookupUtil.getClassByAnnotation(RibbonAction.class, "de.swat.mapCreator.ribbon.actions");
+    Set<Class<?>> classesByAnnotation = LookupUtil.getClassByAnnotation(RibbonAction.class, "de.swat.mapCreator.gui.ribbon.actions");
     for (Class<?> currClass : classesByAnnotation)
     {
       try

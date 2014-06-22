@@ -1,24 +1,20 @@
-package de.swat.mapCreator.ribbon;
+package de.swat.mapCreator.gui.ribbon.actions;
 
-import de.swat.SwatRuntimeException;
 import de.swat.enums.ERibbonCategory;
 import de.swat.enums.ERibbonSubCategory;
-import org.jetbrains.annotations.Nullable;
+import de.swat.mapCreator.gui.ribbon.AbstractRibbonAction;
+import de.swat.mapCreator.gui.ribbon.IMapCreatorImage;
 import org.pushingpixels.flamingo.api.common.icon.ResizableIcon;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 
 /**
- * Abstrakte Klasse für RibbonActions.
- * Hier wird beispielsweise schon die compareTo-Methode erstellt.
- *
- * @author W. Glanzer, 23.02.14
+ * @author W. Glanzer, 18.02.2014
  */
-public abstract class AbstractRibbonAction implements IRibbonAction
+public class DummyRibbonAction extends AbstractRibbonAction
 {
 
-  @Nullable
   @Override
   public ResizableIcon getIcon()
   {
@@ -28,7 +24,7 @@ public abstract class AbstractRibbonAction implements IRibbonAction
   @Override
   public String getTitle()
   {
-    return "[dummy]";
+    return "asdfasdfasdfasdfasdf";
   }
 
   @Override
@@ -40,24 +36,19 @@ public abstract class AbstractRibbonAction implements IRibbonAction
   @Override
   public ERibbonCategory getCategory()
   {
-    return ERibbonCategory.COMMON;
+    return null;
   }
 
   @Override
   public ERibbonSubCategory getSubCategory()
   {
-    return ERibbonSubCategory.FILE;
-  }
-
-  @Override
-  public int compareTo(Object o)
-  {
-    return 0;
+    return null;
   }
 
   @Override
   public void actionPerformed(ActionEvent pSourceEvent, JComponent pInvoker, IMapCreatorImage pMapCreatorImage)
   {
-    throw new SwatRuntimeException("Not implemented yet!", null);
+
   }
+
 }
