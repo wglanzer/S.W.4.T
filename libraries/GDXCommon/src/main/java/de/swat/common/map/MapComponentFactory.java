@@ -5,7 +5,10 @@ import de.swat.map.xml.components.IXMLComponent;
 import org.jdom2.Element;
 import org.jetbrains.annotations.Nullable;
 
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.MutableTreeNode;
 import java.awt.geom.Point2D;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -27,7 +30,7 @@ public class MapComponentFactory
       @Override
       public Set<Point2D> getPoints()
       {
-        return null;
+        return new HashSet<>();
       }
 
       @Override
@@ -62,6 +65,12 @@ public class MapComponentFactory
       @Override
       public void draw(Batch pBatch, float pParentAlpha, float pX, float pY, float pWidth, float pHeight)
       {
+      }
+
+      @Override
+      public MutableTreeNode getNode()
+      {
+        return new DefaultMutableTreeNode("COMPONENTE: " + getZIndex());
       }
     };
   }

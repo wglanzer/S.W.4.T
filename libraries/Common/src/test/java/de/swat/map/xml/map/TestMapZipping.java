@@ -27,14 +27,14 @@ public class TestMapZipping
   @Before
   public void before() throws IOException
   {
-    MapFileObject fileObject = new MapFileObject();
+    MapFileObject fileObject = new MapFileObject("testMap");
     fileObject.addLayer(DummyXMLLayerGenerator.generateDummyXMLLayer(0));
     fileObject.addLayer(DummyXMLLayerGenerator.generateDummyXMLLayer(1));
     fileObject.addLayer(DummyXMLLayerGenerator.generateDummyXMLLayer(2));
     fileObject.addLayer(DummyXMLLayerGenerator.generateDummyXMLLayer(3));
 
 //    fileObject.generateZip(new File("Z:\\workspace-IntelliJ\\S.W.4.T\\libraries\\Common\\src\\test\\java\\de\\swat\\map\\xml\\map\\TestMapZipping.java").getParentFile(), "testMap");
-    fileObject.generateZip(_getTargetDir(), "testMap");
+    fileObject.generateZip(_getTargetDir());
   }
 
   @Test

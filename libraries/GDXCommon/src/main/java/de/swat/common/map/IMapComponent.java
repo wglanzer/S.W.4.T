@@ -1,5 +1,6 @@
 package de.swat.common.map;
 
+import de.swat.ITreeable;
 import de.swat.common.IActAndDrawable;
 import de.swat.map.xml.components.IXMLComponent;
 
@@ -11,7 +12,7 @@ import java.util.Set;
  *
  * @author W.Glanzer, 21.06.2014.
  */
-public interface IMapComponent extends IActAndDrawable
+public interface IMapComponent extends IActAndDrawable, ITreeable
 {
 
   /**

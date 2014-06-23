@@ -1,6 +1,7 @@
 package de.swat.common.map;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
+import de.swat.ITreeable;
 import de.swat.common.IActAndDrawable;
 import de.swat.common.map.structure.MapComponentBoundingBox;
 import de.swat.common.map.structure.MapRaster;
@@ -9,6 +10,8 @@ import de.swat.map.xml.EXMLSubLayerType;
 import de.swat.map.xml.XMLSubLayer;
 import de.swat.map.xml.components.IXMLComponent;
 
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.MutableTreeNode;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
@@ -23,7 +26,7 @@ import java.util.TreeSet;
  *
  * @author W.Glanzer, 21.06.2014.
  */
-public class MapSubLayer implements IActAndDrawable
+public class MapSubLayer implements IActAndDrawable, ITreeable
 {
 
   public EXMLSubLayerType type;
@@ -44,7 +47,8 @@ public class MapSubLayer implements IActAndDrawable
       @Override
       public int compare(IMapComponent pComp1, IMapComponent pComp2)
       {
-        return pComp1.getZIndex() - pComp2.getZIndex();
+        int indexDiff = pComp1.getZIndex() - pComp2.getZIndex();
+        return indexDiff != 0 ? indexDiff : -1;
       }
     });
 
@@ -120,6 +124,15 @@ public class MapSubLayer implements IActAndDrawable
   }
 
   @Override
+  public MutableTreeNode getNode()
+  {
+    DefaultMutableTreeNode node = new DefaultMutableTreeNode(type.name());
+    for(IMapComponent currComp : allComponents)
+      node.add(currComp.getNode());
+    return node;
+  }
+
+  @Override
   public void act(float pDelta)
   {
     for(IMapComponent currComp : allComponents)
@@ -131,5 +144,15 @@ public class MapSubLayer implements IActAndDrawable
   {
     for(IMapComponent currComp : allComponents)
       currComp.draw(pBatch, pParentAlpha, pX, pY, pWidth, pHeight);
+  }
+
+  /**
+   * Liefert alle MapKomponenten zurück, die der Layer besitzt.
+   *
+   * @return Alle MapKomponents
+   */
+  public Set<IMapComponent> getAllComponents()
+  {
+    return allComponents;
   }
 }

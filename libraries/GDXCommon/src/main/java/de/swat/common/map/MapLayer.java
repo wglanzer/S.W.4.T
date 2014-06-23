@@ -1,11 +1,14 @@
 package de.swat.common.map;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
+import de.swat.ITreeable;
 import de.swat.common.IActAndDrawable;
 import de.swat.map.xml.EXMLSubLayerType;
 import de.swat.map.xml.XMLLayer;
 import de.swat.map.xml.XMLSubLayer;
 
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.MutableTreeNode;
 import java.util.Comparator;
 import java.util.Set;
 import java.util.TreeSet;
@@ -16,7 +19,7 @@ import java.util.TreeSet;
  *
  * @author W.Glanzer, 21.06.2014.
  */
-public class MapLayer implements IActAndDrawable
+public class MapLayer implements IActAndDrawable, ITreeable
 {
 
   public final Set<MapSubLayer> subLayers;
@@ -31,7 +34,8 @@ public class MapLayer implements IActAndDrawable
       {
         int t1 = EXMLSubLayerType.types.indexOf(pSL1.type);
         int t2 = EXMLSubLayerType.types.indexOf(pSL2.type);
-        return t1 - t2;
+        int indexDiff = t1 - t2;
+        return indexDiff != 0 ? indexDiff : -1;
       }
     });
 
@@ -59,12 +63,22 @@ public class MapLayer implements IActAndDrawable
   public void fromXML(XMLLayer pLayer)
   {
     zIndex = pLayer.zIndex;
+    subLayers.clear();
     for(XMLSubLayer currLayer : pLayer.subLayers)
     {
       MapSubLayer subLayer = new MapSubLayer();
       subLayer.fromXML(currLayer);
       subLayers.add(subLayer);
     }
+  }
+
+  @Override
+  public MutableTreeNode getNode()
+  {
+    DefaultMutableTreeNode node = new DefaultMutableTreeNode("Layer " + zIndex);
+    for(MapSubLayer currLayer : subLayers)
+      node.add(currLayer.getNode());
+    return node;
   }
 
   /**

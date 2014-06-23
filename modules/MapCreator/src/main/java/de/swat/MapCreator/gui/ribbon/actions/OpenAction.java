@@ -76,8 +76,9 @@ public class OpenAction extends AbstractRibbonAction
           File selectedFile = fileChooser.getSelectedFile();
           if(selectedFile != null && selectedFile.getName().endsWith("." + IStaticConstants.MAP_ZIP_ENDING))
           {
-            Map map = new Map();
-            MapFileObject mapFO = new MapFileObject();
+            String name = selectedFile.getName();
+            Map map = new Map(name.split("\\.")[0]);
+            MapFileObject mapFO = new MapFileObject(name);
             mapFO.fromZip(selectedFile);
             map.fromFileObject(mapFO);
             pMapCreatorImage.setMap(map);

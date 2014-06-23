@@ -75,7 +75,7 @@ public class SaveAction extends AbstractRibbonAction
         {
           try
           {
-            pMapCreatorImage.getMap().generateFileObject().generateZip(selectedFile.getParentFile(), selectedFile.getName());
+            pMapCreatorImage.getMap().generateFileObject().generateZip(selectedFile.getParentFile());
           }
           catch(IOException e1)
           {

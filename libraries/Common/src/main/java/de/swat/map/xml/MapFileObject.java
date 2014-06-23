@@ -29,9 +29,11 @@ public class MapFileObject
    * Index n in der Liste: Layer ganz oben.
    */
   public List<XMLLayer> layers = new ArrayList<>();
+  private String name = "";
 
-  public MapFileObject()
+  public MapFileObject(String pName)
   {
+    name = pName;
   }
 
   public void addLayer(XMLLayer pLayer)
@@ -43,17 +45,16 @@ public class MapFileObject
    * Generiert aus den Layers u.Ä. ein Zip-File.
    *
    * @param pDirGenerateTo File-Objekt, das als Ziel-Ordner verwendet wird
-   * @param pName          Dateiname der ZIP
    * @throws IOException
    */
-  public void generateZip(File pDirGenerateTo, String pName) throws IOException
+  public void generateZip(File pDirGenerateTo) throws IOException
   {
     // Zip-Outputstream, wo alle Dateien hin sollen
     if(!pDirGenerateTo.isDirectory())
       throw new UnsupportedOperationException("File is not a directory!");
 
     String dirPath = pDirGenerateTo.getPath();
-    String path = dirPath + (dirPath.endsWith("/") || dirPath.endsWith("\\") ? "" : File.separator) + pName + "." + IStaticConstants.MAP_ZIP_ENDING;
+    String path = dirPath + (dirPath.endsWith("/") || dirPath.endsWith("\\") ? "" : File.separator) + name + "." + IStaticConstants.MAP_ZIP_ENDING;
     ZipOutputStream out = new ZipOutputStream(new FileOutputStream(path));
     out.setLevel(ZipOutputStream.DEFLATED);
 

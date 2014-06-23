@@ -1,10 +1,13 @@
 package de.swat.common.map;
 
+import de.swat.ITreeable;
 import de.swat.SwatRuntimeException;
 import de.swat.map.xml.EXMLSubLayerType;
 import de.swat.map.xml.MapFileObject;
 import de.swat.map.xml.XMLLayer;
 
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.MutableTreeNode;
 import java.util.Comparator;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -19,7 +22,7 @@ import java.util.TreeSet;
  *
  * @author W.Glanzer, 18.06.2014.
  */
-public class Map
+public class Map implements ITreeable
 {
 
   /**
@@ -28,7 +31,12 @@ public class Map
    */
   private SortedSet<MapLayer> layers;
 
-  public Map()
+  /**
+   * Gibt den Namen der Map an
+   */
+  private String name = "";
+
+  public Map(String pName)
   {
     layers = new TreeSet<>(new Comparator<MapLayer>()
     {
@@ -39,6 +47,7 @@ public class Map
       }
     });
     layers.add(new MapLayer());
+    name = pName;
   }
 
   /**
@@ -69,6 +78,25 @@ public class Map
     throw new SwatRuntimeException("Could not add component. Maybe layerindex is too high? (index=" + pLayerIndex + ")", null);
   }
 
+  @Override
+  public MutableTreeNode getNode()
+  {
+    DefaultMutableTreeNode node = new DefaultMutableTreeNode(name);
+    for(MapLayer currLayer : layers)
+      node.add(currLayer.getNode());
+    return node;
+  }
+
+  /**
+   * Liefert die Haupt-Layer zurück
+   *
+   * @return Layer der Map
+   */
+  public SortedSet<MapLayer> getLayers()
+  {
+    return layers;
+  }
+
   /**
    * Generiert die Map aus einem FileObject
    *
@@ -76,6 +104,7 @@ public class Map
    */
   public void fromFileObject(MapFileObject pFileObject)
   {
+    layers.clear();
     for(XMLLayer currLayer : pFileObject.layers)
     {
       MapLayer layer = new MapLayer();
@@ -91,7 +120,7 @@ public class Map
    */
   public MapFileObject generateFileObject()
   {
-    MapFileObject fileObject = new MapFileObject();
+    MapFileObject fileObject = new MapFileObject(name);
     for(MapLayer currLayer : layers)
       fileObject.addLayer(currLayer.toXML());
     return fileObject;

@@ -54,7 +54,7 @@ public class NewFileAction extends AbstractRibbonAction
   @Override
   public void actionPerformed(ActionEvent pSourceEvent, JComponent pInvoker, IMapCreatorImage pMapCreatorImage)
   {
-    pMapCreatorImage.setMap(new Map());
+    pMapCreatorImage.setMap(new Map("DUMMY"));
   }
 
 }

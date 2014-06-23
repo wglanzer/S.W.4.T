@@ -4,6 +4,7 @@ import de.swat.common.map.Map;
 import de.swat.constants.IRibbonConstants;
 import de.swat.constants.IVersion;
 import de.swat.constants.IWindowConstants;
+import de.swat.mapCreator.gui.components.MapTree;
 import de.swat.mapCreator.gui.components.drawContainer.DrawContainer;
 import de.swat.mapCreator.gui.ribbon.Ribbon;
 import de.swat.mapCreator.gui.ribbon.applicationMenu.SendMapAction;
@@ -22,9 +23,12 @@ public class Window extends JFrame
   /*GUI-Komponenten*/
   private DrawContainer drawContainer;
   private Ribbon ribbon;
+  private Map map;
+  private MapTree mapTree;
 
   public Window(Map pMap)
   {
+    map = pMap;
     drawContainer = new DrawContainer(pMap);
     ribbon = new Ribbon();
 
@@ -59,14 +63,11 @@ public class Window extends JFrame
     ribbonPanel.setPreferredSize(new Dimension(0, ribbon.getSize().height + ribbon.getY()));
     add(ribbonPanel, BorderLayout.NORTH);
 
-    JTabbedPane trees = new JTabbedPane();
-    trees.addTab("Dummy-Tree1", _getDummyTree());
-    trees.addTab("Dummy-Tree2", _getDummyTree());
-
     /*Kombination aus JTree und JYPropertySheet*/
+    mapTree = new MapTree(map);
     final JSplitPane splitTree_Properties = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
     splitTree_Properties.setDividerSize(dividerSize);
-    splitTree_Properties.setTopComponent(trees);
+    splitTree_Properties.setTopComponent(mapTree);
     splitTree_Properties.setBottomComponent(new JPanel());
     splitTree_Properties.setResizeWeight(0.5); //mittig
 
@@ -78,7 +79,6 @@ public class Window extends JFrame
     splitContainer_Properties.setLeftComponent(splitTree_Properties);
 
     add(splitContainer_Properties, BorderLayout.CENTER);
-
   }
 
   /**
@@ -97,12 +97,9 @@ public class Window extends JFrame
 
   public void mapChanged(Map pNewMap)
   {
+    map = pNewMap;
     drawContainer.mapChanged(pNewMap);
-  }
-
-  private JTree _getDummyTree()
-  {
-    return new JTree();
+    mapTree.mapChanged(pNewMap);
   }
 
   public DrawContainer getDrawContainer()
