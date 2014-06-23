@@ -5,7 +5,6 @@ import de.swat.constants.IRibbonConstants;
 import de.swat.constants.IVersion;
 import de.swat.constants.IWindowConstants;
 import de.swat.mapCreator.gui.components.drawContainer.DrawContainer;
-import de.swat.mapCreator.gui.components.propertysheet.PropertySheet;
 import de.swat.mapCreator.gui.ribbon.Ribbon;
 import de.swat.mapCreator.gui.ribbon.applicationMenu.SendMapAction;
 import org.pushingpixels.flamingo.api.ribbon.RibbonApplicationMenu;
@@ -68,7 +67,7 @@ public class Window extends JFrame
     final JSplitPane splitTree_Properties = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
     splitTree_Properties.setDividerSize(dividerSize);
     splitTree_Properties.setTopComponent(trees);
-    splitTree_Properties.setBottomComponent(_getDummyPropertySheet().getComponent());
+    splitTree_Properties.setBottomComponent(new JPanel());
     splitTree_Properties.setResizeWeight(0.5); //mittig
 
     /*Über-SplitPane, hierauf sind rechts der drawContainer, links die SplitTree_Properties*/
@@ -104,11 +103,6 @@ public class Window extends JFrame
   private JTree _getDummyTree()
   {
     return new JTree();
-  }
-
-  private PropertySheet _getDummyPropertySheet()
-  {
-    return new PropertySheet();
   }
 
   public DrawContainer getDrawContainer()
