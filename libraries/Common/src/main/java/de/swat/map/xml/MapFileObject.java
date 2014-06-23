@@ -2,6 +2,7 @@ package de.swat.map.xml;
 
 import com.google.common.io.CharStreams;
 import de.swat.SwatRuntimeException;
+import de.swat.constants.IStaticConstants;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -20,7 +21,6 @@ import java.util.zip.ZipOutputStream;
 public class MapFileObject
 {
 
-  public static final String MAP_FILETYPE = ".smap";
   public static final String LAYER_DIR = "layers";
   public static final String LAYER_NAME = "layer%s.xml";
   /**
@@ -53,7 +53,7 @@ public class MapFileObject
       throw new UnsupportedOperationException("File is not a directory!");
 
     String dirPath = pDirGenerateTo.getPath();
-    String path = dirPath + (dirPath.endsWith("/") || dirPath.endsWith("\\") ? "" : File.separator) + pName + MAP_FILETYPE;
+    String path = dirPath + (dirPath.endsWith("/") || dirPath.endsWith("\\") ? "" : File.separator) + pName + "." + IStaticConstants.MAP_ZIP_ENDING;
     ZipOutputStream out = new ZipOutputStream(new FileOutputStream(path));
     out.setLevel(ZipOutputStream.DEFLATED);
 

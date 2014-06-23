@@ -1,5 +1,6 @@
 package de.swat.mapCreator.gui.ribbon.actions;
 
+import de.swat.common.map.Map;
 import de.swat.constants.IRibbonConstants;
 import de.swat.enums.ERibbonCategory;
 import de.swat.enums.ERibbonSubCategory;
@@ -53,9 +54,7 @@ public class NewFileAction extends AbstractRibbonAction
   @Override
   public void actionPerformed(ActionEvent pSourceEvent, JComponent pInvoker, IMapCreatorImage pMapCreatorImage)
   {
-//    Map map = new Map();
-//    map.setRaster(new Raster(10, new Dimension(IWindowConstants.MAX_RASTERWIDTH, IWindowConstants.MAX_RASTERHEIGHT), map));
-//    pMapCreatorImage.setMap(map);
+    pMapCreatorImage.setMap(new Map());
   }
 
 }

@@ -8,6 +8,9 @@ package de.swat.constants;
 public interface IStaticConstants
 {
 
+  public static final String MAP_ZIP_ENDING = "smap";
+  public static final String MAP_ZIP_ENDING_DESCRIPTION = "S.W.4.T-Map (." + MAP_ZIP_ENDING + ")";
+
   public static final int MAP_WIDTH = 1000;
   public static final int MAP_HEIGHT = 1000;
   public static final int RASTER_SIZE = 100;

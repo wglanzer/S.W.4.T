@@ -1,6 +1,7 @@
 package de.swat.map.xml.map;
 
 import com.google.common.io.CharStreams;
+import de.swat.constants.IStaticConstants;
 import de.swat.map.xml.MapFileObject;
 import de.swat.map.xml.dummy.DummyXMLLayerGenerator;
 import junit.framework.Assert;
@@ -39,7 +40,7 @@ public class TestMapZipping
   @Test
   public void testMapZipping() throws IOException
   {
-    ZipFile file = new ZipFile(_getTargetDir() + "/testMap" + MapFileObject.MAP_FILETYPE);
+    ZipFile file = new ZipFile(_getTargetDir() + "/testMap." + IStaticConstants.MAP_ZIP_ENDING);
 
     int counter = 0;
     for(Enumeration e = file.entries(); e.hasMoreElements(); )

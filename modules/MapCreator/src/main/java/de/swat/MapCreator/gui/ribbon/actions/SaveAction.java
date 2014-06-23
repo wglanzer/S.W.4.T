@@ -1,6 +1,8 @@
 package de.swat.mapCreator.gui.ribbon.actions;
 
+import de.swat.SwatRuntimeException;
 import de.swat.constants.IRibbonConstants;
+import de.swat.constants.IStaticConstants;
 import de.swat.enums.ERibbonCategory;
 import de.swat.enums.ERibbonSubCategory;
 import de.swat.mapCreator.gui.ribbon.AbstractRibbonAction;
@@ -11,8 +13,11 @@ import org.jetbrains.annotations.Nullable;
 import org.pushingpixels.flamingo.api.common.icon.ResizableIcon;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * @author W. Glanzer, 21.02.14
@@ -55,14 +60,28 @@ public class SaveAction extends AbstractRibbonAction
   public void actionPerformed(ActionEvent pSourceEvent, JComponent pInvoker, final IMapCreatorImage pMapCreatorImage)
   {
     final JFileChooser fileChooser = new JFileChooser();
+    FileNameExtensionFilter filter = new FileNameExtensionFilter(IStaticConstants.MAP_ZIP_ENDING_DESCRIPTION, IStaticConstants.MAP_ZIP_ENDING);
+    fileChooser.setFileFilter(filter);
+    fileChooser.setFileHidingEnabled(true);
+    fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
     fileChooser.addActionListener(new ActionListener()
     {
       @Override
       public void actionPerformed(ActionEvent e)
       {
         fileChooser.removeActionListener(this);
-//        if (fileChooser.getSelectedFile() != null)
-//          SaveUtil.save(pMapCreatorImage.getMap().getModelAccess(), fileChooser.getSelectedFile());
+        File selectedFile = fileChooser.getSelectedFile();
+        if (selectedFile != null && selectedFile.getName().endsWith("." + IStaticConstants.MAP_ZIP_ENDING))
+        {
+          try
+          {
+            pMapCreatorImage.getMap().generateFileObject().generateZip(selectedFile.getParentFile(), selectedFile.getName());
+          }
+          catch(IOException e1)
+          {
+            throw new SwatRuntimeException("Could not create zip", e1);
+          }
+        }
       }
     });
     fileChooser.showOpenDialog(null);
