@@ -7,8 +7,6 @@ import de.swat.constants.IWindowConstants;
 import de.swat.mapCreator.gui.components.MapTree;
 import de.swat.mapCreator.gui.components.drawContainer.DrawContainer;
 import de.swat.mapCreator.gui.ribbon.Ribbon;
-import de.swat.mapCreator.gui.ribbon.applicationMenu.SendMapAction;
-import org.pushingpixels.flamingo.api.ribbon.RibbonApplicationMenu;
 
 import javax.swing.*;
 import java.awt.*;
@@ -38,7 +36,6 @@ public class Window extends JFrame
     setResizable(false);
     setTitle(IVersion.MAPCREATOR_TITLE);
 
-    _configureRibbonApplicationMenu();
     _addComponents();
 
     SwingUtilities.invokeLater(new Runnable()
@@ -79,20 +76,6 @@ public class Window extends JFrame
     splitContainer_Properties.setLeftComponent(splitTree_Properties);
 
     add(splitContainer_Properties, BorderLayout.CENTER);
-  }
-
-  /**
-   * Konfiguriert das ApplicationMenu und fügt es dem Ribbon hinzu
-   */
-  private void _configureRibbonApplicationMenu()
-  {
-    RibbonApplicationMenu applicationMenu = new RibbonApplicationMenu();
-
-    applicationMenu.addMenuEntry(new SendMapAction());
-
-    ribbon.setApplicationMenu(applicationMenu);
-    ribbon.putClientProperty("ribbon.hideSecondary", true);
-    ribbon.putClientProperty("ribbon.sizePrimary", 300);
   }
 
   public void mapChanged(Map pNewMap)

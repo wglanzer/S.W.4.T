@@ -8,11 +8,7 @@ package de.swat.enums;
  */
 public enum ERibbonCategory
 {
-  COMMON("Common", 100),
-  MAP("Map", 200),
-  STRUCTURE("Structure", 300),
-  ENTITIES("Entities", 400),
-  PATHFINDING("Pathfinding", 500);
+  COMMON("Common", 100);
 
   /**
    * Deklaration der Enums

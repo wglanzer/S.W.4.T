@@ -8,7 +8,8 @@ package de.swat.enums;
 public enum ERibbonSubCategory
 {
   FILE("File", 100),
-  MAP("Map", 200);
+  MAP("Map", 200),
+  REMOTE("Remote", 300);
 
 
   /**
