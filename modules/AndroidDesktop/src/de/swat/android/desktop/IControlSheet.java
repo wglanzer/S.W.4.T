@@ -15,4 +15,7 @@ public interface IControlSheet
   public static final int MOVE_LEFT = Input.Keys.A;
   public static final int MOVE_RIGHT = Input.Keys.D;
 
+  public static final int ACTION_RELOAD = Input.Keys.R;
+  public static final int ACTION_SHOOT = Input.Buttons.LEFT;
+
 }

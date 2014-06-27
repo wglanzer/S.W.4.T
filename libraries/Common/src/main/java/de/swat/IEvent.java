@@ -13,4 +13,13 @@ public interface IEvent
    */
   public static final String PLAYER_MOVE = "player_move";
 
+  /**
+   * Gibt an, dass der Player jetzt schießen soll.
+   */
+  public static final String PLAYER_SHOOT = "player_shoot";
+
+  /**
+   * Gibt an, dass der Player nachladen soll
+   */
+  public static final String PLAYER_RELOAD = "player_reload";
 }

@@ -84,6 +84,10 @@ public class GuiStage extends AbstractStage
           case IControlSheet.MOVE_RIGHT:
             fireable = new ControlEvent(ControlEvent.Type.PLAYER_CONTROL, IEvent.PLAYER_MOVE, false, 1, 0);
             break;
+
+          case IControlSheet.ACTION_RELOAD:
+            fireable = new ControlEvent(ControlEvent.Type.PLAYER_ACTION, IEvent.PLAYER_RELOAD, true, null);
+            break;
         }
 
         if(fireable != null)

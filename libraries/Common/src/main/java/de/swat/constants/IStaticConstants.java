@@ -20,5 +20,6 @@ public interface IStaticConstants
   public static final String DISABLE_FTP_SERVER = "disable FTP";
   public static final String BACK = "back";
   public static final String PAUSE = "II";
+  public static final String RELOAD = "reload";
 
 }

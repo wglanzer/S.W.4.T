@@ -6,7 +6,7 @@
         <key>texturePackerVersion</key>
         <string>3.3.4</string>
         <key>fileName</key>
-        <string>D:/Dateien/Projekt/S.W.4.T/FigurRecoil/recoil.tps</string>
+        <string>D:/Dateien/Projekt/S.W.4.T/Reload/reload.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -38,7 +38,7 @@
         <key>dataFormat</key>
         <string>libgdx</string>
         <key>textureFileName</key>
-        <filename>Recoil.png</filename>
+        <filename>reload.png</filename>
         <key>flipPVR</key>
         <false/>
         <key>ditherType</key>
@@ -131,7 +131,7 @@
             <key>data</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename>Recoil.txt</filename>
+                <filename>reload.txt</filename>
             </struct>
         </map>
         <key>multiPack</key>
@@ -150,7 +150,7 @@
         <key>trimSpriteNames</key>
         <false/>
         <key>cleanTransparentPixels</key>
-        <false/>
+        <true/>
         <key>globalSpriteSettings</key>
         <struct type="SpriteSettings">
             <key>scale</key>
@@ -172,14 +172,23 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>Bilder/recoil_0000.png</filename>
-            <filename>Bilder/recoil_0001.png</filename>
-            <filename>Bilder/recoil_0002.png</filename>
-            <filename>Bilder/recoil_0003.png</filename>
-            <filename>Bilder/recoil_0004.png</filename>
-            <filename>Bilder/recoil_0005.png</filename>
-            <filename>Bilder/recoil_0006.png</filename>
-            <filename>Bilder/recoil_0007.png</filename>
+            <filename>Bilder/reload_0000.png</filename>
+            <filename>Bilder/reload_0001.png</filename>
+            <filename>Bilder/reload_0002.png</filename>
+            <filename>Bilder/reload_0003.png</filename>
+            <filename>Bilder/reload_0004.png</filename>
+            <filename>Bilder/reload_0005.png</filename>
+            <filename>Bilder/reload_0006.png</filename>
+            <filename>Bilder/reload_0007.png</filename>
+            <filename>Bilder/reload_0008.png</filename>
+            <filename>Bilder/reload_0009.png</filename>
+            <filename>Bilder/reload_0010.png</filename>
+            <filename>Bilder/reload_0011.png</filename>
+            <filename>Bilder/reload_0012.png</filename>
+            <filename>Bilder/reload_0013.png</filename>
+            <filename>Bilder/reload_0014.png</filename>
+            <filename>Bilder/reload_0015.png</filename>
+            <filename>Bilder/reload_0016.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

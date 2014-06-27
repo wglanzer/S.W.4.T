@@ -5,7 +5,8 @@ package de.swat.common.gui.assets.keys;
  */
 public enum AnimationKey
 {
-  PLAYER_RECOIL("player/anim/recoil/recoil.txt", "recoil", 0.035f);
+  PLAYER_RECOIL("player/anim/recoil/recoil.txt", "recoil", 0.035f),
+  PLAYER_RELOAD("player/anim/reload/reload.txt", "reload", 0.045f);
 
   public final String path;
   public final String name;

@@ -3,51 +3,58 @@ format: RGBA8888
 filter: Linear,Linear
 repeat: none
 recoil
-  rotate: true
-  xy: 754, 190
-  size: 300, 186
-  orig: 512, 512
-  offset: 139, 161
+  rotate: false
+  xy: 2, 2
+  size: 412, 263
+  orig: 412, 263
+  offset: 0, 0
   index: 0
 recoil
-  rotate: true
-  xy: 566, 2
-  size: 324, 186
-  orig: 512, 512
-  offset: 139, 161
+  rotate: false
+  xy: 416, 2
+  size: 412, 263
+  orig: 412, 263
+  offset: 0, 0
   index: 1
 recoil
-  rotate: true
-  xy: 378, 2
-  size: 354, 186
-  orig: 512, 512
-  offset: 139, 161
+  rotate: false
+  xy: 830, 2
+  size: 412, 263
+  orig: 412, 263
+  offset: 0, 0
   index: 2
 recoil
-  rotate: true
-  xy: 190, 2
-  size: 354, 186
-  orig: 512, 512
-  offset: 139, 161
+  rotate: false
+  xy: 1244, 2
+  size: 412, 263
+  orig: 412, 263
+  offset: 0, 0
   index: 3
 recoil
-  rotate: true
-  xy: 2, 2
-  size: 354, 186
-  orig: 512, 512
-  offset: 139, 161
+  rotate: false
+  xy: 2, 267
+  size: 412, 263
+  orig: 412, 263
+  offset: 0, 0
   index: 4
 recoil
-  rotate: true
-  xy: 942, 190
-  size: 298, 186
-  orig: 512, 512
-  offset: 140, 161
+  rotate: false
+  xy: 416, 267
+  size: 412, 263
+  orig: 412, 263
+  offset: 0, 0
   index: 5
 recoil
   rotate: false
-  xy: 754, 2
-  size: 302, 186
-  orig: 512, 512
-  offset: 140, 161
+  xy: 830, 267
+  size: 412, 263
+  orig: 412, 263
+  offset: 0, 0
   index: 6
+recoil
+  rotate: false
+  xy: 1244, 267
+  size: 412, 263
+  orig: 412, 263
+  offset: 0, 0
+  index: 7

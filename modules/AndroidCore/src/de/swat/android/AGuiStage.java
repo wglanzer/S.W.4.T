@@ -32,7 +32,8 @@ public class AGuiStage extends AbstractStage
   public AGuiStage()
   {
     addActor(leftStick);
-    addActor(_createClickButton());
+    addActor(_createPauseButton());
+    addActor(_createReloadButton());
 
     leftStick.addListener(new ChangeListener()
     {
@@ -49,13 +50,37 @@ public class AGuiStage extends AbstractStage
   @Override
   public void resize(int pWidth, int pHeight)
   {
+    super.resize(pWidth, pHeight);
+
     // -- Größe des Linken Sticks
     int lSSize = (int) (pHeight * 0.35);
     leftStick.setBounds(10, 10, lSSize, lSSize);
     // ----
   }
 
-  private Button _createClickButton()
+  private Button _createReloadButton()
+  {
+    final GDXTextButton clickButton = new GDXTextButton(IStaticConstants.RELOAD, assets.getSkinDefault(), assets.getFont(), true, assets.getFontScale());
+    float height = (float) (getHeight() * 0.05);
+    float width = height * 32 / 9;
+    float x = getWidth() - width - 10;
+    float y = getHeight() - 210 - 10;
+
+    clickButton.setTextShader(assets.getShader(ShaderKey.FONT));
+    clickButton.setBounds(x, y, width, height);
+    clickButton.addListener(new ClickListener()
+    {
+      @Override
+      public void clicked(InputEvent event, float x, float y)
+      {
+        GlobalControlManager.getDefault().fireControlEvent(new ControlEvent(ControlEvent.Type.PLAYER_ACTION, IEvent.PLAYER_RELOAD, true, null));
+      }
+    });
+
+    return clickButton;
+  }
+
+  private Button _createPauseButton()
   {
     final GDXTextButton clickButton = new GDXTextButton(IStaticConstants.PAUSE, assets.getSkinDefault(), assets.getFont(), true, assets.getFontScale());
     float height = (float) (getHeight() * 0.05);

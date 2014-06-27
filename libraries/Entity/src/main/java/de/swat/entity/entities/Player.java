@@ -3,6 +3,9 @@ package de.swat.entity.entities;
 import de.swat.ControlEvent;
 import de.swat.GlobalControlManager;
 import de.swat.IControlListener;
+import de.swat.IEvent;
+import de.swat.common.gui.animation.Animation;
+import de.swat.common.gui.assets.keys.AnimationKey;
 import de.swat.common.gui.assets.keys.ResourceKey;
 import de.swat.entity.IControllable;
 import de.swat.entity.IMovableEntity;
@@ -46,6 +49,11 @@ public class Player extends BaseEntity implements IMovableEntity, IControllable
     GlobalControlManager.getDefault().removeControlListener(listener);
   }
 
+  public void reload()  //todo gehört in eine Weapon-Klasse ausgelagert
+  {
+    getArms().showAnimation(AnimationKey.PLAYER_RELOAD, Animation.PlayMode.HALT);
+  }
+
   private class _ControlListener implements IControlListener
   {
     public int moveX = 0;
@@ -69,7 +77,15 @@ public class Player extends BaseEntity implements IMovableEntity, IControllable
       }
       else if(pEvent.type.equals(ControlEvent.Type.PLAYER_ACTION))
       {
+        switch(pEvent.subType)
+        {
+          case IEvent.PLAYER_SHOOT:
+            break;
 
+          case IEvent.PLAYER_RELOAD:
+            reload();
+            break;
+        }
       }
 
       // Event wird noch gebraucht
