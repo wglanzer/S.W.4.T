@@ -111,4 +111,19 @@ public class AbstractEntity extends Actor implements IEntity, IActAndDrawable
 
     return null;
   }
+
+  /**
+   * Verschiebt den Spieler um die angegebenen Werte
+   */
+  public void translatePosition(float pX, float pY)
+  {
+    float x = getX();
+    float y = getY();
+    setPosition(x + pX, y + pY);
+  }
+
+  @Override
+  public void dispose()
+  {
+  }
 }

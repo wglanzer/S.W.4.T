@@ -1,9 +1,15 @@
 package de.swat.android;
 
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Touchpad;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import de.swat.ControlEvent;
+import de.swat.GlobalControlManager;
+import de.swat.IControlManager;
+import de.swat.IEvent;
 import de.swat.android.gui.controls.TouchpadImpl;
 import de.swat.common.gui.assets.keys.ShaderKey;
 import de.swat.common.gui.components.GDXTextButton;
@@ -27,6 +33,17 @@ public class AGuiStage extends AbstractStage
   {
     addActor(leftStick);
     addActor(_createClickButton());
+
+    leftStick.addListener(new ChangeListener()
+    {
+      private final IControlManager manager = GlobalControlManager.getDefault();
+
+      @Override
+      public void changed(ChangeEvent event, Actor actor)
+      {
+        manager.fireControlEvent(new ControlEvent(ControlEvent.Type.PLAYER_CONTROL, IEvent.PLAYER_MOVE, true, leftStick.getKnobPercentX(), leftStick.getKnobPercentY()));
+      }
+    });
   }
 
   @Override

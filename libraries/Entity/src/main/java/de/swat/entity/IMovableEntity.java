@@ -5,4 +5,7 @@ package de.swat.entity;
  */
 public interface IMovableEntity extends IEntity
 {
+
+  float getMoveSpeed();
+
 }

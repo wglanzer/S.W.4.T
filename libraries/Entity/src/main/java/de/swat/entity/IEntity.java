@@ -7,4 +7,7 @@ package de.swat.entity;
  */
 public interface IEntity
 {
+
+  void dispose(); // todo muss noch aufgerufen werden!
+
 }
