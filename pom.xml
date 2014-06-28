@@ -17,6 +17,7 @@
         <gwt.version>2.5.0</gwt.version>
         <gwt.maven.version>2.5.0</gwt.maven.version>
         <maven.build.timestamp.format>yyyyMMddHHmm</maven.build.timestamp.format>
+        <swat.exe.path>${project.build.directory}/S.W.4.T - V.${version} - ${maven.build.timestamp}.exe</swat.exe.path>
     </properties>
 
     <modules>

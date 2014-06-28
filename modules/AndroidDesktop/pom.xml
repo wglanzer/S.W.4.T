@@ -93,9 +93,7 @@
                                     <headerType>gui</headerType>
                                     <jar>${project.build.directory}/${artifactId}-${version}-jar-with-dependencies.jar
                                     </jar>
-                                    <outfile>${project.build.directory}/S.W.4.T - V.${version} -
-                                        ${maven.build.timestamp}.exe
-                                    </outfile>
+                                    <outfile>${swat.exe.path}</outfile>
                                     <downloadUrl>http://java.com/download</downloadUrl>
                                     <classPath>
                                         <mainClass>de.swat.android.desktop.DesktopStarter</mainClass>
@@ -115,8 +113,34 @@
                                         <productName>${project.name}</productName>
                                         <companyName>S.W.4.T - DevTeam</companyName>
                                         <internalName>S.W.4.T</internalName>
-                                        <originalFilename>S.W.4.T - Game - V.${version}.exe</originalFilename>
+                                        <originalFilename>S.W.4.T - V.${version} - ${maven.build.timestamp}.exe</originalFilename>
                                     </versionInfo>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>assembly-Deploy-Werner</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <version>1.1</version>
+                        <executions>
+                            <execution>
+                                <phase>install</phase>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                                <configuration>
+                                    <tasks>
+                                        <echo>Kopieren der .exe nach: </echo>
+                                        <copy file="${swat.exe.path}" tofile="C:/Users/werne_000/Google Drive/S.W.4.T - Builds/${version}/S.W.4.T - V.${version} - ${maven.build.timestamp}.exe"/>
+                                    </tasks>
                                 </configuration>
                             </execution>
                         </executions>

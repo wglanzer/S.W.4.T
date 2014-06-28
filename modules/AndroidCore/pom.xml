@@ -118,15 +118,45 @@
                 </configuration>
                 <extensions>true</extensions>
                 <!--<executions>-->
-                    <!--<execution>-->
-                        <!--<id>deploy-on-install</id>-->
-                        <!--<phase>install</phase>-->
-                        <!--<goals>-->
-                            <!--<goal>deploy</goal>-->
-                        <!--</goals>-->
-                    <!--</execution>-->
+                <!--<execution>-->
+                <!--<id>deploy-on-install</id>-->
+                <!--<phase>install</phase>-->
+                <!--<goals>-->
+                <!--<goal>deploy</goal>-->
+                <!--</goals>-->
+                <!--</execution>-->
                 <!--</executions>-->
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>assembly-Deploy-Werner</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <version>1.1</version>
+                        <executions>
+                            <execution>
+                                <phase>install</phase>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                                <configuration>
+                                    <tasks>
+                                        <echo>Kopieren der .apk nach:</echo>
+                                        <copy file="${basedir}/target/AndroidCore-${version}.apk"
+                                              tofile="C:/Users/werne_000/Google Drive/S.W.4.T - Builds/${version}/S.W.4.T - Android - V.${version} - ${maven.build.timestamp}.apk"/>
+                                    </tasks>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
