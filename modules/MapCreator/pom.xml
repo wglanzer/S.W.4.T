@@ -68,7 +68,7 @@
 
     <profiles>
         <profile>
-            <id>assembly</id>
+            <id>assembly-MapCreator</id>
             <build>
                 <plugins>
                     <plugin>

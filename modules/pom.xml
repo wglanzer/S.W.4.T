@@ -17,13 +17,13 @@
 
     <profiles>
         <profile>
-            <id>android</id>
+            <id>androidStarter</id>
             <modules>
                 <module>AndroidCore</module>
             </modules>
         </profile>
         <profile>
-            <id>desktop</id>
+            <id>desktopStarter</id>
             <modules>
                 <module>AndroidDesktop</module>
             </modules>
