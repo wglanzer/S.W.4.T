@@ -24,6 +24,9 @@
         </profile>
         <profile>
             <id>desktopStarter</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
             <modules>
                 <module>AndroidDesktop</module>
             </modules>
