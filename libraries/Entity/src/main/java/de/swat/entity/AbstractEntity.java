@@ -52,6 +52,18 @@ public class AbstractEntity extends Actor implements IEntity, IActAndDrawable
    */
   public void showAnimation(AnimationKey pKey, Animation.PlayMode pMode)
   {
+    showAnimation(pKey, pMode, 0);
+  }
+
+  /**
+   * Zeichnet eine Animation
+   *
+   * @param pKey  Schlüssel, welche Animation verwendet werden soll,
+   *              <tt>null</tt>, wenn die Animation abgebrochen werden soll
+   * @param pMode Mode, in dem die Animation abgespielt wird
+   */
+  public void showAnimation(AnimationKey pKey, Animation.PlayMode pMode, float pTimeBetweenLoop)
+  {
     if(pKey == null && drawable instanceof Animation)
     {
       ((Animation) drawable).stop();
@@ -60,6 +72,7 @@ public class AbstractEntity extends Actor implements IEntity, IActAndDrawable
     {
       Animation anim = CorePreferences.getAssets().getAnimation(pKey);
       anim.setPlayMode(pMode);
+      anim.setTimeBetweenLoops(pTimeBetweenLoop);
       anim.setListener(new AnimationAdapter()
       {
         private final IActAndDrawable lastDrawable = drawable;

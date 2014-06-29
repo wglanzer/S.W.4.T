@@ -23,6 +23,8 @@ public class Animation implements IActAndDrawable
   private PlayMode playMode = PlayMode.HALT;
   private boolean showNextAnimation;
   private IAnimationListener listener;
+  private float timeBetweenLoops = 0;
+  private float timeBetweenLoopTimeCounter = 0;
 
   /**
    * Erstellt eine neue Animation
@@ -65,6 +67,17 @@ public class Animation implements IActAndDrawable
   public void setPlayMode(PlayMode pMode)
   {
     playMode = pMode;
+  }
+
+  /**
+   * Setzt die Zeit die zwischen den Loops
+   * gewartet werden soll, wenn auf PlayMode.Loop gestellt ist
+   *
+   * @param pTimeBetweenLoops Zeit in Millisekunden
+   */
+  public void setTimeBetweenLoops(float pTimeBetweenLoops)
+  {
+    timeBetweenLoops = pTimeBetweenLoops / 1000f;
   }
 
   /**
@@ -114,10 +127,16 @@ public class Animation implements IActAndDrawable
       {
         if(playMode.equals(PlayMode.LOOP) || showNextAnimation)
         {
-          currentFrame = 0;
-          elapsed = 0f;
-          if(showNextAnimation)
-            showNextAnimation = false;
+          if(timeBetweenLoopTimeCounter >= timeBetweenLoops)
+          {
+            timeBetweenLoopTimeCounter = 0;
+            currentFrame = 0;
+            elapsed = 0f;
+            if(showNextAnimation)
+              showNextAnimation = false;
+          }
+          else
+            timeBetweenLoopTimeCounter += pDelta;
         }
         else
           listener.animationStopped();

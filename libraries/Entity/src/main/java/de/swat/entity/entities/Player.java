@@ -1,23 +1,23 @@
 package de.swat.entity.entities;
 
-import de.swat.ControlEvent;
-import de.swat.GlobalControlManager;
-import de.swat.IControlListener;
-import de.swat.IEvent;
+import de.swat.*;
 import de.swat.common.gui.animation.Animation;
 import de.swat.common.gui.assets.keys.AnimationKey;
 import de.swat.common.gui.assets.keys.ResourceKey;
 import de.swat.entity.IControllable;
 import de.swat.entity.IMovableEntity;
+import de.swat.entity.IWeaponable;
+import de.swat.entity.weapons.Weapon_P2000;
 
 /**
  * Spieler
  *
  * @author W.Glanzer, 03.06.2014.
  */
-public class Player extends BaseEntity implements IMovableEntity, IControllable
+public class Player extends BaseEntity implements IMovableEntity, IControllable, IWeaponable
 {
   private final _ControlListener listener = new _ControlListener();
+  private IWeapon weapon = new Weapon_P2000();
 
   public Player()
   {
@@ -31,6 +31,12 @@ public class Player extends BaseEntity implements IMovableEntity, IControllable
   public float getMoveSpeed()
   {
     return 100f;
+  }
+
+  @Override
+  public IWeapon getCurrentWeapon()
+  {
+    return weapon;
   }
 
   @Override
@@ -81,7 +87,7 @@ public class Player extends BaseEntity implements IMovableEntity, IControllable
         {
           case IEvent.PLAYER_SHOOT:
             if(pEvent.isActivated)
-              getArms().showAnimation(AnimationKey.PLAYER_RECOIL, Animation.PlayMode.LOOP);
+              getArms().showAnimation(AnimationKey.PLAYER_RECOIL, Animation.PlayMode.LOOP, 1000f / getCurrentWeapon().getFirerate());
             else
             {
               Animation anim = getArms().getAnimation();
