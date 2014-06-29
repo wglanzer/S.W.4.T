@@ -189,6 +189,16 @@
             <filename>Bilder/reload_0014.png</filename>
             <filename>Bilder/reload_0015.png</filename>
             <filename>Bilder/reload_0016.png</filename>
+            <filename>Bilder/reload_0017.png</filename>
+            <filename>Bilder/reload_0018.png</filename>
+            <filename>Bilder/reload_0019.png</filename>
+            <filename>Bilder/reload_0020.png</filename>
+            <filename>Bilder/reload_0021.png</filename>
+            <filename>Bilder/reload_0022.png</filename>
+            <filename>Bilder/reload_0023.png</filename>
+            <filename>Bilder/reload_0024.png</filename>
+            <filename>Bilder/reload_0025.png</filename>
+            <filename>Bilder/reload_0026.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
