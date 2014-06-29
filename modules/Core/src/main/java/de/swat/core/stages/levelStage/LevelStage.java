@@ -1,15 +1,10 @@
 package de.swat.core.stages.levelStage;
 
 import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import de.swat.ControlEvent;
 import de.swat.GlobalControlManager;
 import de.swat.IControlListener;
-import de.swat.common.gui.animation.Animation;
-import de.swat.common.gui.assets.keys.AnimationKey;
 import de.swat.common.stages.AbstractStage;
-import de.swat.common.stages.StageHandler;
 import de.swat.entity.entities.Player;
 
 /**
@@ -29,23 +24,6 @@ public class LevelStage extends AbstractStage
     addActor(player);
     GlobalControlManager.getDefault().addControlListener(listener);
     player.setPosition(getWidth() / 2, getHeight() / 2);
-    StageHandler.CONTROLSTAGE.addListener(new ClickListener()
-    {
-      @Override
-      public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
-      {
-        player.getArms().showAnimation(AnimationKey.PLAYER_RECOIL, Animation.PlayMode.LOOP);
-        return true;
-      }
-
-      @Override
-      public void touchUp(InputEvent event, float x, float y, int pointer, int button)
-      {
-        Animation anim = player.getArms().getAnimation();
-        if(anim != null)
-          anim.stop();
-      }
-    });
   }
 
   @Override

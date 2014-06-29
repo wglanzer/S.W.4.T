@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Touchpad;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Array;
 import de.swat.ControlEvent;
 import de.swat.GlobalControlManager;
 import de.swat.IControlManager;
@@ -43,6 +44,29 @@ public class AGuiStage extends AbstractStage
       public void changed(ChangeEvent event, Actor actor)
       {
         manager.fireControlEvent(new ControlEvent(ControlEvent.Type.PLAYER_CONTROL, IEvent.PLAYER_MOVE, true, leftStick.getKnobPercentX(), leftStick.getKnobPercentY()));
+      }
+    });
+
+    addListener(new ClickListener()
+    {
+      @Override
+      public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
+      {
+        Array<Actor> actors = getActors();
+        for(Actor currActor : actors)
+        {
+          if(isOver(currActor, x, y))
+            return false;
+        }
+
+        GlobalControlManager.getDefault().fireControlEvent(new ControlEvent(ControlEvent.Type.PLAYER_ACTION, IEvent.PLAYER_SHOOT, true, null));
+        return false;
+      }
+
+      @Override
+      public void touchUp(InputEvent event, float x, float y, int pointer, int button)
+      {
+        GlobalControlManager.getDefault().fireControlEvent(new ControlEvent(ControlEvent.Type.PLAYER_ACTION, IEvent.PLAYER_SHOOT, false, null));
       }
     });
   }

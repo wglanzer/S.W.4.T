@@ -1,9 +1,12 @@
 package de.swat.android.desktop;
 
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Array;
 import de.swat.ControlEvent;
 import de.swat.GlobalControlManager;
 import de.swat.IControlManager;
@@ -14,6 +17,8 @@ import de.swat.common.stages.AbstractStage;
 import de.swat.common.stages.StageHandler;
 import de.swat.constants.IStaticConstants;
 import de.swat.core.stages.pauseStage.PauseStage;
+
+import java.awt.*;
 
 /**
  * Stage für die Desktop-Gui
@@ -31,6 +36,38 @@ public class GuiStage extends AbstractStage
     addListener(new InputListener()
     {
       private final IControlManager manager = GlobalControlManager.getDefault();
+
+      @Override
+      public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
+      {
+        switch(button)
+        {
+          case Input.Buttons.LEFT:
+            Array<Actor> actors = getActors();
+            for(Actor currActor : actors)
+            {
+              Rectangle.Float rect = new Rectangle.Float(currActor.getX(), currActor.getY(), currActor.getWidth(), currActor.getHeight());
+              if(rect.contains(x, y))
+                return false;
+            }
+
+            GlobalControlManager.getDefault().fireControlEvent(new ControlEvent(ControlEvent.Type.PLAYER_ACTION, IEvent.PLAYER_SHOOT, true, null));
+            return true;
+        }
+
+        return false;
+      }
+
+      @Override
+      public void touchUp(InputEvent event, float x, float y, int pointer, int button)
+      {
+        switch(button)
+        {
+          case Input.Buttons.LEFT:
+            GlobalControlManager.getDefault().fireControlEvent(new ControlEvent(ControlEvent.Type.PLAYER_ACTION, IEvent.PLAYER_SHOOT, false, null));
+            break;
+        }
+      }
 
       @Override
       public boolean keyDown(InputEvent event, int keycode)

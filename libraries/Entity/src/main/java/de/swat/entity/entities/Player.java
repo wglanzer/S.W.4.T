@@ -80,6 +80,14 @@ public class Player extends BaseEntity implements IMovableEntity, IControllable
         switch(pEvent.subType)
         {
           case IEvent.PLAYER_SHOOT:
+            if(pEvent.isActivated)
+              getArms().showAnimation(AnimationKey.PLAYER_RECOIL, Animation.PlayMode.LOOP);
+            else
+            {
+              Animation anim = getArms().getAnimation();
+              if(anim != null)
+                anim.stop();
+            }
             break;
 
           case IEvent.PLAYER_RELOAD:
