@@ -70,6 +70,19 @@ public class GuiStage extends AbstractStage
       }
 
       @Override
+      public void touchDragged(InputEvent event, float x, float y, int pointer)
+      {
+        manager.fireControlEvent(new ControlEvent(ControlEvent.Type.PLAYER_CONTROL, IEvent.PLAYER_ROTATE, true, x, y));
+      }
+
+      @Override
+      public boolean mouseMoved(InputEvent event, float x, float y)
+      {
+        manager.fireControlEvent(new ControlEvent(ControlEvent.Type.PLAYER_CONTROL, IEvent.PLAYER_ROTATE, true, x, y));
+        return false;
+      }
+
+      @Override
       public boolean keyDown(InputEvent event, int keycode)
       {
         ControlEvent fireable = null;

@@ -146,6 +146,19 @@ public class MapSubLayer implements IActAndDrawable, ITreeable
       currComp.draw(pBatch, pParentAlpha, pX, pY, pWidth, pHeight);
   }
 
+  @Override
+  public float getRotation()
+  {
+    throw new UnsupportedOperationException();
+  }
+
+  @Override
+  public void setRotation(float pDegrees)
+  {
+    for(IMapComponent currComp : allComponents)
+      currComp.setRotation(pDegrees);
+  }
+
   /**
    * Liefert alle MapKomponenten zurück, die der Layer besitzt.
    *

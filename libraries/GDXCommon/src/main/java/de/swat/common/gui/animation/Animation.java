@@ -25,6 +25,7 @@ public class Animation implements IActAndDrawable
   private IAnimationListener listener;
   private float timeBetweenLoops = 0;
   private float timeBetweenLoopTimeCounter = 0;
+  private float rotation = 0f;
 
   /**
    * Erstellt eine neue Animation
@@ -150,8 +151,22 @@ public class Animation implements IActAndDrawable
     {
       Sprite sprite = skeleton.get(currentFrame);
       sprite.setBounds(pX, pY, pWidth, pHeight);
+      sprite.setOriginCenter();
+      sprite.setRotation(rotation);
       sprite.draw(batch);
     }
+  }
+
+  @Override
+  public float getRotation()
+  {
+    return rotation;
+  }
+
+  @Override
+  public void setRotation(float pDegrees)
+  {
+    rotation = pDegrees;
   }
 
   public void setListener(IAnimationListener pListener)

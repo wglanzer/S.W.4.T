@@ -105,4 +105,17 @@ public class MapLayer implements IActAndDrawable, ITreeable
     for(MapSubLayer currSubLayer : subLayers)
       currSubLayer.draw(pBatch, pParentAlpha, pX, pY, pWidth, pHeight);
   }
+
+  @Override
+  public float getRotation()
+  {
+    throw new UnsupportedOperationException();
+  }
+
+  @Override
+  public void setRotation(float pDegrees)
+  {
+    for(MapSubLayer currSubLayer : subLayers)
+      currSubLayer.setRotation(pDegrees);
+  }
 }

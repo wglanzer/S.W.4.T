@@ -9,6 +9,8 @@ import de.swat.entity.IMovableEntity;
 import de.swat.entity.IWeaponable;
 import de.swat.entity.weapons.Weapon_P2000;
 
+import java.util.Arrays;
+
 /**
  * Spieler
  *
@@ -60,6 +62,35 @@ public class Player extends BaseEntity implements IMovableEntity, IControllable,
     getArms().showAnimation(AnimationKey.PLAYER_RELOAD, Animation.PlayMode.HALT);
   }
 
+  public void lookToPoint(float pX, float pY)
+  {
+    float stageWidth = getStage().getWidth();
+    float stageHeight = getStage().getHeight();
+
+    float newRot = getRotation();
+
+    if(stageWidth / 2 - pX < 0)
+      newRot = (float) Math.toDegrees(Math.atan((double) (stageHeight / 2 - pY) / (double) (pX - stageWidth / 2)));
+
+    else if(stageWidth / 2 - pX > 0)
+      newRot = 180 + (float) Math.toDegrees(Math.atan((double) (pY - stageHeight / 2) / (double) (stageWidth / 2 - pX)));
+
+    else
+    {
+      if(stageHeight / 2 - pY < 0)
+        newRot = 90F;
+
+      else if(stageHeight / 2 - pY > 0)
+        newRot = -90F;
+
+    }
+
+    if(newRot < 0)
+      newRot += 360;
+
+    setRotation(-newRot);
+  }
+
   private class _ControlListener implements IControlListener
   {
     public int moveX = 0;
@@ -68,17 +99,31 @@ public class Player extends BaseEntity implements IMovableEntity, IControllable,
     @Override
     public boolean dispatchControlEvent(ControlEvent pEvent)
     {
+      float[] modificators = pEvent.modificator;
+
       if(pEvent.type.equals(ControlEvent.Type.PLAYER_CONTROL))
       {
-        if(pEvent.isActivated)
+        switch(pEvent.subType)
         {
-          moveX += pEvent.modificator[0];
-          moveY += pEvent.modificator[1];
-        }
-        else
-        {
-          moveX -= pEvent.modificator[0];
-          moveY -= pEvent.modificator[1];
+          case IEvent.PLAYER_MOVE:
+            if(pEvent.isActivated)
+            {
+              moveX += modificators[0];
+              moveY += modificators[1];
+            }
+            else
+            {
+              moveX -= modificators[0];
+              moveY -= modificators[1];
+            }
+            break;
+
+          case IEvent.PLAYER_ROTATE:
+            if(modificators.length == 2)
+              lookToPoint(modificators[0], modificators[1]);
+            else
+              throw new IllegalArgumentException("Modificators not valid! modificators=" + Arrays.toString(modificators));
+            break;
         }
       }
       else if(pEvent.type.equals(ControlEvent.Type.PLAYER_ACTION))

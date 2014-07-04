@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Camera;
 import de.swat.ControlEvent;
 import de.swat.GlobalControlManager;
 import de.swat.IControlListener;
+import de.swat.IEvent;
 import de.swat.common.stages.AbstractStage;
 import de.swat.entity.entities.Player;
 
@@ -61,15 +62,20 @@ public class LevelStage extends AbstractStage
     {
       if(pEvent.type.equals(ControlEvent.Type.PLAYER_CONTROL))
       {
-        if(pEvent.isActivated)
+        switch(pEvent.subType)
         {
-          moveX += pEvent.modificator[0];
-          moveY += pEvent.modificator[1];
-        }
-        else
-        {
-          moveX -= pEvent.modificator[0];
-          moveY -= pEvent.modificator[1];
+          case IEvent.PLAYER_MOVE:
+            if(pEvent.isActivated)
+            {
+              moveX += pEvent.modificator[0];
+              moveY += pEvent.modificator[1];
+            }
+            else
+            {
+              moveX -= pEvent.modificator[0];
+              moveY -= pEvent.modificator[1];
+            }
+            break;
         }
       }
 

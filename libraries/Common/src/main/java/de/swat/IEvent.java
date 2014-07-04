@@ -22,4 +22,11 @@ public interface IEvent
    * Gibt an, dass der Player nachladen soll
    */
   public static final String PLAYER_RELOAD = "player_reload";
+
+  /**
+   * Gibt an, dass sich der Spieler um seine Achse drehen soll.
+   * Als Parameter werden hier erwartet, wo die "Maus" sich gerade befindet /
+   * wo der Spieler hinschauen soll.
+   */
+  public static final String PLAYER_ROTATE = "player_rotate";
 }

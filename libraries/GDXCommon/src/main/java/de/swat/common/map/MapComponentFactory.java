@@ -68,6 +68,17 @@ public class MapComponentFactory
       }
 
       @Override
+      public void setRotation(float pDegrees)
+      {
+      }
+
+      @Override
+      public float getRotation()
+      {
+        return 0;
+      }
+
+      @Override
       public MutableTreeNode getNode()
       {
         return new DefaultMutableTreeNode("COMPONENTE: " + getZIndex());

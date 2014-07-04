@@ -3,6 +3,7 @@ package de.swat.common.gui.components;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import de.swat.common.IActAndDrawable;
 import org.jetbrains.annotations.Nullable;
 
@@ -14,19 +15,21 @@ import org.jetbrains.annotations.Nullable;
 public class DrawableImage implements IActAndDrawable
 {
 
-  private Texture texture;
+  private TextureRegion texture;
 
   private float width = 0;
   private float height = 0;
+  private float rotation = 0f;
 
   public DrawableImage(@Nullable FileHandle pFileHandle)
   {
     if(pFileHandle != null)
     {
-      texture = new Texture(pFileHandle);
-      texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-      width = texture.getWidth();
-      height = texture.getHeight();
+      Texture tex = new Texture(pFileHandle);
+      tex.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+      width = tex.getWidth();
+      height = tex.getHeight();
+      texture = new TextureRegion(tex);
     }
   }
 
@@ -38,17 +41,25 @@ public class DrawableImage implements IActAndDrawable
   @Override
   public void draw(Batch pBatch, float pParentAlpha, float pX, float pY, float pWidth, float pHeight)
   {
-    pBatch.draw(texture, pX, pY, pWidth, pHeight);
+    pBatch.draw(texture, pX, pY, pWidth/2, pHeight/2, pWidth, pHeight, 1f, 1f, rotation);
   }
 
   public float getWidth()
   {
     return width;
+  }  @Override
+  public void setRotation(float pDegrees)
+  {
+    rotation = pDegrees;
   }
 
   public void setWidth(float pWidth)
   {
     width = pWidth;
+  }  @Override
+  public float getRotation()
+  {
+    return rotation;
   }
 
   public float getHeight()
@@ -60,4 +71,8 @@ public class DrawableImage implements IActAndDrawable
   {
     height = pHeight;
   }
+
+
+
+
 }

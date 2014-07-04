@@ -19,4 +19,15 @@ public interface IDrawable
    */
   void draw(Batch pBatch, float pParentAlpha, float pX, float pY, float pWidth, float pHeight);
 
+  /**
+   * @return Liefert die Rotation des Drawables
+   */
+  float getRotation();
+
+  /**
+   * Setzt die Rotation des Drawables.
+   *
+   * @param pDegrees  Degrees, um die gedreht werden soll
+   */
+  void setRotation(float pDegrees);
 }

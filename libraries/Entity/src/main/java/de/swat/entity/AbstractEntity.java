@@ -80,6 +80,7 @@ public class AbstractEntity extends Actor implements IEntity, IActAndDrawable
         @Override
         public void animationStopped()
         {
+          lastDrawable.setRotation(drawable.getRotation());
           drawable = lastDrawable;
         }
       });
@@ -110,6 +111,20 @@ public class AbstractEntity extends Actor implements IEntity, IActAndDrawable
     super.act(pDelta);
     if(drawable != null)
       drawable.act(pDelta);
+  }
+
+  @Override
+  public float getRotation()
+  {
+    return super.getRotation();
+  }
+
+  @Override
+  public void setRotation(float degrees)
+  {
+    super.setRotation(degrees);
+    if(drawable != null)
+      drawable.setRotation(degrees);
   }
 
   /**

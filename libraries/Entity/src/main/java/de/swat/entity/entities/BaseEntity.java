@@ -52,6 +52,16 @@ public class BaseEntity extends AbstractEntity
   }
 
   @Override
+  public void setRotation(float degrees)
+  {
+    super.setRotation(degrees);
+    getArms().setRotation(degrees);
+    getLegs().setRotation(degrees);
+    getHead().setRotation(degrees);
+    getTorso().setRotation(degrees);
+  }
+
+  @Override
   public void setPosition(float x, float y)
   {
     super.setPosition(x, y);
