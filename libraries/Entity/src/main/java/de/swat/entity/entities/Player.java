@@ -9,6 +9,7 @@ import de.swat.entity.IMovableEntity;
 import de.swat.entity.IWeaponable;
 import de.swat.entity.weapons.Weapon_P2000;
 
+import java.awt.*;
 import java.util.Arrays;
 
 /**
@@ -18,6 +19,7 @@ import java.util.Arrays;
  */
 public class Player extends BaseEntity implements IMovableEntity, IControllable, IWeaponable
 {
+  private static final Point ORIGIN = new Point(114, 137);
   private final _ControlListener listener = new _ControlListener();
   private IWeapon weapon = new Weapon_P2000();
 
@@ -27,6 +29,7 @@ public class Player extends BaseEntity implements IMovableEntity, IControllable,
         assets.getResource(ResourceKey.PLAYER_TORSO), assets.getResource(ResourceKey.PLAYER_LEGS), assets.getResource(ResourceKey.WEAPON_P99));
     GlobalControlManager.getDefault().addControlListener(listener);
     setScale(0.5f);
+    setOrigin(ORIGIN.x, ORIGIN.y);
   }
 
   @Override
@@ -78,10 +81,10 @@ public class Player extends BaseEntity implements IMovableEntity, IControllable,
     else
     {
       if(stageHeight / 2 - pY < 0)
-        newRot = 90F;
+        newRot = -90F;
 
       else if(stageHeight / 2 - pY > 0)
-        newRot = -90F;
+        newRot = 90F;
 
     }
 

@@ -55,10 +55,10 @@ public class BaseEntity extends AbstractEntity
   public void setRotation(float degrees)
   {
     super.setRotation(degrees);
-    getArms().setRotation(degrees);
-    getLegs().setRotation(degrees);
-    getHead().setRotation(degrees);
-    getTorso().setRotation(degrees);
+    arms.setRotation(degrees);
+    legs.setRotation(degrees);
+    head.setRotation(degrees);
+    torso.setRotation(degrees);
   }
 
   @Override
@@ -79,6 +79,16 @@ public class BaseEntity extends AbstractEntity
     arms.setSize(width, height);
     torso.setSize(width, height);
     head.setSize(width, height);
+  }
+
+  @Override
+  public void setOrigin(float originX, float originY)
+  {
+    super.setOrigin(originX, originY);
+    legs.setOrigin(originX, originY);
+    arms.setOrigin(originX, originY);
+    head.setOrigin(originX, originY);
+    torso.setOrigin(originX, originY);
   }
 
   @Override

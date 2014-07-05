@@ -41,25 +41,35 @@ public class DrawableImage implements IActAndDrawable
   @Override
   public void draw(Batch pBatch, float pParentAlpha, float pX, float pY, float pWidth, float pHeight)
   {
-    pBatch.draw(texture, pX, pY, pWidth/2, pHeight/2, pWidth, pHeight, 1f, 1f, rotation);
+    draw(pBatch, pParentAlpha, pX, pY, pWidth / 2, pHeight / 2, pWidth, pHeight);
   }
 
-  public float getWidth()
+  @Override
+  public void draw(Batch pBatch, float pParentAlpha, float pX, float pY, float pOriginX, float pOriginY, float pWidth, float pHeight)
   {
-    return width;
-  }  @Override
+    pBatch.draw(texture, pX, pY, pOriginX, pOriginY, pWidth, pHeight, 1f, 1f, rotation);
+  }
+
+  @Override
+  public float getRotation()
+  {
+    return rotation;
+  }
+
+  @Override
   public void setRotation(float pDegrees)
   {
     rotation = pDegrees;
   }
 
+  public float getWidth()
+  {
+    return width;
+  }
+
   public void setWidth(float pWidth)
   {
     width = pWidth;
-  }  @Override
-  public float getRotation()
-  {
-    return rotation;
   }
 
   public float getHeight()
@@ -71,8 +81,5 @@ public class DrawableImage implements IActAndDrawable
   {
     height = pHeight;
   }
-
-
-
 
 }

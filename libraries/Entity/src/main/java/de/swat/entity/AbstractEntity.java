@@ -73,6 +73,7 @@ public class AbstractEntity extends Actor implements IEntity, IActAndDrawable
       Animation anim = CorePreferences.getAssets().getAnimation(pKey);
       anim.setPlayMode(pMode);
       anim.setTimeBetweenLoops(pTimeBetweenLoop);
+      anim.setRotation(drawable.getRotation());
       anim.setListener(new AnimationAdapter()
       {
         private final IActAndDrawable lastDrawable = drawable;
@@ -91,18 +92,26 @@ public class AbstractEntity extends Actor implements IEntity, IActAndDrawable
   @Override
   public void draw(Batch batch, float parentAlpha, float pX, float pY, float pWidth, float pHeight)
   {
+    draw(batch, parentAlpha, pX, pY, pWidth/2, pHeight/2, pWidth, pHeight);
+  }
+
+  @Override
+  public void draw(Batch pBatch, float pParentAlpha, float pX, float pY, float pOriginX, float pOriginY, float pWidth, float pHeight)
+  {
     if(drawable != null)
     {
-      float width = pWidth * getScaleX();
-      float height = pHeight * getScaleY();
-      drawable.draw(batch, parentAlpha, pX - width / 2, pY - height / 2, width, height);
+      float scaleX = getScaleX();
+      float scaleY = getScaleY();
+      float width = pWidth * scaleX;
+      float height = pHeight * scaleY;
+      drawable.draw(pBatch, pParentAlpha, pX - width / 2, pY - height / 2, pOriginX * scaleX, pOriginY * scaleY, width, height);
     }
   }
 
   @Override
   public void draw(Batch batch, float parentAlpha)
   {
-    draw(batch, parentAlpha, getX(), getY(), getWidth(), getHeight());
+    draw(batch, parentAlpha, getX(), getY(), getOriginX(), getOriginY(), getWidth(), getHeight());
   }
 
   @Override

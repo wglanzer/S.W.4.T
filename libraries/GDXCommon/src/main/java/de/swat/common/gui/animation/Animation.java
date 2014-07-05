@@ -147,13 +147,19 @@ public class Animation implements IActAndDrawable
 
   public void draw(Batch batch, float parentAlpha, float pX, float pY, float pWidth, float pHeight)
   {
+    draw(batch, parentAlpha, pX, pY, pWidth/2, pHeight/2, pWidth, pHeight);
+  }
+
+  @Override
+  public void draw(Batch pBatch, float pParentAlpha, float pX, float pY, float pOriginX, float pOriginY, float pWidth, float pHeight)
+  {
     if(skeleton != null)
     {
       Sprite sprite = skeleton.get(currentFrame);
       sprite.setBounds(pX, pY, pWidth, pHeight);
-      sprite.setOriginCenter();
+      sprite.setOrigin(pOriginX, pOriginY);
       sprite.setRotation(rotation);
-      sprite.draw(batch);
+      sprite.draw(pBatch);
     }
   }
 

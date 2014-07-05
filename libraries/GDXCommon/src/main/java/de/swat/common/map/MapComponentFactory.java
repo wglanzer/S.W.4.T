@@ -68,6 +68,11 @@ public class MapComponentFactory
       }
 
       @Override
+      public void draw(Batch pBatch, float pParentAlpha, float pX, float pY, float pOriginX, float pOriginY, float pWidth, float pHeight)
+      {
+      }
+
+      @Override
       public void setRotation(float pDegrees)
       {
       }
