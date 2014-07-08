@@ -17,15 +17,6 @@ public interface IDrawable
    * @param pBatch        Batch, auf das gezeichnet werden soll
    * @param pParentAlpha  Alpha-Wert des Parents des Objektes
    */
-  void draw(Batch pBatch, float pParentAlpha, float pX, float pY, float pWidth, float pHeight);
-
-  /**
-   * Wird aufgerufen, wenn sich das Objekt
-   * auf das SpriteBatch zeichnen soll.
-   *
-   * @param pBatch        Batch, auf das gezeichnet werden soll
-   * @param pParentAlpha  Alpha-Wert des Parents des Objektes
-   */
   void draw(Batch pBatch, float pParentAlpha, float pX, float pY, float pOriginX, float pOriginY, float pWidth, float pHeight);
 
   /**

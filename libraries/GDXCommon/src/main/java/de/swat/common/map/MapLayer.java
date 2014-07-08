@@ -100,13 +100,6 @@ public class MapLayer implements IActAndDrawable, ITreeable
   }
 
   @Override
-  public void draw(Batch pBatch, float pParentAlpha, float pX, float pY, float pWidth, float pHeight)
-  {
-    for(MapSubLayer currSubLayer : subLayers)
-      currSubLayer.draw(pBatch, pParentAlpha, pX, pY, pWidth, pHeight);
-  }
-
-  @Override
   public void draw(Batch pBatch, float pParentAlpha, float pX, float pY, float pOriginX, float pOriginY, float pWidth, float pHeight)
   {
     for(MapSubLayer currSubLayer : subLayers)

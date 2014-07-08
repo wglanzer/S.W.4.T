@@ -14,6 +14,5 @@ public interface IActAndDrawable extends IDrawable, IActable
   void act(float pDelta);
 
   @Override
-  void draw(Batch pBatch, float pParentAlpha, float pX, float pY, float pWidth, float pHeight);
-
+  void draw(Batch pBatch, float pParentAlpha, float pX, float pY, float pOriginX, float pOriginY, float pWidth, float pHeight);
 }

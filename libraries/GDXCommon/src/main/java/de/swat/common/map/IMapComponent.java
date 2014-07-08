@@ -30,11 +30,4 @@ public interface IMapComponent extends IActAndDrawable, ITreeable
    */
   IXMLComponent toXML();
 
-  /**
-   * Umwandlung aus einer XMLKomponente
-   *
-   * @param pComponent  XMLKomponente
-   */
-  void fromXML(IXMLComponent pComponent);
-
 }

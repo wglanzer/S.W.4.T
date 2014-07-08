@@ -39,12 +39,6 @@ public class DrawableImage implements IActAndDrawable
   }
 
   @Override
-  public void draw(Batch pBatch, float pParentAlpha, float pX, float pY, float pWidth, float pHeight)
-  {
-    draw(pBatch, pParentAlpha, pX, pY, pWidth / 2, pHeight / 2, pWidth, pHeight);
-  }
-
-  @Override
   public void draw(Batch pBatch, float pParentAlpha, float pX, float pY, float pOriginX, float pOriginY, float pWidth, float pHeight)
   {
     pBatch.draw(texture, pX, pY, pOriginX, pOriginY, pWidth, pHeight, 1f, 1f, rotation);

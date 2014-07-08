@@ -53,17 +53,7 @@ public class MapComponentFactory
       }
 
       @Override
-      public void fromXML(IXMLComponent pComponent)
-      {
-      }
-
-      @Override
       public void act(float pDelta)
-      {
-      }
-
-      @Override
-      public void draw(Batch pBatch, float pParentAlpha, float pX, float pY, float pWidth, float pHeight)
       {
       }
 
