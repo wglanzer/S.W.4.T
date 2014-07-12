@@ -6,8 +6,8 @@
 
     <parent>
         <artifactId>libraries</artifactId>
-        <groupId>S.W.4.T</groupId>
-        <version>${core.version}</version>
+        <groupId>S-W-4-T</groupId>
+        <version>1.0</version>
     </parent>
 
     <artifactId>Entity</artifactId>
@@ -16,15 +16,15 @@
 
     <dependencies>
         <dependency>
-            <groupId>S.W.4.T</groupId>
+            <groupId>S-W-4-T</groupId>
             <artifactId>Common</artifactId>
-            <version>${core.version}</version>
+            <version>1.0</version>
         </dependency>
 
         <dependency>
-            <groupId>S.W.4.T</groupId>
+            <groupId>S-W-4-T</groupId>
             <artifactId>GDXCommon</artifactId>
-            <version>${core.version}</version>
+            <version>1.0</version>
         </dependency>
     </dependencies>
 

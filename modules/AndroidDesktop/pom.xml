@@ -6,8 +6,8 @@
 
     <parent>
         <artifactId>modules</artifactId>
-        <groupId>S.W.4.T</groupId>
-        <version>${core.version}</version>
+        <groupId>S-W-4-T</groupId>
+        <version>1.0</version>
     </parent>
 
     <artifactId>AndroidDesktop</artifactId>
@@ -21,9 +21,9 @@
         </dependency>
 
         <dependency>
-            <groupId>S.W.4.T</groupId>
+            <groupId>S-W-4-T</groupId>
             <artifactId>Core</artifactId>
-            <version>${core.version}</version>
+            <version>1.0</version>
         </dependency>
     </dependencies>
 
@@ -91,7 +91,7 @@
                                 </goals>
                                 <configuration>
                                     <headerType>gui</headerType>
-                                    <jar>${project.build.directory}/${artifactId}-${version}-jar-with-dependencies.jar
+                                    <jar>${project.build.directory}/${project.artifactId}-${project.version}-jar-with-dependencies.jar
                                     </jar>
                                     <outfile>${swat.exe.path}</outfile>
                                     <downloadUrl>http://java.com/download</downloadUrl>
@@ -113,7 +113,7 @@
                                         <productName>${project.name}</productName>
                                         <companyName>S.W.4.T - DevTeam</companyName>
                                         <internalName>S.W.4.T</internalName>
-                                        <originalFilename>S.W.4.T - V.${version} - ${maven.build.timestamp}.exe</originalFilename>
+                                        <originalFilename>S.W.4.T - V.${project.version} - ${maven.build.timestamp}.exe</originalFilename>
                                     </versionInfo>
                                 </configuration>
                             </execution>
@@ -139,7 +139,7 @@
                                 <configuration>
                                     <tasks>
                                         <echo>Kopieren der .exe nach: </echo>
-                                        <copy file="${swat.exe.path}" tofile="C:/Users/werne_000/Google Drive/S.W.4.T - Builds/${version}/S.W.4.T - V.${version} - ${maven.build.timestamp}.exe"/>
+                                        <copy file="${swat.exe.path}" tofile="C:/Users/werne_000/Google Drive/S.W.4.T - Builds/${project.version}/S.W.4.T - V.${project.version} - ${maven.build.timestamp}.exe"/>
                                     </tasks>
                                 </configuration>
                             </execution>

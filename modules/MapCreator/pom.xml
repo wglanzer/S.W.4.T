@@ -6,8 +6,8 @@
 
     <parent>
         <artifactId>modules</artifactId>
-        <groupId>S.W.4.T</groupId>
-        <version>${core.version}</version>
+        <groupId>S-W-4-T</groupId>
+        <version>1.0</version>
     </parent>
 
     <artifactId>MapCreator</artifactId>
@@ -18,18 +18,18 @@
         <!--Projekt-Dependencies-->
         <dependency>
             <artifactId>Common</artifactId>
-            <groupId>S.W.4.T</groupId>
-            <version>${core.version}</version>
+            <groupId>S-W-4-T</groupId>
+            <version>1.0</version>
         </dependency>
         <dependency>
             <artifactId>GDXCommon</artifactId>
-            <groupId>S.W.4.T</groupId>
-            <version>${core.version}</version>
+            <groupId>S-W-4-T</groupId>
+            <version>1.0</version>
         </dependency>
         <dependency>
-            <groupId>S.W.4.T</groupId>
+            <groupId>S-W-4-T</groupId>
             <artifactId>ClientServerIntercom</artifactId>
-            <version>${core.version}</version>
+            <version>1.0</version>
         </dependency>
 
         <!--Andere Dependencies-->
@@ -118,7 +118,7 @@
                                 </goals>
                                 <configuration>
                                     <headerType>gui</headerType>
-                                    <jar>${project.build.directory}/${artifactId}-${version}-shaded.jar</jar>
+                                    <jar>${project.build.directory}/${project.artifactId}-${project.version}-shaded.jar</jar>
                                     <outfile>${project.build.directory}/MapCreator.exe</outfile>
                                     <classPath>
                                         <mainClass>de.swat.mapCreator.MapCreatorMain</mainClass>

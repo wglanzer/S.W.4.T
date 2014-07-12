@@ -5,13 +5,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>S.W.4.T</artifactId>
-        <groupId>S.W.4.T</groupId>
+        <artifactId>S-W-4-T</artifactId>
+        <groupId>S-W-4-T</groupId>
         <version>1.0</version>
     </parent>
 
     <artifactId>libraries</artifactId>
-    <version>${core.version}</version>
+    <version>1.0</version>
     <packaging>pom</packaging>
     <name>S.W.4.T: libraries</name>
 

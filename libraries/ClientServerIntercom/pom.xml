@@ -6,8 +6,8 @@
 
     <parent>
         <artifactId>libraries</artifactId>
-        <groupId>S.W.4.T</groupId>
-        <version>${core.version}</version>
+        <groupId>S-W-4-T</groupId>
+        <version>1.0</version>
     </parent>
 
     <artifactId>ClientServerIntercom</artifactId>
@@ -16,7 +16,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>S.W.4.T</groupId>
+            <groupId>S-W-4-T</groupId>
             <artifactId>Common</artifactId>
             <version>1.0</version>
         </dependency>

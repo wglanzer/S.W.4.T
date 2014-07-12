@@ -5,12 +5,12 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <artifactId>modules</artifactId>
-        <groupId>S.W.4.T</groupId>
-        <version>${core.version}</version>
+        <groupId>S-W-4-T</groupId>
+        <version>1.0</version>
     </parent>
 
     <artifactId>AndroidCore</artifactId>
-    <version>${core.version}</version>
+    <version>1.0</version>
     <packaging>apk</packaging>
     <name>SWmod: AndroidCore</name>
 
@@ -26,25 +26,21 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>S.W.4.T</groupId>
+            <groupId>S-W-4-T</groupId>
             <artifactId>Common</artifactId>
-            <version>${core.version}</version>
+            <version>1.0</version>
             <scope>compile</scope>
             <exclusions>
                 <exclusion>
                     <artifactId>junit</artifactId>
                     <groupId>junit</groupId>
                 </exclusion>
-                <exclusion>
-                    <groupId>com.oracle</groupId>
-                    <artifactId>javafx</artifactId>
-                </exclusion>
             </exclusions>
         </dependency>
         <dependency>
-            <groupId>S.W.4.T</groupId>
+            <groupId>S-W-4-T</groupId>
             <artifactId>Core</artifactId>
-            <version>${core.version}</version>
+            <version>1.0</version>
         </dependency>
 
         <dependency>
@@ -148,8 +144,8 @@
                                 <configuration>
                                     <tasks>
                                         <echo>Kopieren der .apk nach:</echo>
-                                        <copy file="${basedir}/target/AndroidCore-${version}.apk"
-                                              tofile="C:/Users/werne_000/Google Drive/S.W.4.T - Builds/${version}/S.W.4.T - Android - V.${version} - ${maven.build.timestamp}.apk"/>
+                                        <copy file="${basedir}/target/AndroidCore-${project.version}.apk"
+                                              tofile="C:/Users/werne_000/Google Drive/S.W.4.T - Builds/${project.version}/S.W.4.T - Android - V.${project.version} - ${maven.build.timestamp}.apk"/>
                                     </tasks>
                                 </configuration>
                             </execution>
