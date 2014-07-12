@@ -22,7 +22,7 @@ public class Test_Package
 
     Assert.assertEquals(sendablePackage.getMessage(), "hier komm dann die nachricht");
 
-    Assert.assertEquals(sendablePackage.getSendableString().length(), (ICSInterConstants.PACKAGE_START + "[[<--test1=val1-->]][[<--test2=val2-->]][[<--test4=val4-->]]hier komm dann die nachricht" + ICSInterConstants.PACKAGE_END).length());
+    Assert.assertEquals(sendablePackage.getSendableString().length(), (ICSInterConstants.PACKAGE_START + "[[<--test1=val1-->]][[<--encoding=base64-->]][[<--test2=val2-->]][[<--test4=val4-->]]aGllciBrb21tIGRhbm4gZGllIG5hY2hyaWNodA==" + ICSInterConstants.PACKAGE_END).length());
   }
 
 }
