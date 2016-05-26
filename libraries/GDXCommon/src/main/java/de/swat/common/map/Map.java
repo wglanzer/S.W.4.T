@@ -6,6 +6,7 @@ import de.swat.map.xml.EXMLSubLayerType;
 import de.swat.map.xml.MapFileObject;
 import de.swat.map.xml.XMLLayer;
 
+import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.MutableTreeNode;
 import java.util.Comparator;
@@ -81,7 +82,15 @@ public class Map implements ITreeable
   @Override
   public MutableTreeNode getNode()
   {
-    DefaultMutableTreeNode node = new DefaultMutableTreeNode(name);
+    DefaultMutableTreeNode node = new MapTreeNode(name);
+    for(MapLayer currLayer : layers)
+      node.add(currLayer.getNode());
+    return node;
+  }
+
+  public MapTreeRootNode getGraphicRootNode(JTree pGraphicTree)
+  {
+    MapTreeRootNode node = new MapTreeRootNode(name, pGraphicTree);
     for(MapLayer currLayer : layers)
       node.add(currLayer.getNode());
     return node;

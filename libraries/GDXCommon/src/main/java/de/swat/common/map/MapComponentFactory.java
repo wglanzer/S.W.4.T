@@ -5,7 +5,6 @@ import de.swat.map.xml.components.IXMLComponent;
 import org.jdom2.Element;
 import org.jetbrains.annotations.Nullable;
 
-import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.MutableTreeNode;
 import java.awt.geom.Point2D;
 import java.util.HashSet;
@@ -63,20 +62,20 @@ public class MapComponentFactory
       }
 
       @Override
-      public void setRotation(float pDegrees)
-      {
-      }
-
-      @Override
       public float getRotation()
       {
         return 0;
       }
 
       @Override
+      public void setRotation(float pDegrees)
+      {
+      }
+
+      @Override
       public MutableTreeNode getNode()
       {
-        return new DefaultMutableTreeNode("COMPONENTE: " + getZIndex());
+        return new MapTreeNode("COMPONENTE: " + getZIndex());
       }
     };
   }

@@ -75,7 +75,7 @@ public class MapLayer implements IActAndDrawable, ITreeable
   @Override
   public MutableTreeNode getNode()
   {
-    DefaultMutableTreeNode node = new DefaultMutableTreeNode("Layer " + zIndex);
+    DefaultMutableTreeNode node = new MapTreeNode("Layer " + zIndex);
     for(MapSubLayer currLayer : subLayers)
       node.add(currLayer.getNode());
     return node;

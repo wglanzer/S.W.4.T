@@ -3,6 +3,7 @@ package de.swat.common.map;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import de.swat.ITreeable;
 import de.swat.common.IActAndDrawable;
+import de.swat.common.map.components.PolygonComponent;
 import de.swat.common.map.structure.MapComponentBoundingBox;
 import de.swat.common.map.structure.MapRaster;
 import de.swat.constants.IStaticConstants;
@@ -10,8 +11,12 @@ import de.swat.map.xml.EXMLSubLayerType;
 import de.swat.map.xml.XMLSubLayer;
 import de.swat.map.xml.components.IXMLComponent;
 
-import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.*;
+import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.MutableTreeNode;
+import javax.swing.tree.TreePath;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
@@ -32,6 +37,7 @@ public class MapSubLayer implements IActAndDrawable, ITreeable
   public EXMLSubLayerType type;
   public MapRaster[][] rasters;
   private Set<IMapComponent> allComponents;
+  private MapTreeNode node;
 
   public MapSubLayer()
   {
@@ -66,7 +72,7 @@ public class MapSubLayer implements IActAndDrawable, ITreeable
    * Diese wird dann auch zum Raster hinzugefügt, um schnellen
    * ZUgriff zu gewähren
    *
-   * @param pComponent  Komponente die hinzugefügt werden soll
+   * @param pComponent Komponente die hinzugefügt werden soll
    */
   public void addComponent(IMapComponent pComponent)
   {
@@ -78,7 +84,7 @@ public class MapSubLayer implements IActAndDrawable, ITreeable
   /**
    * Liefert alle Raster, die die MapComponent enthalten können
    *
-   * @param pComponent  MapComponent, auf die geprüft wird
+   * @param pComponent MapComponent, auf die geprüft wird
    * @return Ein Set aus MapRasters
    */
   private Set<MapRaster> _rasterOfComponent(IMapComponent pComponent)
@@ -126,10 +132,20 @@ public class MapSubLayer implements IActAndDrawable, ITreeable
   @Override
   public MutableTreeNode getNode()
   {
-    DefaultMutableTreeNode node = new DefaultMutableTreeNode(type.name());
+    node = new MapTreeNode(type.name());
+    node.setMenu(createPopupMenu());
+
     for(IMapComponent currComp : allComponents)
       node.add(currComp.getNode());
+
     return node;
+  }
+
+  private JPopupMenu createPopupMenu()
+  {
+    JPopupMenu menu = new JPopupMenu();
+    menu.add(new _AddPolygon());
+    return menu;
   }
 
   @Override
@@ -167,5 +183,29 @@ public class MapSubLayer implements IActAndDrawable, ITreeable
   public Set<IMapComponent> getAllComponents()
   {
     return allComponents;
+  }
+
+  /**
+   * MenuItem: "Add Polygon"
+   */
+  private class _AddPolygon extends JMenuItem implements ActionListener
+  {
+    private _AddPolygon()
+    {
+      setText("Add Polygon");
+      addActionListener(this);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e)
+    {
+      MapSubLayer.this.addComponent(new PolygonComponent());
+      JTree tree = ((MapTreeRootNode) node.getRoot()).getGraphicTree();
+      ((DefaultTreeModel) tree.getModel()).reload();
+
+      TreePath path = new TreePath(node.getPath());
+      tree.expandPath(path);
+      tree.scrollPathToVisible(path);
+    }
   }
 }
